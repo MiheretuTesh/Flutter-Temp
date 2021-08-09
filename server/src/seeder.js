@@ -28,9 +28,17 @@ const users = JSON.parse(
   fs.readFileSync(`${__dirname}/_data/users.json`, "utf-8")
 );
 
+// const roles = JSON.parse(
+//   fs.readFileSync(`${__dirname}/_data/roles.json`, "utf-8")
+// );
 const roles = JSON.parse(
   fs.readFileSync(`${__dirname}/_data/roles.json`, "utf-8")
 );
+
+const roles = JSON.parse(
+  fs.readFileSync(`${__dirname}/_data/roles.json`, "utf-8")
+);
+
 
 const appointments = JSON.parse(
   fs.readFileSync(`${__dirname}/_data/appointments.json`, "utf-8")
