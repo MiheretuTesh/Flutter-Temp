@@ -3,7 +3,9 @@ const mongoosePaginate = require("mongoose-paginate");
 
 const donationCenterSchema = new mongoose.schema(
     {
-        name:{type: String},
+        name:{
+            type: String
+        },
         address: {
             type: {
                 state:{

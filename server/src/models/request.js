@@ -6,7 +6,7 @@ const requestSchema = new mongoose.Schema(
         unitsNeeded:{
             type: Number
         },
-        reasons: {
+        reason: {
             type: String
         },
         totalDonation: {
@@ -38,15 +38,15 @@ const requestSchema = new mongoose.Schema(
             ],
           },
         createdBy: {
-            type: Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
         },
         updatedBy: {
-            type: Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
         },
         donors: [{
-            type: Schema.Types.ObjectId, ref: 'User'
+            type: mongoose.Schema.Types.ObjectId, ref: 'User'
         }]
     },
     {

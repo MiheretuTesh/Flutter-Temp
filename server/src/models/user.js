@@ -49,7 +49,7 @@ const schema = new mongoose.Schema(
       ],
     },
     totalDonations: {
-      type: Int16Array,
+      type: Number,
     },
   },
   {
