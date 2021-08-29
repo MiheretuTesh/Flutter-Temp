@@ -5,7 +5,7 @@ const appointmentSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId, ref: 'User'
     },
-    acceptorsId:{
+    acceptorId:{
         type: mongoose.Schema.Types.ObjectId, ref: 'User'
     },
     startDate: {
@@ -35,6 +35,10 @@ const appointmentSchema = new mongoose.Schema({
         type:  mongoose.Schema.Types.ObjectId, 
         ref: 'DonationCenter'
     },
+    isDeleted: {
+        type: boolean,
+        default: false
+    }
 },
     {
         timestamps: true,

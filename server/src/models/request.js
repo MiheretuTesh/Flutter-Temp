@@ -47,7 +47,11 @@ const requestSchema = new mongoose.Schema(
         },
         donors: [{
             type: mongoose.Schema.Types.ObjectId, ref: 'User'
-        }]
+        }],
+        isDeleted: {
+            type: boolean,
+            default: false
+        }
     },
     {
         timestamps: true,

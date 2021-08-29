@@ -31,6 +31,10 @@ const donationCenterSchema = new mongoose.schema(
             type: mongoose.Schema.Types.ObjectId, 
             ref: 'User'
         },
+        isDeleted: {
+            type: boolean,
+            default: false
+        }
     },
     {
         timestamps: true,

@@ -12,7 +12,11 @@ const timeSlotSchema = new mongoose.Schema(
             "Pending",
             "Closed"
         ],
-    }
+    },
+    isDeleted: {
+      type: boolean,
+      default: false
+  }
   },
   {
     timestamps: true,
