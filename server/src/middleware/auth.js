@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Role = require("../models/role");
 const jwt = require("jsonwebtoken");
 const { promisify } = require("util");
 
@@ -18,7 +19,7 @@ exports.verifyUser = async (req, res, next) => {
       token = req.headers.authorization.split(" ")[1];
     }
     if (!token) {
-      res.status(401).json({
+      return res.status(401).json({
         status: "error",
         message: "You are not logged in",
       });
@@ -28,7 +29,7 @@ exports.verifyUser = async (req, res, next) => {
       token,
       process.env.JWT_SECRET_KEY
     );
-    const user = await User.findById(id);
+    const user = await User.findById(id).populate("roles");
     req.user = user;
     next();
   } catch (err) {
@@ -41,4 +42,50 @@ exports.verifyLastDonation = async (req, res, next) => {
     let user = req.user;
     next();
   } catch (err) {}
+};
+
+const checkRole = (userRoles, role) => {};
+
+exports.verifyRole = (roleName, permissionName, titleName) => {
+  return async (req, res, next) => {
+    try {
+      if (!req.user) {
+        return res.status(401).json({
+          status: "error",
+          message: "User Unauthorized",
+        });
+      }
+
+      const roles = req.user.roles;
+      console.log(roles.includes({ roleName: "admin" }), roles);
+      const isAllowed = roles.forEach((role) => {
+        console.log();
+        if (roleName === "user") {
+          if (roleName !== role.roleName) {
+            return res.status(401).json({
+              status: "error",
+              message: "Unauthorized user",
+            });
+          }
+        }
+
+        if (!role.title.includes(titleName)) {
+          return res.status(401).json({
+            status: "error",
+            message: "Unauthorized user",
+          });
+        }
+
+        if (!role.permissions.includes(permissionName)) {
+          return res.status(401).json({
+            status: "error",
+            message: "Unauthorized user",
+          });
+        }
+      });
+      next();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 };
