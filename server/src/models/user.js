@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const mongoosePaginate = require("mongoose-paginate");
 
 /**
  * Schema for storing user
@@ -71,6 +72,7 @@ schema.methods.verifyPassword = async function (
   return await bcrypt.compare(candidatePassword, userPassword);
 };
 
+schema.plugin(mongoosePaginate);
 // schema.methods.
 
 const User = mongoose.model("User", schema);

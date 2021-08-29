@@ -1,5 +1,4 @@
 const Role = require("../models/role");
-
 const { validationResult } = require("express-validator");
 const User = require("../models/user");
 

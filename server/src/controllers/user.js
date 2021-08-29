@@ -38,7 +38,7 @@ exports.login = async (req, res, next) => {
 
     const user = await User.findOne({
       phoneNumber: req.body.phoneNumber,
-    }).select("++password");
+    }).select("+password");
 
     if (
       !user ||
@@ -110,5 +110,95 @@ exports.searchUserByName = async (req, res, next) => {
     });
   } catch (err) {
     //TODO: Handle Error
+  }
+};
+
+exports.getUserById = async (req, res, next) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        status: "error",
+        message: errors.array()[0].msg,
+      });
+    }
+    const user = await User.findById(req.params.id).populate("roles");
+    if (!user) {
+      return res.status(404).json({
+        status: "error",
+        message: "User with this ID does not exist",
+      });
+    }
+    if (user.isDeleted) {
+      return res.status(404).json({
+        status: "error",
+        message: "User with this ID does not exist",
+      });
+    }
+    res.status(200).json({
+      status: "success",
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.updateUser = async (req, res, next) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        status: "error",
+        message: errors.array()[0].msg,
+      });
+    }
+
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    }).populate("roles");
+
+    if (!user) {
+      return res.status(404).json({
+        status: "error",
+        message: "User with this ID does not exist",
+      });
+    }
+    res.status(200).json({
+      status: "success",
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.getAllUsers = async (req, res, next) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        status: "error",
+        message: errors.array()[0].msg,
+      });
+    }
+    const page = req.query.page * 1 || 1;
+    const limit = req.query.limit * 1 || 1;
+
+    const result = await User.paginate(
+      { isDeleted: false },
+      {
+        populate: "roles",
+        page,
+        limit,
+        sort: "-createdAt",
+      }
+    );
+    res.status(200).json({
+      status: "success",
+      result,
+    });
+  } catch (error) {
+    console.log(error);
   }
 };

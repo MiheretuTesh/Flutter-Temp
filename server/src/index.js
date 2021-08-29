@@ -12,6 +12,7 @@ const app = express();
  * Routers
  */
 const userRouter = require("./routes/user");
+const roleRouter = require("./routes/role");
 
 /**
  * Database configuration
@@ -41,6 +42,7 @@ app.use(express.static(path.join(__dirname, "../public")));
  * Route Middleware
  */
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/roles", roleRouter);
 
 // app.use("*", (req, res, next) => {
 //   res.status(400).json({

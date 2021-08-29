@@ -1,7 +1,7 @@
 const express = require("express");
 const userController = require("../controllers/user");
 const userValidation = require("../middleware/validation/user");
-const { verifyUser } = require("../middleware/auth");
+const { verifyUser, verifyRole } = require("../middleware/auth");
 const uploadImage = require("../controllers/uploadImage");
 
 const router = express.Router();
@@ -13,6 +13,30 @@ router.post(
   uploadImage,
   userValidation.validate("SIGNUP"),
   userController.signup
+);
+
+router
+  .get(
+    "/:id",
+    verifyUser,
+    verifyRole("user", "view", "user"),
+    userValidation.validate("GET"),
+    userController.getUserById
+  )
+  .patch(
+    "/:id",
+    verifyUser,
+    verifyRole("user", "update", "user"),
+    userValidation.validate("UPDATE"),
+    userController.updateUser
+  );
+
+router.get(
+  "/",
+  verifyUser,
+  verifyRole("user", "view", "user"),
+  userValidation.validate("GET"),
+  userController.getAllUsers
 );
 
 router.get("/search", verifyUser, userController.searchUserByName);
