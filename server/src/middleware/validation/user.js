@@ -23,6 +23,11 @@ exports.validate = (type) => {
           .not()
           .isEmpty()
           .withMessage("Phone Number is Required"),
+        body("dateOfBirth")
+          .not()
+          .isEmpty()
+          .withMessage("Date of birth is Required"),
+        body("bloodType").not().isEmpty().withMessage("Blood type is Required"),
         body("password").not().isEmpty().withMessage("Password is required"),
       ];
     default:

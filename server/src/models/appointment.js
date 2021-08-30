@@ -1,52 +1,52 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const mongoosePaginate = require("mongoose-paginate");
 
-const appointmentSchema = new mongoose.Schema({
+const appointmentSchema = new mongoose.Schema(
+  {
     userId: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'User'
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
-    acceptorId:{
-        type: mongoose.Schema.Types.ObjectId, ref: 'User'
+    acceptorId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
     startDate: {
-        type: Date
+      type: Date,
     },
     endDate: {
-        type: Date
+      type: Date,
     },
     status: {
-        type: String,
-        enum: [
-            "Active",
-            "Pending",
-            "Closed"
-        ],
+      type: String,
+      enum: ["active", "pending", "closed", "rejected"],
+      default: "pending",
     },
-    appointmentDesription:{
-        type: String
+    appointmentDescription: {
+      type: String,
     },
     height: {
-        type: Number
+      type: Number,
     },
     weight: {
-        type: Number
+      type: Number,
     },
     donationCenter: {
-        type:  mongoose.Schema.Types.ObjectId, 
-        ref: 'DonationCenter'
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "DonationCenter",
     },
     isDeleted: {
-        type: boolean,
-        default: false
-    }
-},
-    {
-        timestamps: true,
-    }    
+      type: Boolean,
+      default: false,
+    },
+  },
+  {
+    timestamps: true,
+  }
 );
 
 appointmentSchema.plugin(mongoosePaginate);
 
-const Appointment = mongoose.model('Appointment', appointmentSchema);
+const Appointment = mongoose.model("Appointment", appointmentSchema);
 
 module.exports = Appointment;

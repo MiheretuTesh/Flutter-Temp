@@ -3,20 +3,16 @@ const mongoosePaginate = require("mongoose-paginate");
 
 const timeSlotSchema = new mongoose.Schema(
   {
-    startDate: {type: Date},
-    endDate: {type: Date},
+    startDate: { type: Date },
+    endDate: { type: Date },
     status: {
-        type: String,
-        enum: [
-            "Active",
-            "Pending",
-            "Closed"
-        ],
+      type: String,
+      enum: ["Active", "Pending", "Closed"],
     },
     isDeleted: {
-      type: boolean,
-      default: false
-  }
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

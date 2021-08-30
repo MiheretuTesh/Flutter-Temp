@@ -69,13 +69,25 @@ exports.signup = async (req, res, next) => {
         message: errors.array()[0].msg,
       });
     }
-    // req.body.roles = await
-    // const roleId = (await Role.findOne({ roleName: "user" })) || " ";
+
+    const alreadyUserExisted = await User.exists({
+      phoneNumber: req.body.phoneNumber,
+    });
+    if (alreadyUserExisted) {
+      return res.status(400).json({
+        status: "error",
+        message: "Phone number already existed",
+      });
+    }
+
+    const defaultRole = await Role.findOne({ roleName: "user" });
+
     const user = await User.create({
       ...req.body,
       image: req.file.filename,
-      // roles: [{ roleId }],
+      roles: [defaultRole._id],
     });
+
     const token = getToken(user._id);
     res.status(201).json({
       status: "success",

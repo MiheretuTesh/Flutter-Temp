@@ -72,6 +72,14 @@ exports.createRole = async (req, res, next) => {
       });
     }
 
+    const doesExist = await Role.find({ roleName: req.body.roleName });
+    if (doesExist) {
+      return res.status(400).json({
+        status: "error",
+        message: `${req.body.roleName} already exists`,
+      });
+    }
+
     const role = await Role.create({
       ...req.body,
       createdBy: req.user._id,
@@ -137,6 +145,24 @@ exports.deleteRole = async (req, res, next) => {
     res.status(200).json({
       status: "success",
       role: null,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.getRoleByName = async (req, res, next) => {
+  try {
+    const role = await Role.findOne({ roleName: req.params.roleName });
+    if (!role) {
+      return res.status(404).json({
+        status: "error",
+        message: `${req.params.roleName} role does not exist`,
+      });
+    }
+    res.status(200).json({
+      status: "success",
+      role,
     });
   } catch (error) {
     console.log(error);

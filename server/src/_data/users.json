@@ -1,0 +1,35 @@
+[
+  {
+    "_id": "5d7a514b5d2c12c7449be020",
+    "firstName": "user-Abenezer",
+    "lastName": "Atnafu",
+    "phoneNumber": "0946414257",
+    "email": "abene@gmail.com",
+    "password": "qwerty123",
+    "dateOfBirth": "2000-06-15T13:45:30",
+    "image": "users-1630179617858-.jpg",
+    "bloodType": "5d7a514b5d2c12c7449be040"
+  },
+  {
+    "_id": "5d7a514b5d2c12c7449be021",
+    "firstName": "admin-Abenezer",
+    "lastName": "Atnafu",
+    "phoneNumber": "0912166196",
+    "email": "abene@gmail.com",
+    "password": "qwerty123",
+    "dateOfBirth": "2000-06-15T13:45:30",
+    "image": "users-1630179617858-.jpg",
+    "bloodType": "5d7a514b5d2c12c7449be041"
+  },
+  {
+    "_id": "5d7a514b5d2c12c7449be022",
+    "firstName": "admin-Abenezer",
+    "lastName": "Atnafu",
+    "phoneNumber": "0910203223",
+    "email": "abene@gmail.com",
+    "password": "qwerty123",
+    "dateOfBirth": "2000-06-15T13:45:30",
+    "image": "users-1630179617858-.jpg",
+    "bloodType": "5d7a514b5d2c12c7449be041"
+  }
+]

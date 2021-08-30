@@ -44,4 +44,6 @@ router
     roleController.deleteRole
   );
 
+router.route("/:roleName").get(roleController.getRoleByName);
+
 module.exports = router;
