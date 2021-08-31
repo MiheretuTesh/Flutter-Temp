@@ -19,6 +19,10 @@ exports.validate = (type) => {
     case "CREATE":
       return [
         body("roleName").not().isEmpty().withMessage("Role name is required"),
+        body("permissions")
+          .not()
+          .isEmpty()
+          .withMessage("Role permissions are required"),
         body("title").not().isEmpty().withMessage("Role title is required"),
       ];
     case "UPDATE":
@@ -38,6 +42,10 @@ exports.validate = (type) => {
           .not()
           .isEmpty()
           .withMessage("Role title is required"),
+        body("permissions")
+          .not()
+          .isEmpty()
+          .withMessage("Role permissions are required"),
       ];
     case "DELETE":
       return [

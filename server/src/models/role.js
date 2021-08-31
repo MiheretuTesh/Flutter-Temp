@@ -12,14 +12,26 @@ const schema = new mongoose.Schema(
     roleName: {
       type: String,
     },
-    _permissions: [
-      {
-        type: String,
-      },
-    ],
+    permissions: {
+      type: [
+        {
+          type: String,
+          enum: ["view", "create", "update", "delete"],
+        },
+      ],
+      default: ["view", "create", "update", "delete"],
+    },
+    title: {
+      type: [{ type: String }],
+      default: ["appointment"],
+    },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
     },
   },
   {
