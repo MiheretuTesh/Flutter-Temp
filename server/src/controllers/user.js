@@ -81,7 +81,7 @@ exports.signup = async (req, res, next) => {
     }
 
     const defaultRole = await Role.findOne({ roleName: "user" });
-
+    console.log(req.file.filename);
     const user = await User.create({
       ...req.body,
       image: req.file.filename,
