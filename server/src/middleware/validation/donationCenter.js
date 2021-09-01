@@ -7,7 +7,7 @@ exports.validate = (type) => {
       return [
         param("id")
           .custom((value) => {
-            return mongoose.Types.Object.isValue(value);
+            return mongoose.Types.Object.isValid(value);
           })
           .withMessage("Invalid Donation Center ID"),
       ];

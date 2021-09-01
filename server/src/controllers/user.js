@@ -41,7 +41,7 @@ exports.login = async (req, res, next) => {
       phoneNumber: req.body.phoneNumber,
     })
       .select("+password")
-      .populate("role bloodType");
+      .populate("roles bloodType");
     if (
       !user ||
       !(await user.verifyPassword(req.body.password, user.password))

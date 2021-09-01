@@ -17,21 +17,8 @@ const requestSchema = new mongoose.Schema(
       enum: ["Active", "Pending", "Closed"],
     },
     bloodType: {
-      type: String,
-      enum: [
-        "A",
-        "A+",
-        "A-",
-        "B",
-        "B+",
-        "B-",
-        "AB",
-        "AB+",
-        "AB-",
-        "O",
-        "O+",
-        "O-",
-      ],
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "BloodType",
     },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,

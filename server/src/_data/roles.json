@@ -3,12 +3,12 @@
     "_id": "5d7a514b5d2c12c7449be142",
     "roleName": "user",
     "permissions": ["view", "create", "update", "delete"],
-    "title": ["appointment", "user", "donationCenter"]
+    "title": ["appointment", "user", "donationCenter", "request"]
   },
   {
     "_id": "5d7a514b5d2c12c7449be143",
     "roleName": "admin",
     "permissions": ["view", "create", "update", "delete"],
-    "title": ["appointment", "user", "role", "donationCenter"]
+    "title": ["appointment", "user", "role", "donationCenter", "request"]
   }
 ]

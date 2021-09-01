@@ -58,6 +58,8 @@ const importData = async () => {
     await User.create(users);
     await Appointment.create(appointments);
     await DonationCenter.create(donationCenters);
+    await Request.create(requests);
+
     console.log("Data Imported...!".green.inverse);
     process.exit();
   } catch (error) {
@@ -72,6 +74,7 @@ const deleteData = async () => {
     await BloodType.deleteMany();
     await Appointment.deleteMany();
     await DonationCenter.deleteMany();
+    await Request.deleteMany();
 
     console.log("Data Removed".red.inverse);
     process.exit();

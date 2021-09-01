@@ -7,7 +7,7 @@ exports.validate = (type) => {
       return [
         param("id")
           .custom((value) => {
-            return mongoose.Types.ObjectId(value);
+            return mongoose.Types.ObjectId.isValid(value);
           })
           .withMessage("Invalid blood type ID"),
       ];

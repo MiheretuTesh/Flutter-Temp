@@ -24,7 +24,7 @@ router
   .route("/:id")
   .get(
     verifyUser,
-    verifyRole("user", "get", "donationCenter"),
+    verifyRole("user", "view", "donationCenter"),
     donationCenterValidation.validate("GET"),
     donationCenterController.getDonationCenter
   )

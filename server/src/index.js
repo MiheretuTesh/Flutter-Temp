@@ -14,6 +14,7 @@ const roleRouter = require("./routes/role");
 const donationCenterRouter = require("./routes/donationCenter");
 const appointmentRouter = require("./routes/appointment");
 const timeSlotRouter = require("./routes/timeSlot");
+const requestRouter = require("./routes/request");
 
 const app = express();
 /**
@@ -48,6 +49,7 @@ app.use("/api/v1/roles", roleRouter);
 app.use("/api/v1/donationCenters", donationCenterRouter);
 app.use("/api/v1/appointments", appointmentRouter);
 app.use("/api/v1/timeSlots", timeSlotRouter);
+app.use("/api/v1/requests", requestRouter);
 
 // app.use("*", (req, res, next) => {
 //   res.status(400).json({
