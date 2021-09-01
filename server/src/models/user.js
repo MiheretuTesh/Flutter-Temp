@@ -27,6 +27,19 @@ const schema = new mongoose.Schema(
       type: String,
       default: "default.png",
     },
+    address: {
+      type: {
+        state: {
+          type: String,
+        },
+        city: {
+          type: String,
+        },
+        woreda: {
+          type: String,
+        },
+      },
+    },
     dateOfBirth: {
       type: String,
     },

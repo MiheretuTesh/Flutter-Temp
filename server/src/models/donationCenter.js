@@ -14,7 +14,7 @@ const donationCenterSchema = new mongoose.Schema(
         city: {
           type: String,
         },
-        street: {
+        woreda: {
           type: String,
         },
       },

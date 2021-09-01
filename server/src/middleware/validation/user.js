@@ -13,6 +13,7 @@ exports.validate = (type) => {
           .not()
           .isEmpty()
           .withMessage("Phone number is required"),
+        body("phoneNumber").isNumeric().withMessage("Incorrect phone number"),
         body("password").not().isEmpty().withMessage("Password is required"),
       ];
     case "SIGNUP":
@@ -23,6 +24,10 @@ exports.validate = (type) => {
           .not()
           .isEmpty()
           .withMessage("Phone Number is Required"),
+        body("phoneNumber")
+          .not()
+          .isNumeric()
+          .withMessage("Incorrect phone number"),
         body("dateOfBirth")
           .not()
           .isEmpty()

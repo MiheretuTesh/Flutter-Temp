@@ -18,6 +18,7 @@ exports.verifyUser = async (req, res, next) => {
     ) {
       token = req.headers.authorization.split(" ")[1];
     }
+
     if (!token) {
       return res.status(401).json({
         status: "error",
@@ -29,11 +30,18 @@ exports.verifyUser = async (req, res, next) => {
       token,
       process.env.JWT_SECRET_KEY
     );
-    const user = await User.findById(id).populate("roles");
+    console.log(id);
+    const user = await User.findById(id).populate("roles bloodType");
     req.user = user;
+
     next();
   } catch (err) {
     //TODO: Handle Invalid Token, Expired Token
+    return res.status(401).json({
+      status: "error",
+      message: "Your token expired",
+    });
+    console.log(err);
   }
 };
 

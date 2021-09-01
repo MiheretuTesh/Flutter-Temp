@@ -3,7 +3,7 @@ const mongoosePaginate = require("mongoose-paginate");
 
 const schema = new mongoose.Schema(
   {
-    bloodType: {
+    bloodTypeName: {
       type: String,
       enum: [
         "A",

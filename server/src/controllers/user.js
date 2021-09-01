@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const Role = require("../models/role");
+const BloodType = require("../models/bloodType");
 
 const jwt = require("jsonwebtoken");
 const { validationResult } = require("express-validator");
@@ -38,8 +39,9 @@ exports.login = async (req, res, next) => {
 
     const user = await User.findOne({
       phoneNumber: req.body.phoneNumber,
-    }).select("+password");
-
+    })
+      .select("+password")
+      .populate("role bloodType");
     if (
       !user ||
       !(await user.verifyPassword(req.body.password, user.password))
@@ -81,9 +83,17 @@ exports.signup = async (req, res, next) => {
     }
 
     const defaultRole = await Role.findOne({ roleName: "user" });
+    const userBloodType = await BloodType.findOne({
+      bloodTypeName: req.body.bloodType,
+    });
+
+    if (!req.file) {
+      req.file = { filename: `${req.body.bloodType}.png` };
+    }
 
     const user = await User.create({
       ...req.body,
+      bloodType: userBloodType._id,
       image: req.file.filename,
       roles: [defaultRole._id],
     });
@@ -195,12 +205,13 @@ exports.getAllUsers = async (req, res, next) => {
       });
     }
     const page = req.query.page * 1 || 1;
-    const limit = req.query.limit * 1 || 1;
+    const limit = req.query.limit * 1 || 10;
+    const bloodType = req.query.bloodType || null;
 
     const result = await User.paginate(
       { isDeleted: false },
       {
-        populate: "roles",
+        populate: "roles bloodType",
         page,
         limit,
         sort: "-createdAt",

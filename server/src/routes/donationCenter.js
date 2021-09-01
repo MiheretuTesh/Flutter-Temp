@@ -40,4 +40,16 @@ router
     donationCenterValidation.validate("DELETE"),
     donationCenterController.deleteDonationCenter
   );
+
+router
+  .route("/user/near")
+  .get(verifyUser, donationCenterController.getNearDonationCenter);
+
+// donation center appointments
+router.route(
+  "/:donationCenterId/appointments/",
+  verifyUser,
+  appointmentController.getDonationCenterAllAppointments
+);
+
 module.exports = router;

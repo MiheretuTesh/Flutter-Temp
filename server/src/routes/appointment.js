@@ -11,7 +11,7 @@ router
   .post(
     verifyUser,
     verifyRole("user", "create", "appointment"),
-    appointmentValidation("CREATE"),
+    appointmentValidation.validate("CREATE"),
     appointmentController.createAppointment
   );
 router
@@ -24,7 +24,7 @@ router
   .patch(
     verifyUser,
     verifyRole("user", "update", "appointment"),
-    appointmentValidation("UPDATE"),
+    appointmentValidation.validate("UPDATE"),
     appointmentController.updateAppointment
   )
   .delete(

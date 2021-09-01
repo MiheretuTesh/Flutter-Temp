@@ -1,62 +1,62 @@
 [
   {
     "_id": "5d7a514b5d2c12c7449be240",
-    "bloodType": "A",
+    "bloodTypeName": "A",
     "description": "Blood Type A Description Blood Type A Description Blood Type A DescriptionBlood Type A Description Blood Type A Description Blood Type A Description Blood Type A Description Blood Type A Description Blood Type A Description Blood Type A DescriptionBlood Type A Description"
   },
   {
     "_id": "5d7a514b5d2c12c7449be241",
-    "bloodType": "A+",
+    "bloodTypeName": "A+",
     "description": "Blood Type A+ Description Blood Type A+ Description Blood Type A+ DescriptionBlood Type A+ Description Blood Type A+ Description Blood Type A+ Description Blood Type A+ Description Blood Type A+ Description Blood Type A+ Description Blood Type A+ DescriptionBlood Type A+ Description"
   },
   {
     "_id": "5d7a514b5d2c12c7449be242",
-    "bloodType": "A-",
+    "bloodTypeName": "A-",
     "description": "Blood Type A- Description Blood Type A- Description Blood Type A- DescriptionBlood Type A- Description Blood Type A- Description Blood Type A- Description Blood Type A- Description Blood Type A- Description Blood Type A- Description Blood Type A- DescriptionBlood Type A- Description"
   },
   {
     "_id": "5d7a514b5d2c12c7449be243",
-    "bloodType": "B",
+    "bloodTypeName": "B",
     "description": "Blood Type B Description Blood Type B Description Blood Type B DescriptionBlood Type B Description Blood Type B Description Blood Type B Description Blood Type B Description Blood Type B Description Blood Type B Description Blood Type B DescriptionBlood Type B Description"
   },
   {
     "_id": "5d7B514b5d2c12c7449be244",
-    "bloodType": "B+",
+    "bloodTypeName": "B+",
     "description": "Blood Type B+ Description Blood Type B+ Description Blood Type B+ DescriptionBlood Type B+ Description Blood Type B+ Description Blood Type B+ Description Blood Type B+ Description Blood Type B+ Description Blood Type B+ Description Blood Type B+ DescriptionBlood Type B+ Description"
   },
   {
     "_id": "5d7B514b5d2c12c7449be245",
-    "bloodType": "B-",
+    "bloodTypeName": "B-",
     "description": "Blood Type B- Description Blood Type B- Description Blood Type B- DescriptionBlood Type B- Description Blood Type B- Description Blood Type B- Description Blood Type B- Description Blood Type B- Description Blood Type B- Description Blood Type B- DescriptionBlood Type B- Description"
   },
   {
     "_id": "5d7a514b5d2c12c7449be246",
-    "bloodType": "AB",
+    "bloodTypeName": "AB",
     "description": "Blood Type AB Description Blood Type AB Description Blood Type AB DescriptionBlood Type AB Description Blood Type B Description Blood Type B Description Blood Type B Description Blood Type B Description Blood Type B Description Blood Type B DescriptionBlood Type B Description"
   },
   {
     "_id": "5d7B514b5d2c12c7449be247",
-    "bloodType": "AB+",
+    "bloodTypeName": "AB+",
     "description": "Blood Type AB+ Description Blood Type AB+ Description Blood Type AB+ DescriptionBlood Type AB+ Description Blood Type AB+ Description Blood Type AB+ Description Blood Type AB+ Description Blood Type AB+ Description Blood Type AB+ Description Blood Type AB+ DescriptionBlood Type AB+ Description"
   },
   {
     "_id": "5d7B514b5d2c12c7449be248",
-    "bloodType": "AB-",
+    "bloodTypeName": "AB-",
     "description": "Blood Type AB- Description Blood Type AB- Description Blood Type AB- DescriptionBlood Type AB- Description Blood Type AB- Description Blood Type AB- Description Blood Type AB- Description Blood Type AB- Description Blood Type AB- Description Blood Type AB- DescriptionBlood Type AB- Description"
   },
   {
     "_id": "5d7a514b5d2c12c7449be249",
-    "bloodType": "O",
+    "bloodTypeName": "O",
     "description": "Blood Type O Description Blood Type O Description Blood Type O DescriptionBlood Type O Description Blood Type B Description Blood Type B Description Blood Type B Description Blood Type B Description Blood Type B Description Blood Type B DescriptionBlood Type B Description"
   },
   {
     "_id": "5d7B514b5d2c12c7449be250",
-    "bloodType": "O+",
+    "bloodTypeName": "O+",
     "description": "Blood Type O+ Description Blood Type O+ Description Blood Type O+ DescriptionBlood Type O+ Description Blood Type O+ Description Blood Type O+ Description Blood Type O+ Description Blood Type O+ Description Blood Type O+ Description Blood Type O+ DescriptionBlood Type O+ Description"
   },
   {
     "_id": "5d7B514b5d2c12c7449be251",
-    "bloodType": "O-",
+    "bloodTypeName": "O-",
     "description": "Blood Type O- Description Blood Type O- Description Blood Type O- DescriptionBlood Type O- Description Blood Type O- Description Blood Type O- Description Blood Type O- Description Blood Type O- Description Blood Type O- Description Blood Type O- DescriptionBlood Type O- Description"
   }
 ]
