@@ -144,7 +144,7 @@ class RegisterButton extends StatelessWidget {
     return Center(
       child: InkWell(
         onTap: (){
-          print("clickedd");
+          print("clicked");
         },
         child: Container(
           width: 300,
@@ -153,6 +153,7 @@ class RegisterButton extends StatelessWidget {
               color: Colors.red,
               border: Border.all(color: Colors.red),
               borderRadius: BorderRadius.circular(25)),
+              
           child: Center(
               child: Text(
             "Register",
@@ -182,7 +183,12 @@ class _BloodTypeRadioState extends State<BloodTypeRadio> {
         // height: 50,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
-            border: Border.all(color: Colors.red)),
+            // border: Border.all(color: Colors.red),
+            color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black45, blurRadius: 10, offset: Offset(0, 0))
+              ]),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -327,7 +333,12 @@ class _GenderRadioState extends State<GenderRadio> {
         height: 50,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
-            border: Border.all(color: Colors.red)),
+            // border: Border.all(color: Colors.red),
+            color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black45, blurRadius: 10, offset: Offset(0, 0))
+              ]),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
