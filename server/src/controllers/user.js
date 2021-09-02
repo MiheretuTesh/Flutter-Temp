@@ -46,7 +46,7 @@ exports.login = async (req, res, next) => {
       !user ||
       !(await user.verifyPassword(req.body.password, user.password))
     ) {
-      res.status(401).json({
+      return res.status(401).json({
         status: "error",
         message: "Invalid email or password",
       });
@@ -91,6 +91,7 @@ exports.signup = async (req, res, next) => {
       req.file = { filename: `${req.body.bloodType}.png` };
     }
 
+    console.log(req.file.filename);
     const user = await User.create({
       ...req.body,
       bloodType: userBloodType._id,
