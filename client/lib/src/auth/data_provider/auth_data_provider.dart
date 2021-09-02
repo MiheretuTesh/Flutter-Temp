@@ -29,12 +29,12 @@ class AuthProvider {
           profile.path,
           filename: filename,
         ),
-        "firstName": "aaaa",
-        "lastName": "aaaa",
+        "firstName": "zzz",
+        "lastName": "zzz",
         "dateOfBirth": "aaaa",
-        "email": "aaaa@gmail.com",
-        "password": "aaaaa",
-        "phoneNumber": "0918165141",
+        "email": "zzzz@gmail.com",
+        "password": "zzzz",
+        "phoneNumber": "0918181819",
         "bloodType": "5d7a514b5d2c12c7449be041",
       });
 
@@ -51,6 +51,7 @@ class AuthProvider {
         ),
       );
       if (response.statusCode == 201) {
+        print("done");
         return response;
       } else {
         return "phone number already exist";
@@ -66,13 +67,15 @@ class AuthProvider {
       print("fetching start..");
       var response = await Dio().post('http://10.0.2.2:8000/api/v1/users/login',
           data: {'phoneNumber': phone, 'password': password});
-
       if (response.statusCode == 201) {
+        print(response);
         return response;
       } else {
+        print(response);
         return null;
       }
     } catch (e) {
+      print("fetching failed");
       return null;
     }
   }

@@ -1,4 +1,6 @@
 import 'package:eshiblood/src/auth/bloc/auth_bloc.dart';
+import 'package:eshiblood/src/auth/bloc/login_bloc.dart';
+import 'package:eshiblood/src/auth/bloc/signup_bloc.dart';
 import 'package:eshiblood/src/auth/data_provider/auth_data_provider.dart';
 import 'package:eshiblood/src/auth/models/user_model.dart';
 import 'package:eshiblood/src/auth/repository/auth_repository.dart';
@@ -28,10 +30,13 @@ class App extends StatelessWidget {
     // check.login('0966303009', 'qwerty123');
     // // check.signUp(user);
     return BlocProvider(
-      create: (context) => AuthBloc(authRepo),
-      child: MaterialApp(
-        initialRoute: RouteGenerator.welcomeScreen,
-        onGenerateRoute: RouteGenerator.generateRoute,
+      create: (context) => SignUpBloc(authRepo: authRepo),
+      child: BlocProvider(
+        create: (context) => LoginBloc(authRepository: authRepo),
+        child: MaterialApp(
+          initialRoute: RouteGenerator.welcomeScreen,
+          onGenerateRoute: RouteGenerator.generateRoute,
+        ),
       ),
     );
   }

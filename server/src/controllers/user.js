@@ -44,7 +44,7 @@ exports.login = async (req, res, next) => {
       !user ||
       !(await user.verifyPassword(req.body.password, user.password))
     ) {
-      res.status(401).json({
+      return res.status(401).json({
         status: "error",
         message: "Invalid email or password",
       });

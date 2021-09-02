@@ -2,6 +2,10 @@ import 'dart:io';
 
 import 'package:eshiblood/src/auth/bloc/auth_bloc.dart';
 import 'package:eshiblood/src/auth/bloc/auth_event.dart';
+import 'package:eshiblood/src/auth/bloc/form_submission_status.dart';
+import 'package:eshiblood/src/auth/bloc/signup_bloc.dart';
+import 'package:eshiblood/src/auth/bloc/signup_event.dart';
+import 'package:eshiblood/src/auth/bloc/signup_state.dart';
 import 'package:eshiblood/src/utilities/routes.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -38,141 +42,163 @@ class RegisterWidget extends StatelessWidget {
     //   border: OutlineInputBorder(),
     // );
 
-    return Form(
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: ListView(
-          scrollDirection: Axis.vertical,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                ProfileWidget(),
-                // TextFormField(
-                //   controller: firstNameController,
-                //   decoration: inputFieldStyle.copyWith(
-                //     hintText: "Email",
-                //   ),
-                // ),
-                TextFieldWidget(
-                  "First Name",
-                  "First Name",
-                  Icon(
-                    Icons.person,
-                    color: Color(0xFFD32026),
-                  ),
-                ),
-                TextFieldWidget(
-                  "Last Name",
-                  "Last Name",
-                  Icon(
-                    Icons.person,
-                    color: Color(0xFFD32026),
-                  ),
-                ),
-                TextFieldWidget(
-                    "Phone Number",
-                    "+2519********",
-                    Icon(
-                      Icons.phone,
-                      color: Color(0xFFD32026),
-                    ),
-                    textInputType: TextInputType.phone),
-                TextFieldWidget(
-                  "Email",
-                  "Email",
-                  Icon(
-                    Icons.mail_outline,
-                    color: Color(0xFFD32026),
-                  ),
-                  textInputType: TextInputType.emailAddress,
-                ),
-                TextFieldWidget(
-                  "Password",
-                  "Password",
-                  Icon(
-                    Icons.lock,
-                    color: Color(0xFFD32026),
-                  ),
-                  obsecureText: true,
-                ),
-                TextFieldWidget(
-                  "Re-enter Password",
-                  "Re-enter Password",
-                  Icon(
-                    Icons.lock,
-                    color: Color(0xFFD32026),
-                  ),
-                  obsecureText: true,
-                ),
-                // ElevatedButton(
-                //     onPressed: () => {
-                //           showDatePicker(
-
-                //             context: context,
-
-                //             initialDate: DateTime.now(),
-                //             firstDate: DateTime(2020),
-                //             lastDate: DateTime(2022),
-                //           )
-                //         },
-                //     child: Text("date")),
-                Center(
-                  child: GestureDetector(
-                    child: Container(
-                      margin: EdgeInsets.all(10),
-                      width: 360,
-                      height: 50,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.red),
-                          borderRadius: BorderRadius.circular(50)),
-                      child: Center(child: Text("dd/mm/yyyy")),
-                    ),
-                    onTap: () => {
-                      print("tapped"),
-                      showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(2020),
-                        lastDate: DateTime(2022),
-                      )
+    return BlocListener<SignUpBloc, SignUpState>(
+      listener: (context, state) {
+        final formStatus = state.formStatus;
+        if (formStatus is SubmissionFailed) {
+          _showSnackBar(context, formStatus.errorMessage.toString());
+        }
+      },
+      child: Form(
+        child: Container(
+          padding: EdgeInsets.all(10),
+          child: ListView(
+            scrollDirection: Axis.vertical,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ProfileWidget(),
+                  // TextFormField(
+                  //   controller: firstNameController,
+                  //   decoration: inputFieldStyle.copyWith(
+                  //     hintText: "Email",
+                  //   ),
+                  // ),
+                  BlocBuilder<SignUpBloc, SignUpState>(
+                    builder: (context, state) {
+                      return TextFormField(
+                        decoration: InputDecoration(
+                          icon: Icon(Icons.person),
+                          hintText: 'FirstName',
+                        ),
+                        onChanged: (value) => context.read<SignUpBloc>().add(
+                              SignUpFirstNameChanged(firstName: value),
+                            ),
+                      );
                     },
                   ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (imagePicker != null) {
-                      final authBloc = BlocProvider.of<AuthBloc>(context);
-
-                      authBloc.add(SignupEvent(profile: imagePicker as File));
-                    }
-                  },
-                  child: Text('Sign up'),
-                ),
-                RichText(
-                  text: TextSpan(
-                    text: 'Already have an account?',
-                    style: TextStyle(color: Colors.black, fontSize: 18),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: 'Log in',
-                        style:
-                            TextStyle(color: Colors.blueAccent, fontSize: 18),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            Navigator.of(context)
-                                .pushNamed(RouteGenerator.loginScreen);
-                          },
-                      ),
-                    ],
+                  TextFieldWidget(
+                    "Last Name",
+                    "Last Name",
+                    Icon(
+                      Icons.person,
+                      color: Color(0xFFD32026),
+                    ),
                   ),
-                )
-              ],
-            ),
-          ],
+                  TextFieldWidget(
+                      "Phone Number",
+                      "+2519********",
+                      Icon(
+                        Icons.phone,
+                        color: Color(0xFFD32026),
+                      ),
+                      textInputType: TextInputType.phone),
+                  TextFieldWidget(
+                    "Email",
+                    "Email",
+                    Icon(
+                      Icons.mail_outline,
+                      color: Color(0xFFD32026),
+                    ),
+                    textInputType: TextInputType.emailAddress,
+                  ),
+                  TextFieldWidget(
+                    "Password",
+                    "Password",
+                    Icon(
+                      Icons.lock,
+                      color: Color(0xFFD32026),
+                    ),
+                    obsecureText: true,
+                  ),
+                  TextFieldWidget(
+                    "Re-enter Password",
+                    "Re-enter Password",
+                    Icon(
+                      Icons.lock,
+                      color: Color(0xFFD32026),
+                    ),
+                    obsecureText: true,
+                  ),
+                  // ElevatedButton(
+                  //     onPressed: () => {
+                  //           showDatePicker(
+
+                  //             context: context,
+
+                  //             initialDate: DateTime.now(),
+                  //             firstDate: DateTime(2020),
+                  //             lastDate: DateTime(2022),
+                  //           )
+                  //         },
+                  //     child: Text("date")),
+                  Center(
+                    child: GestureDetector(
+                      child: Container(
+                        margin: EdgeInsets.all(10),
+                        width: 360,
+                        height: 50,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.red),
+                            borderRadius: BorderRadius.circular(50)),
+                        child: Center(child: Text("dd/mm/yyyy")),
+                      ),
+                      onTap: () => {
+                        print("tapped"),
+                        showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(2020),
+                          lastDate: DateTime(2022),
+                        )
+                      },
+                    ),
+                  ),
+                  BlocBuilder<SignUpBloc, SignUpState>(
+                    builder: (context, state) {
+                      return state.formStatus is FormSubmitting
+                          ? CircularProgressIndicator()
+                          : ElevatedButton(
+                              onPressed: () {
+                                context
+                                    .read<SignUpBloc>()
+                                    .add(SignUpSubmitted());
+                              },
+                              child: Text('Sign up'),
+                            );
+                    },
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      text: 'Already have an account?',
+                      style: TextStyle(color: Colors.black, fontSize: 18),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'Log in',
+                          style:
+                              TextStyle(color: Colors.blueAccent, fontSize: 18),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.of(context)
+                                  .pushNamed(RouteGenerator.loginScreen);
+                            },
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  void _showSnackBar(BuildContext context, String message) {
+    final snackBar = SnackBar(content: Text(message));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
 
@@ -203,9 +229,15 @@ class ProfileWidget extends StatelessWidget {
                       shape: BoxShape.circle),
                   width: 150,
                   height: 150,
-                  child: Image.asset(
-                    "assets/images/person.png",
-                    fit: BoxFit.cover,
+                  child: BlocBuilder<SignUpBloc, SignUpState>(
+                    builder: (context, state) {
+                      return state.profile == null
+                          ? Image.asset(
+                              "assets/images/person.png",
+                              fit: BoxFit.cover,
+                            )
+                          : Image.file(state.profile as File);
+                    },
                   ),
                 ),
               ),
@@ -221,23 +253,30 @@ class ProfileWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                     boxShadow: [BoxShadow(offset: Offset(1, 1))],
                   ),
-                  child: IconButton(
-                    onPressed: () async {
-                      print('aaa');
-                      var imagePicker =
-                          await _picker.pickImage(source: ImageSource.gallery);
-                      // await _picker.pickImage(source: ImageSource.gallery)
-                      if (imagePicker != null) {
-                        final authBloc = BlocProvider.of<AuthBloc>(context);
+                  child: BlocBuilder<SignUpBloc, SignUpState>(
+                    builder: (context, state) {
+                      return IconButton(
+                        onPressed: () async {
+                          print('aaa');
+                          var imagePicker = await _picker.pickImage(
+                              source: ImageSource.gallery);
+                          context
+                              .read<SignUpBloc>()
+                              .add(SignUpProfileChanged(profile: imagePicker));
 
-                        authBloc.add(SignupEvent(profile: imagePicker));
-                      }
+                          // if (imagePicker != null) {
+                          //   final authBloc = BlocProvider.of<AuthBloc>(context);
+
+                          //   authBloc.add(SignupEvent(profile: imagePicker));
+                          // }
+                        },
+                        icon: Icon(
+                          Icons.camera_alt,
+                          color: Colors.grey,
+                        ),
+                        iconSize: 15,
+                      );
                     },
-                    icon: Icon(
-                      Icons.camera_alt,
-                      color: Colors.grey,
-                    ),
-                    iconSize: 15,
                   ),
                 ),
               ),
