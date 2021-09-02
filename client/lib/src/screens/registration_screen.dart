@@ -16,9 +16,14 @@ class RegisterScaffold extends StatelessWidget {
   }
 }
 
-class RegisterWidget extends StatelessWidget {
+class RegisterWidget extends StatefulWidget {
   RegisterWidget({Key? key}) : super(key: key);
 
+  @override
+  _RegisterWidgetState createState() => _RegisterWidgetState();
+}
+
+class _RegisterWidgetState extends State<RegisterWidget> {
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -85,9 +90,9 @@ class RegisterWidget extends StatelessWidget {
                 // ElevatedButton(
                 //     onPressed: () => {
                 //           showDatePicker(
-                            
+
                 //             context: context,
-                            
+
                 //             initialDate: DateTime.now(),
                 //             firstDate: DateTime(2020),
                 //             lastDate: DateTime(2022),
@@ -96,28 +101,268 @@ class RegisterWidget extends StatelessWidget {
                 //     child: Text("date")),
                 Center(
                   child: GestureDetector(
-
                     child: Container(
                       margin: EdgeInsets.all(10),
                       width: 360,
                       height: 50,
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.red),
-                        borderRadius: BorderRadius.circular(50)),
+                          border: Border.all(color: Colors.red),
+                          borderRadius: BorderRadius.circular(50)),
                       child: Center(child: Text("dd/mm/yyyy")),
                     ),
-                    onTap: ()=>{
-                    print("tapped"),
-                    showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(2020),
-                            lastDate: DateTime(2022),
-                          )
-                  },
+                    onTap: () => {
+                      print("tapped"),
+                      showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(2020),
+                        lastDate: DateTime(2022),
+                      )
+                    },
                   ),
                 ),
-                
+
+                GenderRadio(),
+                BloodTypeRadio(),
+                RegisterButton()
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class RegisterButton extends StatelessWidget {
+  const RegisterButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: InkWell(
+        onTap: (){
+          print("clickedd");
+        },
+        child: Container(
+          width: 300,
+          height: 50,
+          decoration: BoxDecoration(
+              color: Colors.red,
+              border: Border.all(color: Colors.red),
+              borderRadius: BorderRadius.circular(25)),
+          child: Center(
+              child: Text(
+            "Register",
+            style: TextStyle(fontSize: 24, color: Colors.white),
+          )),
+        ),
+      ),
+    );
+  }
+}
+
+class BloodTypeRadio extends StatefulWidget {
+  const BloodTypeRadio({Key? key}) : super(key: key);
+
+  @override
+  _BloodTypeRadioState createState() => _BloodTypeRadioState();
+}
+
+class _BloodTypeRadioState extends State<BloodTypeRadio> {
+  String bloodType = "A+";
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        margin: EdgeInsets.only(top: 10, bottom: 10),
+        width: 350,
+        // height: 50,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25),
+            border: Border.all(color: Colors.red)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            // SizedBox(width: 20,),
+            Text("Blood Type"),
+
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Radio(
+                      groupValue: this.bloodType,
+                      onChanged: (String? value) {
+                        this.bloodType = "A+";
+                        setState(() {});
+                      },
+                      value: "A+",
+                    ),
+                    Text("A+")
+                  ],
+                ),
+                Row(
+                  children: [
+                    Radio(
+                      groupValue: this.bloodType,
+                      onChanged: (String? value) {
+                        this.bloodType = "B+";
+                        setState(() {});
+                      },
+                      value: "B+",
+                    ),
+                    Text("B+")
+                  ],
+                ),
+                Row(
+                  children: [
+                    Radio(
+                      groupValue: this.bloodType,
+                      onChanged: (String? value) {
+                        this.bloodType = "AB+";
+                        setState(() {});
+                      },
+                      value: "AB+",
+                    ),
+                    Text("AB+")
+                  ],
+                ),
+                Row(
+                  children: [
+                    Radio(
+                      groupValue: this.bloodType,
+                      onChanged: (String? value) {
+                        this.bloodType = "O+";
+                        setState(() {});
+                      },
+                      value: "O+",
+                    ),
+                    Text("O+")
+                  ],
+                ),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Radio(
+                      groupValue: this.bloodType,
+                      onChanged: (String? value) {
+                        this.bloodType = "A-";
+                        setState(() {});
+                      },
+                      value: "A-",
+                    ),
+                    Text("A-")
+                  ],
+                ),
+                Row(
+                  children: [
+                    Radio(
+                      groupValue: this.bloodType,
+                      onChanged: (String? value) {
+                        this.bloodType = "B-";
+                        setState(() {});
+                      },
+                      value: "B-",
+                    ),
+                    Text("B-")
+                  ],
+                ),
+                Row(
+                  children: [
+                    Radio(
+                      groupValue: this.bloodType,
+                      onChanged: (String? value) {
+                        this.bloodType = "AB-";
+                        setState(() {});
+                      },
+                      value: "AB-",
+                    ),
+                    Text("AB-")
+                  ],
+                ),
+                Row(
+                  children: [
+                    Radio(
+                      groupValue: this.bloodType,
+                      onChanged: (String? value) {
+                        this.bloodType = "O-";
+                        setState(() {});
+                      },
+                      value: "O-",
+                    ),
+                    Text("O-")
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class GenderRadio extends StatefulWidget {
+  const GenderRadio({Key? key}) : super(key: key);
+
+  @override
+  _GenderRadioState createState() => _GenderRadioState();
+}
+
+class _GenderRadioState extends State<GenderRadio> {
+  String gender = "male";
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        width: 350,
+        height: 50,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25),
+            border: Border.all(color: Colors.red)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            // SizedBox(width: 20,),
+            Text("Gender"),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Row(
+                  children: [
+                    Radio(
+                      groupValue: this.gender,
+                      onChanged: (String? value) {
+                        this.gender = "male";
+                        setState(() {});
+                      },
+                      value: "male",
+                    ),
+                    Text("Male")
+                  ],
+                ),
+                Row(
+                  children: [
+                    Radio(
+                      groupValue: this.gender,
+                      onChanged: (String? value) {
+                        this.gender = "female";
+                        setState(() {});
+                      },
+                      value: "female",
+                    ),
+                    Text("Female")
+                  ],
+                ),
               ],
             ),
           ],
@@ -208,13 +453,12 @@ class TextFieldWidget extends StatelessWidget {
 
   bool obsecureText;
 
-  bool readOnly=false;
-
-  
+  bool readOnly = false;
 
   TextFieldWidget(String this.label, String this.hint, Icon this.icon,
       {bool this.obsecureText = false,
-      TextInputType this.textInputType = TextInputType.text,bool this.readOnly = false});
+      TextInputType this.textInputType = TextInputType.text,
+      bool this.readOnly = false});
 
   @override
   Widget build(BuildContext context) {
