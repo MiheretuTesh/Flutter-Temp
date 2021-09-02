@@ -39,7 +39,7 @@ class AuthProvider {
       });
 
       var response = await Dio().post(
-        'http://10.0.2.2:8000/api/v1/users/signup',
+        'http://192.168.1.13:8000/api/v1/users/signup',
         data: formData,
         options: Options(
           headers: {
@@ -65,7 +65,7 @@ class AuthProvider {
   Future<dynamic> login(String phone, String password) async {
     try {
       print("fetching start..");
-      var response = await Dio().post('http://10.0.2.2:8000/api/v1/users/login',
+      var response = await Dio().post('http://192.168.1.13:8000/api/v1/users/login',
           data: {'phoneNumber': phone, 'password': password});
       if (response.statusCode == 201) {
         print(response);

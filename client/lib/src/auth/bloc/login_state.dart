@@ -2,7 +2,9 @@ import 'package:eshiblood/src/auth/bloc/form_submission_status.dart';
 
 class LoginState {
   final String phoneNumber;
+  bool get isPhoneNumberValid => phoneNumber.startsWith('09');
   final String password;
+  bool get isPasswordValid => password.length > 4;
   final FormSubmissionStatus formStatus;
 
   LoginState({

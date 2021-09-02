@@ -220,6 +220,9 @@ class ProfileWidget extends StatelessWidget {
                   print('aaa');
                   var imagePicker =
                       await _picker.pickImage(source: ImageSource.gallery);
+                  context
+                      .read<SignUpBloc>()
+                      .add(SignUpProfileChanged(profile: imagePicker));
                   // await _picker.pickImage(source: ImageSource.gallery)
                 },
                 child: Container(
@@ -236,7 +239,10 @@ class ProfileWidget extends StatelessWidget {
                               "assets/images/person.png",
                               fit: BoxFit.cover,
                             )
-                          : Image.file(state.profile as File);
+                          : Image.file(
+                              File(state.profile.path),
+                              fit:BoxFit.fill,
+                            );
                     },
                   ),
                 ),
