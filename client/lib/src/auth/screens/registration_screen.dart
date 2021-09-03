@@ -12,14 +12,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:eshiblood/src/auth/widgets/text_input.dart';
 
 class RegistrationScreen extends StatelessWidget {
-  const RegistrationScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Register"),
-      ),
       body: RegisterWidget(),
     );
   }
@@ -27,6 +22,7 @@ class RegistrationScreen extends StatelessWidget {
 
 class RegisterWidget extends StatelessWidget {
   RegisterWidget({Key? key}) : super(key: key);
+  final formKey = GlobalKey<FormState>();
 
   // final firstNameTextController = TextEditingController();
   // final firstNameTextController = TextEditingController();
@@ -48,6 +44,7 @@ class RegisterWidget extends StatelessWidget {
         }
       },
       child: Form(
+        key: formKey,
         child: Container(
           padding: EdgeInsets.all(10),
           child: ListView(
@@ -57,131 +54,108 @@ class RegisterWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   ProfileWidget(),
-                  // TextFormField(
-                  //   controller: firstNameController,
-                  //   decoration: inputFieldStyle.copyWith(
-                  //     hintText: "Email",
-                  //   ),
-                  // ),
-                  // BlocBuilder<SignUpBloc, SignUpState>(
-                  //   builder: (context, state) {
-                  //     return TextFormField(
-                  //       decoration: InputDecoration(
-                  //         icon: Icon(Icons.person),
-                  //         hintText: 'FirstName',
-                  //       ),
-                  //       onChanged: (value) => context.read<SignUpBloc>().add(
-                  //             SignUpFirstNameChanged(firstName: value),
-                  //           ),
-                  //     );
-                  //   },
-                  // ),
-                  TextInput(
-                    prefixIcon: Icons.person,
-                    labelText: 'First Name',
-                    hintText: 'John',
-                  ),
-                  TextInput(
-                    prefixIcon: Icons.person,
-                    labelText: 'Last Name',
-                    hintText: 'Doe',
-                  ),
-                  TextInput(
-                    prefixIcon: Icons.phone,
-                    labelText: 'PhoneNumber',
-                    hintText: '09********',
-                    keyboardType: TextInputType.phone,
-                  ),
-                  TextInput(
-                    prefixIcon: Icons.mail,
-                    labelText: 'Email',
-                    hintText: 'johndoe@example.com',
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                  TextInput(
-                    prefixIcon: Icons.lock,
-                    labelText: 'Password',
-                    hintText: '********',
-                  ),
-                  // TextFieldWidget(
-                  //     "Phone Number",
-                  //     "+2519********",
-                  //     Icon(
-                  //       Icons.phone,
-                  //       color: Color(0xFFD32026),
-                  //     ),
-                  //     textInputType: TextInputType.phone),
-                  // TextFieldWidget(
-                  //   "Email",
-                  //   "Email",
-                  //   Icon(
-                  //     Icons.mail_outline,
-                  //     color: Color(0xFFD32026),
-                  //   ),
-                  //   textInputType: TextInputType.emailAddress,
-                  // ),
-                  // TextFieldWidget(
-                  //   "Password",
-                  //   "Password",
-                  //   Icon(
-                  //     Icons.lock,
-                  //     color: Color(0xFFD32026),
-                  //   ),
-                  //   obsecureText: true,
-                  // ),
-                  // TextFieldWidget(
-                  //   "Re-enter Password",
-                  //   "Re-enter Password",
-                  //   Icon(
-                  //     Icons.lock,
-                  //     color: Color(0xFFD32026),
-                  //   ),
-                  //   obsecureText: true,
-                  // ),
-                  // ElevatedButton(
-                  //     onPressed: () => {
-                  //           showDatePicker(
-
-                  //             context: context,
-
-                  //             initialDate: DateTime.now(),
-                  //             firstDate: DateTime(2020),
-                  //             lastDate: DateTime(2022),
-                  //           )
-                  //         },
-                  //     child: Text("date")),
-
-                  GestureDetector(
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Container(
-                        width: 360,
-                        height: 50,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.red),
-                            borderRadius: BorderRadius.circular(25)),
-                        child: Center(child: Text("dd/mm/yyyy")),
-                      ),
-                    ),
-                    onTap: () => {
-                      print("tapped"),
-                      showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(2020),
-                        lastDate: DateTime(2022),
-                      )
+                  BlocBuilder<SignUpBloc, SignUpState>(
+                    builder: (context, state) {
+                      return TextInput(
+                        prefixIcon: Icons.person,
+                        labelText: 'First Name',
+                        hintText: 'John',
+                        onChanged: (value) => context
+                            .read<SignUpBloc>()
+                            .add(SignUpFirstNameChanged(firstName: value)),
+                      );
                     },
                   ),
-
+                  BlocBuilder<SignUpBloc, SignUpState>(
+                    builder: (context, state) {
+                      return TextInput(
+                        prefixIcon: Icons.person,
+                        labelText: 'Last Name',
+                        hintText: 'Doe',
+                        onChanged: (value) => context
+                            .read<SignUpBloc>()
+                            .add(SignUpLastNameChanged(lastName: value)),
+                      );
+                    },
+                  ),
+                  BlocBuilder<SignUpBloc, SignUpState>(
+                    builder: (context, state) {
+                      return TextInput(
+                        prefixIcon: Icons.phone,
+                        labelText: 'PhoneNumber',
+                        hintText: '09********',
+                        keyboardType: TextInputType.phone,
+                        onChanged: (value) => context
+                            .read<SignUpBloc>()
+                            .add(SignUpPhoneNumberChanged(phoneNumber: value)),
+                      );
+                    },
+                  ),
+                  BlocBuilder<SignUpBloc, SignUpState>(
+                    builder: (context, state) {
+                      return TextInput(
+                        prefixIcon: Icons.mail,
+                        labelText: 'Email',
+                        hintText: 'johndoe@example.com',
+                        keyboardType: TextInputType.emailAddress,
+                        onChanged: (value) => context
+                            .read<SignUpBloc>()
+                            .add(SignUpEmailChanged(email: value)),
+                      );
+                    },
+                  ),
+                  BlocBuilder<SignUpBloc, SignUpState>(
+                    builder: (context, state) {
+                      return TextInput(
+                        prefixIcon: Icons.lock,
+                        labelText: 'Password',
+                        hintText: '********',
+                        onChanged: (value) => context
+                            .read<SignUpBloc>()
+                            .add(SignUpPasswordChanged(password: value)),
+                      );
+                    },
+                  ),
+                  BlocBuilder<SignUpBloc, SignUpState>(
+                    builder: (context, state) {
+                      return GestureDetector(
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Container(
+                            width: 360,
+                            height: 50,
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.red),
+                                borderRadius: BorderRadius.circular(25)),
+                            child: Center(
+                                child: Text(state.dateOfBirth == ''
+                                    ? "dd/mm/yyyy"
+                                    : state.dateOfBirth)),
+                          ),
+                        ),
+                        onTap: () async {
+                          var date = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(1970),
+                            lastDate: DateTime(2022),
+                          );
+                          // print(date);
+                          context.read<SignUpBloc>().add(
+                              SignUpDateOfBirthChanged(
+                                  dateOfBirth: date.toString().split(' ')[0]));
+                        },
+                      );
+                    },
+                  ),
                   GenderRadio(),
                   BloodTypeRadio(),
-
                   BlocBuilder<SignUpBloc, SignUpState>(
                     builder: (context, state) {
                       return state.formStatus is FormSubmitting
                           ? CircularProgressIndicator()
                           : RoundButton(
+                              width: 360,
                               onPressed: () {
                                 context
                                     .read<SignUpBloc>()
@@ -189,7 +163,8 @@ class RegisterWidget extends StatelessWidget {
                               },
                               text: "Register",
                               textColor: Colors.white,
-                              color: Color(0xffd32026),);
+                              color: Color(0xffd32026),
+                            );
                     },
                   ),
                   RichText(
@@ -252,9 +227,14 @@ class ProfileWidget extends StatelessWidget {
                   builder: (context, state) {
                     return state.profile == null
                         ? CircleAvatar(
-                            radius: 70,
-                            backgroundImage:
-                                AssetImage("assets/images/person.png"),
+                            radius: 71,
+                            backgroundColor: Color(0xffd32026),
+                            child: CircleAvatar(
+                              radius: 70,
+                              backgroundColor: Colors.white,
+                              backgroundImage:
+                                  AssetImage("assets/images/person.png"),
+                            ),
                           )
                         : CircleAvatar(
                             radius: 70,
@@ -318,216 +298,212 @@ class ProfileWidget extends StatelessWidget {
   }
 }
 
-class BloodTypeRadio extends StatefulWidget {
-  const BloodTypeRadio({Key? key}) : super(key: key);
-
-  @override
-  _BloodTypeRadioState createState() => _BloodTypeRadioState();
-}
-
-class _BloodTypeRadioState extends State<BloodTypeRadio> {
-  String bloodType = "A+";
+class BloodTypeRadio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: Container(
-        margin: EdgeInsets.only(top: 10, bottom: 10),
-        width: 350,
-        // height: 50,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25),
-          border: Border.all(color: Colors.red),
-          color: Colors.white,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            // SizedBox(width: 20,),
-            Text("Blood Type"),
+    return BlocBuilder<SignUpBloc, SignUpState>(
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Container(
+            margin: EdgeInsets.only(top: 10, bottom: 10),
+            width: 350,
+            // height: 50,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(25),
+              border: Border.all(color: Colors.red),
+              color: Colors.white,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                // SizedBox(width: 20,),
+                Text("Blood Type"),
 
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Radio(
-                      groupValue: this.bloodType,
-                      onChanged: (String? value) {
-                        this.bloodType = "A+";
-                        setState(() {});
-                      },
-                      value: "A+",
+                    Row(
+                      children: [
+                        Radio(
+                          activeColor: Color(0xffd32026),
+                          groupValue: state.bloodType,
+                          onChanged: (value) => context.read<SignUpBloc>().add(
+                              SignUpBloodTypeChanged(
+                                  bloodType: value.toString())),
+                          value: "A+",
+                        ),
+                        Text("A+")
+                      ],
                     ),
-                    Text("A+")
+                    Row(
+                      children: [
+                        Radio(
+                          activeColor: Color(0xffd32026),
+                          groupValue: state.bloodType,
+                          onChanged: (value) => context.read<SignUpBloc>().add(
+                              SignUpBloodTypeChanged(
+                                  bloodType: value.toString())),
+                          value: "B+",
+                        ),
+                        Text("B+")
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Radio(
+                          activeColor: Color(0xffd32026),
+                          groupValue: state.bloodType,
+                          onChanged: (value) => context.read<SignUpBloc>().add(
+                              SignUpBloodTypeChanged(
+                                  bloodType: value.toString())),
+                          value: "AB+",
+                        ),
+                        Text("AB+")
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Radio(
+                          activeColor: Color(0xffd32026),
+                          groupValue: state.bloodType,
+                          onChanged: (value) => context.read<SignUpBloc>().add(
+                              SignUpBloodTypeChanged(
+                                  bloodType: value.toString())),
+                          value: "O+",
+                        ),
+                        Text("O+")
+                      ],
+                    ),
                   ],
                 ),
-                Row(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Radio(
-                      groupValue: this.bloodType,
-                      onChanged: (String? value) {
-                        this.bloodType = "B+";
-                        setState(() {});
-                      },
-                      value: "B+",
+                    Row(
+                      children: [
+                        Radio(
+                          activeColor: Color(0xffd32026),
+                          groupValue: state.bloodType,
+                          onChanged: (value) => context.read<SignUpBloc>().add(
+                              SignUpBloodTypeChanged(
+                                  bloodType: value.toString())),
+                          value: "A-",
+                        ),
+                        Text("A-")
+                      ],
                     ),
-                    Text("B+")
-                  ],
-                ),
-                Row(
-                  children: [
-                    Radio(
-                      groupValue: this.bloodType,
-                      onChanged: (String? value) {
-                        this.bloodType = "AB+";
-                        setState(() {});
-                      },
-                      value: "AB+",
+                    Row(
+                      children: [
+                        Radio(
+                          activeColor: Color(0xffd32026),
+                          groupValue: state.bloodType,
+                          onChanged: (value) => context.read<SignUpBloc>().add(
+                              SignUpBloodTypeChanged(
+                                  bloodType: value.toString())),
+                          value: "B-",
+                        ),
+                        Text("B-")
+                      ],
                     ),
-                    Text("AB+")
-                  ],
-                ),
-                Row(
-                  children: [
-                    Radio(
-                      groupValue: this.bloodType,
-                      onChanged: (String? value) {
-                        this.bloodType = "O+";
-                        setState(() {});
-                      },
-                      value: "O+",
+                    Row(
+                      children: [
+                        Radio(
+                          activeColor: Color(0xffd32026),
+                          groupValue: state.bloodType,
+                          onChanged: (value) => context.read<SignUpBloc>().add(
+                              SignUpBloodTypeChanged(
+                                  bloodType: value.toString())),
+                          value: "AB-",
+                        ),
+                        Text("AB-")
+                      ],
                     ),
-                    Text("O+")
+                    Row(
+                      children: [
+                        Radio(
+                          activeColor: Color(0xffd32026),
+                          groupValue: state.bloodType,
+                          onChanged: (value) => context.read<SignUpBloc>().add(
+                              SignUpBloodTypeChanged(
+                                  bloodType: value.toString())),
+                          value: "O-",
+                        ),
+                        Text("O-")
+                      ],
+                    ),
                   ],
                 ),
               ],
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Radio(
-                      groupValue: this.bloodType,
-                      onChanged: (String? value) {
-                        this.bloodType = "A-";
-                        setState(() {});
-                      },
-                      value: "A-",
-                    ),
-                    Text("A-")
-                  ],
-                ),
-                Row(
-                  children: [
-                    Radio(
-                      groupValue: this.bloodType,
-                      onChanged: (String? value) {
-                        this.bloodType = "B-";
-                        setState(() {});
-                      },
-                      value: "B-",
-                    ),
-                    Text("B-")
-                  ],
-                ),
-                Row(
-                  children: [
-                    Radio(
-                      groupValue: this.bloodType,
-                      onChanged: (String? value) {
-                        this.bloodType = "AB-";
-                        setState(() {});
-                      },
-                      value: "AB-",
-                    ),
-                    Text("AB-")
-                  ],
-                ),
-                Row(
-                  children: [
-                    Radio(
-                      groupValue: this.bloodType,
-                      onChanged: (String? value) {
-                        this.bloodType = "O-";
-                        setState(() {});
-                      },
-                      value: "O-",
-                    ),
-                    Text("O-")
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
 
-class GenderRadio extends StatefulWidget {
-  const GenderRadio({Key? key}) : super(key: key);
-
-  @override
-  _GenderRadioState createState() => _GenderRadioState();
-}
-
-class _GenderRadioState extends State<GenderRadio> {
-  String gender = "male";
+class GenderRadio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: Container(
-        width: 350,
-        height: 50,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25),
-          border: Border.all(color: Colors.red),
-          color: Colors.white,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            // SizedBox(width: 20,),
-            Text("Gender"),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return BlocBuilder<SignUpBloc, SignUpState>(
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Container(
+            width: 350,
+            height: 50,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(25),
+              border: Border.all(color: Colors.red),
+              color: Colors.white,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                // SizedBox(width: 20,),
+                Text("Gender"),
+
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Radio(
-                      groupValue: this.gender,
-                      onChanged: (String? value) {
-                        this.gender = "male";
-                        setState(() {});
-                      },
-                      value: "male",
+                    Row(
+                      children: [
+                        Radio(
+                          activeColor: Color(0xffd32026),
+                          groupValue: state.gender,
+                          onChanged: (value) {
+                            print(value);
+                            context.read<SignUpBloc>().add(
+                                SignUpGenderChanged(gender: value.toString()));
+                          },
+                          value: "male",
+                        ),
+                        Text("Male")
+                      ],
                     ),
-                    Text("Male")
-                  ],
-                ),
-                Row(
-                  children: [
-                    Radio(
-                      groupValue: this.gender,
-                      onChanged: (String? value) {
-                        this.gender = "female";
-                        setState(() {});
-                      },
-                      value: "female",
+                    Row(
+                      children: [
+                        Radio(
+                          activeColor: Color(0xffd32026),
+                          groupValue: state.gender,
+                          onChanged: (value) {
+                            print(value);
+                            context.read<SignUpBloc>().add(
+                                SignUpGenderChanged(gender: value.toString()));
+                          },
+                          value: "female",
+                        ),
+                        Text("Female")
+                      ],
                     ),
-                    Text("Female")
                   ],
                 ),
               ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

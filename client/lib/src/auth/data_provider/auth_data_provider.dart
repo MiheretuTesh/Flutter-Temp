@@ -16,7 +16,7 @@ class AuthProvider {
 
   AuthProvider();
 
-  Future<dynamic> signup(dynamic profile) async {
+  Future<dynamic> signup(User user) async {
     try {
       print("fetching start..");
       // var response = await Dio().post('http://10.0.2.2:8000/api/v1/users/login',
@@ -26,19 +26,21 @@ class AuthProvider {
       //   "profile": await MultipartFile.fromFile(profile, filename: fileName)
       // });
       //TODOs : Use Dio dio = new Dio();
-      String filename = profile.path.split('/').last;
+      String filename = user.image.path.split('/').last;
       FormData formData = FormData.fromMap({
         "image": await MultipartFile.fromFile(
-          profile.path,
+          user.image.path,
           filename: filename,
         ),
-        "firstName": "zzz",
-        "lastName": "zzz",
-        "dateOfBirth": "aaaa",
-        "email": "zzzz@gmail.com",
-        "password": "zzzz",
-        "phoneNumber": "0918181820",
-        "bloodType": "A",
+        "firstName": user.firstName,
+        "lastName": user.lastName,
+        "dateOfBirth": user.dateOfBirth,
+        "email": user.email,
+        "password": user.password,
+        "phoneNumber": user.phoneNumber,
+        "bloodType": user.bloodType,
+        "role": user.role,
+        // "gender": user.gender
       });
 
       var response = await Dio().post(
@@ -71,10 +73,11 @@ class AuthProvider {
       var response = await Dio().post(
           'http://192.168.1.13:8000/api/v1/users/login',
           data: {'phoneNumber': phone, 'password': password});
+      print(response);
       if (response.statusCode == 201) {
+        // print(response.data);
         User user =
             User.fromJson(jsonDecode(jsonEncode(response.data["user"])));
-        print(user);
         // print(jsonDecode(jsonEncode(response.data["user"]))["bloodType"]["bloodTypeName"]);
         return user;
       } else {

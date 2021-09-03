@@ -14,12 +14,12 @@ class AuthRepository {
   //   print('hey');
   //   return await dataProvider.signUp(user);
   // }
-  Future<dynamic> signup(dynamic profile) async {
+  Future<dynamic> signup(User user) async {
     print("hey from repo signup");
-    return await authProvider.signup(profile);
+    return await authProvider.signup(user);
   }
 
-  Future<User> login(String phone, String password) async {
+  Future<dynamic> login(String phone, String password) async {
     print('hey from repo');
     return await authProvider.login(phone, password);
   }

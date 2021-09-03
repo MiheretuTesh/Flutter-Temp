@@ -21,11 +21,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield state.copyWith(formStatus: FormSubmitting());
 
       try {
+        // print(state.phoneNumber);
+        // print(state.password);
         final user =
             await authRepository.login(state.phoneNumber, state.password);
+
         // TODO: Shared preference case
         // TODO: Redirection to Admin state (Auth or Bezihu enketl)
-        print(user.role[0]["roleName"]);
+        // print(user.role[0]["roleName"]);
         yield state.copyWith(formStatus: SubmissionSuccess());
         // auth cubit
       } catch (e) {

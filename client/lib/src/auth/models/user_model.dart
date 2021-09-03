@@ -8,12 +8,13 @@ class User extends Equatable {
   final String lastName;
   final String phoneNumber;
   final String email;
-  final String image;
+  final dynamic image;
   final String dateOfBirth;
   final String? lastDonation;
   final String password;
   final String bloodType;
-  final List role;
+  // final String gender;
+  final dynamic role;
 
   User(
       {required this.firstName,
@@ -25,7 +26,9 @@ class User extends Equatable {
       this.lastDonation,
       required this.password,
       required this.bloodType,
-      required this.role});
+      required this.role,
+      // required this.gender
+      });
 
   @override
   List<Object?> get props => [
@@ -38,7 +41,8 @@ class User extends Equatable {
         lastDonation,
         password,
         bloodType,
-        role
+        role,
+        // gender
       ];
 
   @override
@@ -52,9 +56,11 @@ class User extends Equatable {
         dateOfBirth: json['dateOfBirth'],
         password: json['password'],
         bloodType: json['bloodType']['bloodTypeName'],
-        role: json['roles']);
+        role: json['roles'],
+        // gender: json['gender']
+        );
   }
 
   @override
-  String toString() => 'User {name: $firstName}';
+  String toString() => 'User\n  {firstName: $firstName, gender: , image: $image}';
 }

@@ -6,6 +6,18 @@ class SignUpFirstNameChanged extends SignUpEvent {
   SignUpFirstNameChanged({required this.firstName});
 }
 
+class SignUpLastNameChanged extends SignUpEvent {
+  final String lastName;
+
+  SignUpLastNameChanged({required this.lastName});
+}
+
+class SignUpPhoneNumberChanged extends SignUpEvent {
+  final String phoneNumber;
+
+  SignUpPhoneNumberChanged({required this.phoneNumber});
+}
+
 class SignUpEmailChanged extends SignUpEvent {
   final String email;
 
@@ -22,6 +34,24 @@ class SignUpProfileChanged extends SignUpEvent {
   final dynamic profile;
 
   SignUpProfileChanged({required this.profile});
+}
+
+class SignUpDateOfBirthChanged extends SignUpEvent {
+  final String dateOfBirth;
+
+  SignUpDateOfBirthChanged({required this.dateOfBirth});
+}
+
+class SignUpGenderChanged extends SignUpEvent {
+  final String gender;
+
+  SignUpGenderChanged({required this.gender});
+}
+
+class SignUpBloodTypeChanged extends SignUpEvent {
+  final String bloodType;
+
+  SignUpBloodTypeChanged({required this.bloodType});
 }
 
 class SignUpSubmitted extends SignUpEvent {}
