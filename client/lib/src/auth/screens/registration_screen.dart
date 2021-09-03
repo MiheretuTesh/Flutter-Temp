@@ -225,26 +225,20 @@ class ProfileWidget extends StatelessWidget {
                       .add(SignUpProfileChanged(profile: imagePicker));
                   // await _picker.pickImage(source: ImageSource.gallery)
                 },
-                child: Container(
-                  padding: EdgeInsets.all(0),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.red, width: 1),
-                      shape: BoxShape.circle),
-                  width: 150,
-                  height: 150,
-                  child: BlocBuilder<SignUpBloc, SignUpState>(
-                    builder: (context, state) {
-                      return state.profile == null
-                          ? Image.asset(
-                              "assets/images/person.png",
-                              fit: BoxFit.cover,
-                            )
-                          : Image.file(
-                              File(state.profile.path),
-                              fit:BoxFit.fill,
-                            );
-                    },
-                  ),
+                child: BlocBuilder<SignUpBloc, SignUpState>(
+                  builder: (context, state) {
+                    return state.profile == null
+                        ? CircleAvatar(
+                            radius: 70,
+                            backgroundImage:
+                                AssetImage("assets/images/person.png"),
+                          )
+                        : CircleAvatar(
+                            radius: 70,
+                            backgroundImage:
+                                FileImage(File(state.profile.path)),
+                          );
+                  },
                 ),
               ),
               Positioned(

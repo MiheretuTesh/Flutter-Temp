@@ -1,7 +1,8 @@
 const DonationCenter = require("../models/donationCenter");
 const appointmentController = require("../controllers/appointment");
+const { validationResult } = require("express-validator");
 
-const { validationResult } = require("express-validation");
+DonationCenter.createIndexes({ address: { city: "text" } });
 
 exports.getAllDonationCenter = async (req, res, next) => {
   try {
@@ -14,14 +15,19 @@ exports.getAllDonationCenter = async (req, res, next) => {
       });
     }
     const page = req.query.page * 1 || 1;
-    const limit = req.query.limit * 1 || 1;
+    const limit = req.query.limit * 1 || 10;
+    const status = req.query.status || "open";
 
     const result = await DonationCenter.paginate(
-      { isDeleted: false },
+      { isDeleted: false, status },
       {
         page,
         limit,
         sort: "-createdAt",
+        populate: {
+          path: "timeSlot createdBy updatedBy",
+          populate: { path: "roles", model: "Role" },
+        },
       }
     );
     res.status(200).json({
@@ -37,15 +43,21 @@ exports.getDonationCenter = async (req, res, next) => {
   try {
     const errors = validationResult(req);
 
-    if (!errors.isEmpty()) {
-      res.status(404).json({
-        status: "error",
-        message: errors.array()[0].msg,
-      });
-    }
-    const donationCenter = await DonationCenter.findById(req.params.id, {
+    // if (!errors.isEmpty()) {
+    //   return res.status(404).json({
+    //     status: "error",
+    //     message: errors.array()[0].msg,
+    //   });
+    // }
+
+    const donationCenter = await DonationCenter.findOne({
+      _id: req.params.id,
       isDeleted: false,
+    }).populate({
+      path: "timeSlot createdBy updatedBy",
+      populate: { path: "roles", model: "Role" },
     });
+
     if (!donationCenter) {
       return res.status(404).json({
         status: "error",
@@ -106,9 +118,10 @@ exports.updateDonationCenter = async (req, res, next) => {
 
     const donationCenter = await DonationCenter.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      { ...req.body, updatedBy: req.user._id },
       {
         new: true,
+        populate: "timeSlot createdBy updatedBy",
       }
     );
 
@@ -136,14 +149,17 @@ exports.deleteDonationCenter = async (req, res, next) => {
         message: errors.array()[0].msg,
       });
     }
-    const donationCenter = await DonationCenter.findById(req.params.id, {
-      isDeleted: true,
-    });
+    const donationCenter = await DonationCenter.findByIdAndUpdate(
+      req.params.id,
+      {
+        isDeleted: true,
+      }
+    );
 
     if (!donationCenter) {
       return res.status(404).json({
         status: "error",
-        message: "Donation Center ID soes not exist",
+        message: "Donation Center ID does not exist",
       });
     }
     res.status(200).json({
@@ -151,4 +167,37 @@ exports.deleteDonationCenter = async (req, res, next) => {
       donationCenter: null,
     });
   } catch (error) {}
+};
+
+exports.getNearDonationCenter = async (req, res, next) => {
+  try {
+    const page = req.query.page * 1 || 1;
+    const limit = req.query.limit * 1 || 10;
+    const { state, city } = req.user.address;
+
+    const result = await DonationCenter.paginate(
+      {
+        isDeleted: false,
+        status: "open",
+        "address.state": state,
+        "address.city": city,
+      },
+
+      {
+        page,
+        limit,
+        sort: "-createdAt",
+        populate: {
+          path: "timeSlot createdBy updatedBy",
+          populate: { path: "roles", model: "Role" },
+        },
+      }
+    );
+    res.status(200).json({
+      status: "success",
+      result,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };

@@ -39,6 +39,9 @@ const appointments = JSON.parse(
 const bloodTypes = JSON.parse(
   fs.readFileSync(`${__dirname}/_data/bloodTypes.json`, "utf-8")
 );
+const donationCenters = JSON.parse(
+  fs.readFileSync(`${__dirname}/_data/donationCenters.json`, "utf-8")
+);
 
 const requests = JSON.parse(
   fs.readFileSync(`${__dirname}/_data/requests.json`, "utf-8")
@@ -53,6 +56,9 @@ const importData = async () => {
     await Role.create(roles);
     await BloodType.create(bloodTypes);
     await User.create(users);
+    await Appointment.create(appointments);
+    await DonationCenter.create(donationCenters);
+    await Request.create(requests);
 
     console.log("Data Imported...!".green.inverse);
     process.exit();
@@ -66,6 +72,10 @@ const deleteData = async () => {
     await User.deleteMany();
     await Role.deleteMany();
     await BloodType.deleteMany();
+    await Appointment.deleteMany();
+    await DonationCenter.deleteMany();
+    await Request.deleteMany();
+
     console.log("Data Removed".red.inverse);
     process.exit();
   } catch (error) {

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:eshiblood/src/auth/data_provider/auth_data_provider.dart';
+import 'package:eshiblood/src/auth/models/user_model.dart';
 // import 'package:eshiblood/src/auth/models/user_model.dart';
 // import 'package:meta/meta.dart';
 
@@ -18,7 +19,7 @@ class AuthRepository {
     return await authProvider.signup(profile);
   }
 
-  Future<dynamic> login(String phone, String password) async {
+  Future<User> login(String phone, String password) async {
     print('hey from repo');
     return await authProvider.login(phone, password);
   }

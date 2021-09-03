@@ -1,9 +1,7 @@
-const Request = require("../models/request");
+const BloodType = require("../models/bloodType");
+const { validationResult } = require("express-validation");
 
-const { validationResult } = require("express-validator");
-const User = require("../models/user");
-
-exports.getAllRequest = async (req, res, next) => {
+exports.getAllBloodTypes = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -12,16 +10,13 @@ exports.getAllRequest = async (req, res, next) => {
         message: errors.array()[0].msg,
       });
     }
-    const page = req.query.page * 1 || 1;
-    const limit = req.query.limit * 1 || 1;
 
-    const result = await Request.paginate(
-      { isDeleted: false },
+    const page = req.query.page * 1 || 1;
+    const limit = req.query.limit * 1 || 20;
+    const bloodTypeName = req.query.name || null;
+    const result = await BloodType.paginate(
+      { isDeleted: false, bloodTypeName },
       {
-        populate: {
-          path: "bloodType createdBy updatedBy donors",
-          populate: { path: "donors", model: "User" },
-        },
         page,
         limit,
         sort: "-createdAt",
@@ -36,7 +31,7 @@ exports.getAllRequest = async (req, res, next) => {
   }
 };
 
-exports.getRequest = async (req, res, next) => {
+exports.getBloodType = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -45,33 +40,29 @@ exports.getRequest = async (req, res, next) => {
         message: errors.array()[0].msg,
       });
     }
-    const request = await Request.findOne({
-      _id: req.params.id,
-      isDeleted: false,
-    }).populate("bloodType donors createdBy updatedBy");
-
-    if (!request) {
+    const bloodType = await BloodType.findById(req.params.id);
+    if (!bloodType) {
       return res.status(404).json({
         status: "error",
-        message: "Request with this ID does not exist",
+        message: "Blood Type with this ID does not exist",
       });
     }
-    if (request.isDeleted) {
+    if (bloodType.isDeleted) {
       return res.status(404).json({
         status: "error",
-        message: "Request with this ID does not exist",
+        message: "Blood Type with this ID does not exist",
       });
     }
     res.status(200).json({
       status: "success",
-      request,
+      bloodType,
     });
   } catch (error) {
     console.log(error);
   }
 };
 
-exports.createRequest = async (req, res, next) => {
+exports.createBloodType = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -81,23 +72,20 @@ exports.createRequest = async (req, res, next) => {
       });
     }
 
-    const request = await Request.create({
+    const bloodType = await BloodType.create({
       ...req.body,
-      createdBy: req.user._id,
-      updatedBy: req.user._id,
-      donors: [req.user._id],
     });
 
     res.status(201).json({
       status: "success",
-      request,
+      bloodType,
     });
   } catch (error) {
     console.log(error);
   }
 };
 
-exports.updateRequest = async (req, res, next) => {
+exports.updateBloodType = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -107,26 +95,27 @@ exports.updateRequest = async (req, res, next) => {
       });
     }
 
-    const request = await Request.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+    const bloodType = await BloodType.findByIdAndUpdate(
+      req.params.id,
+      req.body
+    );
 
-    if (!request) {
+    if (!bloodType) {
       return res.status(404).json({
         status: "error",
-        message: "Request with this ID does not exist",
+        message: "Blood type with this ID does not exist",
       });
     }
     res.status(200).json({
       status: "success",
-      request,
+      bloodType,
     });
   } catch (error) {
     console.log(error);
   }
 };
 
-exports.deleteRequest = async (req, res, next) => {
+exports.deleteBloodType = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -135,19 +124,19 @@ exports.deleteRequest = async (req, res, next) => {
         message: errors.array()[0].msg,
       });
     }
-    const request = await Request.findByIdAndUpdate(req.params.id, {
+    const bloodType = await BloodType.findByIdAndUpdate(req.params.id, {
       isDeleted: true,
     });
 
-    if (!request) {
+    if (!bloodType) {
       return res.status(404).json({
         status: "error",
-        message: "Request with this ID does not exist",
+        message: "Blood type with this ID does not exist",
       });
     }
     res.status(200).json({
       status: "success",
-      request: null,
+      bloodType: null,
     });
   } catch (error) {
     console.log(error);

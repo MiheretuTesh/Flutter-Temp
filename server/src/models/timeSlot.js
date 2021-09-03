@@ -7,7 +7,7 @@ const timeSlotSchema = new mongoose.Schema(
     endDate: { type: Date },
     status: {
       type: String,
-      enum: ["Active", "Pending", "Closed"],
+      enum: ["open", "closed"],
     },
     isDeleted: {
       type: Boolean,

@@ -1,15 +1,18 @@
 // import 'dart:convert';
 // import 'package:eshiblood/src/auth/models/user_model.dart';
 // import 'package:http/http.dart' as http;
-import 'dart:io';
+// import 'dart:io';
+
+import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:eshiblood/src/auth/models/user_model.dart';
 // import 'package:path/path.dart';
 // import 'package:async/async.dart';
 // import 'dart:io';
 
 class AuthProvider {
-  final _baseUrl = '10.0.2.2:8000';
+  final _baseUrl = '192.168.1.13:8000';
 
   AuthProvider();
 
@@ -34,8 +37,8 @@ class AuthProvider {
         "dateOfBirth": "aaaa",
         "email": "zzzz@gmail.com",
         "password": "zzzz",
-        "phoneNumber": "0918181819",
-        "bloodType": "5d7a514b5d2c12c7449be041",
+        "phoneNumber": "0918181820",
+        "bloodType": "A",
       });
 
       var response = await Dio().post(
@@ -65,12 +68,17 @@ class AuthProvider {
   Future<dynamic> login(String phone, String password) async {
     try {
       print("fetching start..");
-      var response = await Dio().post('http://192.168.1.13:8000/api/v1/users/login',
+      var response = await Dio().post(
+          'http://192.168.1.13:8000/api/v1/users/login',
           data: {'phoneNumber': phone, 'password': password});
       if (response.statusCode == 201) {
-        print(response);
-        return response;
+        User user =
+            User.fromJson(jsonDecode(jsonEncode(response.data["user"])));
+        print(user);
+        // print(jsonDecode(jsonEncode(response.data["user"]))["bloodType"]["bloodTypeName"]);
+        return user;
       } else {
+        // TODO: Response error
         print(response);
         return null;
       }

@@ -1,4 +1,4 @@
-const { body } = require("express-validator");
+const { body } = require('express-validator');
 
 /**
  *
@@ -7,28 +7,29 @@ const { body } = require("express-validator");
  */
 exports.validate = (type) => {
   switch (type) {
-    case "LOGIN":
+    case 'LOGIN':
       return [
-        body("phoneNumber")
+        body('phoneNumber')
           .not()
           .isEmpty()
-          .withMessage("Phone number is required"),
-        body("password").not().isEmpty().withMessage("Password is required"),
+          .withMessage('Phone number is required'),
+        body('phoneNumber').isNumeric().withMessage('Incorrect phone number'),
+        body('password').not().isEmpty().withMessage('Password is required'),
       ];
-    case "SIGNUP":
+    case 'SIGNUP':
       return [
-        body("firstName").not().isEmpty().withMessage("First Name is required"),
-        body("lastName").not().isEmpty().withMessage("Last Name is required"),
-        body("phoneNumber")
+        body('firstName').not().isEmpty().withMessage('First Name is required'),
+        body('lastName').not().isEmpty().withMessage('Last Name is required'),
+        body('phoneNumber')
           .not()
           .isEmpty()
-          .withMessage("Phone Number is Required"),
-        body("dateOfBirth")
+          .withMessage('Phone Number is Required'),
+        body('dateOfBirth')
           .not()
           .isEmpty()
-          .withMessage("Date of birth is Required"),
-        body("bloodType").not().isEmpty().withMessage("Blood type is Required"),
-        body("password").not().isEmpty().withMessage("Password is required"),
+          .withMessage('Date of birth is Required'),
+        body('bloodType').not().isEmpty().withMessage('Blood type is Required'),
+        body('password').not().isEmpty().withMessage('Password is required'),
       ];
     default:
       return [];

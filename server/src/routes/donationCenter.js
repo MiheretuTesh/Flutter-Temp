@@ -24,7 +24,7 @@ router
   .route("/:id")
   .get(
     verifyUser,
-    verifyRole("user", "get", "donationCenter"),
+    verifyRole("user", "view", "donationCenter"),
     donationCenterValidation.validate("GET"),
     donationCenterController.getDonationCenter
   )
@@ -40,4 +40,16 @@ router
     donationCenterValidation.validate("DELETE"),
     donationCenterController.deleteDonationCenter
   );
+
+router
+  .route("/user/near")
+  .get(verifyUser, donationCenterController.getNearDonationCenter);
+
+// donation center appointments
+router.route(
+  "/:donationCenterId/appointments/",
+  verifyUser,
+  appointmentController.getDonationCenterAllAppointments
+);
+
 module.exports = router;
