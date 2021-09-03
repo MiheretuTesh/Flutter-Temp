@@ -1,9 +1,9 @@
-const User = require("../models/user");
-const Role = require("../models/role");
-const BloodType = require("../models/bloodType");
+const User = require('../models/user');
+const Role = require('../models/role');
+const BloodType = require('../models/bloodType');
 
-const jwt = require("jsonwebtoken");
-const { validationResult } = require("express-validator");
+const jwt = require('jsonwebtoken');
+const { validationResult } = require('express-validator');
 
 // uplodaing images
 
@@ -32,7 +32,7 @@ exports.login = async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       res.status(400).json({
-        status: "error",
+        status: 'error',
         message: errors.array()[0].msg,
       });
     }
@@ -40,20 +40,20 @@ exports.login = async (req, res, next) => {
     const user = await User.findOne({
       phoneNumber: req.body.phoneNumber,
     })
-      .select("+password")
-      .populate("roles bloodType");
+      .select('+password')
+      .populate('roles bloodType');
     if (
       !user ||
       !(await user.verifyPassword(req.body.password, user.password))
     ) {
       return res.status(401).json({
-        status: "error",
-        message: "Invalid email or password",
+        status: 'error',
+        message: 'Invalid email or password',
       });
     }
     const token = getToken(user._id);
     res.status(201).json({
-      status: "success",
+      status: 'success',
       token,
       user,
     });
@@ -67,7 +67,7 @@ exports.signup = async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({
-        status: "error",
+        status: 'error',
         message: errors.array()[0].msg,
       });
     }
@@ -77,12 +77,12 @@ exports.signup = async (req, res, next) => {
     });
     if (alreadyUserExisted) {
       return res.status(400).json({
-        status: "error",
-        message: "Phone number already existed",
+        status: 'error',
+        message: 'Phone number already existed',
       });
     }
 
-    const defaultRole = await Role.findOne({ roleName: "user" });
+    const defaultRole = await Role.findOne({ roleName: 'user' });
     const userBloodType = await BloodType.findOne({
       bloodTypeName: req.body.bloodType,
     });
@@ -100,7 +100,7 @@ exports.signup = async (req, res, next) => {
 
     const token = getToken(user._id);
     res.status(201).json({
-      status: "success",
+      status: 'success',
       token,
       user,
     });
@@ -118,7 +118,7 @@ exports.searchUserByName = async (req, res, next) => {
         {
           firstName: {
             $regex: regex,
-            $options: "si",
+            $options: 'si',
           },
         },
         {
@@ -127,7 +127,7 @@ exports.searchUserByName = async (req, res, next) => {
       ],
     });
     res.status(200).json({
-      status: "success",
+      status: 'success',
       users,
     });
   } catch (err) {
@@ -140,25 +140,25 @@ exports.getUserById = async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({
-        status: "error",
+        status: 'error',
         message: errors.array()[0].msg,
       });
     }
-    const user = await User.findById(req.params.id).populate("roles");
+    const user = await User.findById(req.params.id).populate('roles');
     if (!user) {
       return res.status(404).json({
-        status: "error",
-        message: "User with this ID does not exist",
+        status: 'error',
+        message: 'User with this ID does not exist',
       });
     }
     if (user.isDeleted) {
       return res.status(404).json({
-        status: "error",
-        message: "User with this ID does not exist",
+        status: 'error',
+        message: 'User with this ID does not exist',
       });
     }
     res.status(200).json({
-      status: "success",
+      status: 'success',
       user,
     });
   } catch (error) {
@@ -171,23 +171,23 @@ exports.updateUser = async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({
-        status: "error",
+        status: 'error',
         message: errors.array()[0].msg,
       });
     }
 
     const user = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
-    }).populate("roles");
+    }).populate('roles');
 
     if (!user) {
       return res.status(404).json({
-        status: "error",
-        message: "User with this ID does not exist",
+        status: 'error',
+        message: 'User with this ID does not exist',
       });
     }
     res.status(200).json({
-      status: "success",
+      status: 'success',
       user,
     });
   } catch (error) {
@@ -200,7 +200,7 @@ exports.getAllUsers = async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({
-        status: "error",
+        status: 'error',
         message: errors.array()[0].msg,
       });
     }
@@ -211,14 +211,14 @@ exports.getAllUsers = async (req, res, next) => {
     const result = await User.paginate(
       { isDeleted: false },
       {
-        populate: "roles bloodType",
+        populate: 'roles bloodType',
         page,
         limit,
-        sort: "-createdAt",
+        sort: '-createdAt',
       }
     );
     res.status(200).json({
-      status: "success",
+      status: 'success',
       result,
     });
   } catch (error) {
