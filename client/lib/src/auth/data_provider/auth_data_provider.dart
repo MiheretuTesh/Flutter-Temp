@@ -78,7 +78,6 @@ class AuthProvider {
         // print(response.data);
         User user =
             User.fromJson(jsonDecode(jsonEncode(response.data["user"])));
-        // print(jsonDecode(jsonEncode(response.data["user"]))["bloodType"]["bloodTypeName"]);
         return user;
       } else {
         // TODO: Response error

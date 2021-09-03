@@ -2,7 +2,6 @@ import 'package:eshiblood/src/auth/bloc/form_submission_status.dart';
 import 'package:eshiblood/src/auth/bloc/login_event.dart';
 import 'package:eshiblood/src/auth/repository/auth_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:eshiblood/src/auth/bloc/auth_event.dart';
 import 'package:eshiblood/src/auth/bloc/login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {

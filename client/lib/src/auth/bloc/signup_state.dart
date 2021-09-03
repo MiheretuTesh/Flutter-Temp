@@ -2,14 +2,21 @@ import 'package:eshiblood/src/auth/bloc/form_submission_status.dart';
 
 class SignUpState {
   final String firstName;
+  bool get isFirstNameValid => firstName.length >= 3;
   final String lastName;
+  bool get isLastNameValid => lastName.length >= 3;
   final String phoneNumber;
+  bool get isPhoneNumberValid => phoneNumber.startsWith('09');
   final String email;
+  bool get isEmailValid => email.contains('@');
   final String password;
+  bool get isPasswordValid => password.length >= 4;
   final String dateOfBirth;
+  bool get isValidDateOfBirth => dateOfBirth.isNotEmpty;
   final String gender;
   final String bloodType;
   final dynamic profile;
+  bool get isValidProfile => profile != null;
   final FormSubmissionStatus formStatus;
   final dynamic role;
 

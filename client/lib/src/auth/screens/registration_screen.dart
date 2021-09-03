@@ -3,6 +3,7 @@ import 'package:eshiblood/src/auth/bloc/form_submission_status.dart';
 import 'package:eshiblood/src/auth/bloc/signup_bloc.dart';
 import 'package:eshiblood/src/auth/bloc/signup_event.dart';
 import 'package:eshiblood/src/auth/bloc/signup_state.dart';
+import 'package:eshiblood/src/auth/widgets/horizontal_divider.dart';
 import 'package:eshiblood/src/auth/widgets/round_button.dart';
 import 'package:eshiblood/src/utilities/routes.dart';
 import 'package:flutter/gestures.dart';
@@ -57,13 +58,15 @@ class RegisterWidget extends StatelessWidget {
                   BlocBuilder<SignUpBloc, SignUpState>(
                     builder: (context, state) {
                       return TextInput(
-                        prefixIcon: Icons.person,
-                        labelText: 'First Name',
-                        hintText: 'John',
-                        onChanged: (value) => context
-                            .read<SignUpBloc>()
-                            .add(SignUpFirstNameChanged(firstName: value)),
-                      );
+                          prefixIcon: Icons.person,
+                          labelText: 'First Name',
+                          hintText: 'John',
+                          onChanged: (value) => context
+                              .read<SignUpBloc>()
+                              .add(SignUpFirstNameChanged(firstName: value)),
+                          onValidate: (value) => state.isFirstNameValid
+                              ? null
+                              : 'Invalid first name');
                     },
                   ),
                   BlocBuilder<SignUpBloc, SignUpState>(
@@ -75,6 +78,8 @@ class RegisterWidget extends StatelessWidget {
                         onChanged: (value) => context
                             .read<SignUpBloc>()
                             .add(SignUpLastNameChanged(lastName: value)),
+                        onValidate: (value) =>
+                            state.isLastNameValid ? null : 'Invalid last name',
                       );
                     },
                   ),
@@ -88,6 +93,9 @@ class RegisterWidget extends StatelessWidget {
                         onChanged: (value) => context
                             .read<SignUpBloc>()
                             .add(SignUpPhoneNumberChanged(phoneNumber: value)),
+                        onValidate: (value) => state.isPhoneNumberValid
+                            ? null
+                            : 'Phone number start with 09********',
                       );
                     },
                   ),
@@ -101,6 +109,9 @@ class RegisterWidget extends StatelessWidget {
                         onChanged: (value) => context
                             .read<SignUpBloc>()
                             .add(SignUpEmailChanged(email: value)),
+                        onValidate: (value) => state.isEmailValid
+                            ? null
+                            : 'Use valid email address',
                       );
                     },
                   ),
@@ -113,6 +124,9 @@ class RegisterWidget extends StatelessWidget {
                         onChanged: (value) => context
                             .read<SignUpBloc>()
                             .add(SignUpPasswordChanged(password: value)),
+                        onValidate: (value) => state.isPasswordValid
+                            ? null
+                            : 'Password must be at least 4 characters',
                       );
                     },
                   ),
@@ -129,7 +143,7 @@ class RegisterWidget extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(25)),
                             child: Center(
                                 child: Text(state.dateOfBirth == ''
-                                    ? "dd/mm/yyyy"
+                                    ? "2000-09-14"
                                     : state.dateOfBirth)),
                           ),
                         ),
@@ -157,34 +171,30 @@ class RegisterWidget extends StatelessWidget {
                           : RoundButton(
                               width: 360,
                               onPressed: () {
-                                context
-                                    .read<SignUpBloc>()
-                                    .add(SignUpSubmitted());
+                                if (formKey.currentState!.validate()) {
+                                  context
+                                      .read<SignUpBloc>()
+                                      .add(SignUpSubmitted());
+                                }
                               },
-                              text: "Register",
+                              text: "Sign up",
                               textColor: Colors.white,
                               color: Color(0xffd32026),
                             );
                     },
                   ),
-                  RichText(
-                    text: TextSpan(
-                      text: 'Already have an account?',
-                      style: TextStyle(color: Colors.black, fontSize: 18),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: 'Log in',
-                          style:
-                              TextStyle(color: Colors.blueAccent, fontSize: 18),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              Navigator.of(context)
-                                  .pushNamed(RouteGenerator.loginScreen);
-                            },
-                        ),
-                      ],
-                    ),
-                  )
+                  HorizontalDivider(
+                    label: 'Already have an account?',
+                  ),
+                  RoundButton(
+                    text: 'Login',
+                    width: 360,
+                    textColor: Color(0xffd32026),
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushNamed(RouteGenerator.loginScreen);
+                    },
+                  ),
                 ],
               ),
             ],

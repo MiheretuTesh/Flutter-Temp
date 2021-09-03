@@ -9,7 +9,6 @@ class AuthRepository {
   final AuthProvider authProvider;
 
   AuthRepository({required this.authProvider});
-
   // Future<void> signUp(User user) async {
   //   print('hey');
   //   return await dataProvider.signUp(user);
