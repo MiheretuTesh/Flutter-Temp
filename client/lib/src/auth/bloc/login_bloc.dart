@@ -28,6 +28,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         User newUser = userCredential["user"] as User;
 
         // TODO: Shared preference case
+        // print("31 aaaaaaaaaaaaaaaaaaaaaaaaaaa ${newUser.role}");
         authenticationBloc.add(LoggedIn(
             phoneNumber: state.phoneNumber,
             role: newUser.role[0]["roleName"],

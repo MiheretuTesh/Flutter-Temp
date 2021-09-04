@@ -32,8 +32,7 @@ class AuthProvider {
         "password": user.password,
         "phoneNumber": user.phoneNumber,
         "bloodType": user.bloodType,
-        "role": user.role,
-        // "gender": user.gender
+        "gender": user.gender
       });
 
       var response = await Dio().post(
@@ -49,18 +48,15 @@ class AuthProvider {
         ),
       );
       if (response.statusCode == 201) {
-        print("done");
-        print(response.data["user"]);
-        User user =
-            User.fromJson(jsonDecode(jsonEncode(response.data["user"])));
-
-        Map<String, dynamic> result = {
-          "token": response.data["token"],
-          "user": user
-        };
-        return result;
-      } else {
-        return "phone number already exist";
+        // print(jsonDecode(jsonEncode(response.data["user"])));
+        // var user = User.fromJson(jsonDecode(jsonEncode(response.data["user"])));
+        // print("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC $user");
+        // Map<String, dynamic> result = {
+        // "token": response.data["token"],
+        // "user": user
+        // };
+        print("Done");
+        return response.data;
       }
     } catch (e) {
       print(e);
@@ -74,11 +70,13 @@ class AuthProvider {
       var response = await Dio().post(
           'http://192.168.1.13:8000/api/v1/users/login',
           data: {'phoneNumber': phone, 'password': password});
+      // print(response);
       if (response.statusCode == 201) {
-        // print(response.data);
+        // print("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB LOGIN");
+        // print(response.data["user"]);
         User user =
             User.fromJson(jsonDecode(jsonEncode(response.data["user"])));
-
+        // print(user);
         Map<String, dynamic> result = {
           "token": response.data["token"],
           "user": user

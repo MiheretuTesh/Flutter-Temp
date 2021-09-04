@@ -34,28 +34,40 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       yield state.copyWith(gender: event.gender);
     } else if (event is SignUpBloodTypeChanged) {
       yield state.copyWith(bloodType: event.bloodType);
+    } else if (event is Reset) {
+      yield state.copyWith(
+          firstName: '',
+          lastName: '',
+          phoneNumber: '',
+          email: '',
+          password: '',
+          dateOfBirth: '',
+          profile: null,
+          gender: '',
+          bloodType: '');
+      yield state.copyWith(formStatus: InitialFormStatus());
     }
     // Form submitted
     else if (event is SignUpProfileChanged) {
       yield state.copyWith(profile: event.profile);
     } else if (event is SignUpSubmitted) {
       User user = User(
-          firstName: state.firstName,
-          lastName: state.lastName,
-          phoneNumber: state.phoneNumber,
-          email: state.email,
-          password: state.password,
-          image: File(state.profile.path),
-          dateOfBirth: state.dateOfBirth,
-          // gender: state.gender,
-          bloodType: state.bloodType,
-          role: 'user');
-      print(user);
+        firstName: state.firstName,
+        lastName: state.lastName,
+        phoneNumber: state.phoneNumber,
+        email: state.email,
+        password: state.password,
+        image: File(state.profile.path),
+        dateOfBirth: state.dateOfBirth,
+        gender: state.gender,
+        bloodType: state.bloodType,
+      );
+      // print(user);
       yield state.copyWith(formStatus: FormSubmitting());
 
       try {
         var userResult = await authRepo.signup(user);
-        // print(userResult);
+        print(userResult);
 
         yield state.copyWith(formStatus: SubmissionSuccess());
       } catch (e) {

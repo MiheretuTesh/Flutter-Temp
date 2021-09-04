@@ -48,7 +48,7 @@ exports.login = async (req, res, next) => {
     ) {
       return res.status(401).json({
         status: 'error',
-        message: 'Invalid email or password',
+        message: 'Invalid phone number or password',
       });
     }
     const token = getToken(user._id);

@@ -12,7 +12,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:eshiblood/src/auth/widgets/text_input.dart';
 
-class RegistrationScreen extends StatelessWidget {
+class RegistrationScreen extends StatefulWidget {
+  @override
+  _RegistrationScreenState createState() => _RegistrationScreenState();
+}
+
+class _RegistrationScreenState extends State<RegistrationScreen> {
+  @override
+  void initState() {
+    BlocProvider.of<SignUpBloc>(context).add(Reset());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +51,14 @@ class RegisterWidget extends StatelessWidget {
     return BlocListener<SignUpBloc, SignUpState>(
       listener: (context, state) {
         final formStatus = state.formStatus;
-        if (formStatus is SubmissionFailed) {
+        if (formStatus is SubmissionSuccess &&
+            !(formStatus is SignUpPhoneNumberChanged)) {
+          // BlocProvider.of<SignUpBloc>(context)
+          //     .add(SignUpProfileChanged(profile: ''));
+          // BlocProvider.of<SignUpBloc>(context)
+          //     .add(SignUpPhoneNumberChanged(phoneNumber: ''));
+          Navigator.of(context).pushNamed(RouteGenerator.loginScreen);
+        } else if (formStatus is SubmissionFailed) {
           _showSnackBar(context, formStatus.errorMessage.toString());
         }
       },

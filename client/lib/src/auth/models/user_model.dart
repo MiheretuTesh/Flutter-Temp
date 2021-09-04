@@ -13,22 +13,21 @@ class User extends Equatable {
   final String? lastDonation;
   final String password;
   final String bloodType;
-  // final String gender;
+  final String gender;
   final dynamic role;
 
-  User({
-    required this.firstName,
-    required this.lastName,
-    required this.phoneNumber,
-    required this.email,
-    required this.image,
-    required this.dateOfBirth,
-    this.lastDonation,
-    required this.password,
-    required this.bloodType,
-    required this.role,
-    // required this.gender
-  });
+  User(
+      {required this.firstName,
+      required this.lastName,
+      required this.phoneNumber,
+      required this.email,
+      required this.image,
+      required this.dateOfBirth,
+      this.lastDonation = '',
+      required this.password,
+      required this.bloodType,
+      this.role,
+      required this.gender});
 
   @override
   List<Object?> get props => [
@@ -42,23 +41,22 @@ class User extends Equatable {
         password,
         bloodType,
         role,
-        // gender
+        gender
       ];
 
   @override
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      firstName: json['firstName'],
-      lastName: json['lastName'],
-      phoneNumber: json['phoneNumber'],
-      email: json['email'],
-      image: json['image'],
-      dateOfBirth: json['dateOfBirth'],
-      password: json['password'],
-      bloodType: json['bloodType']['bloodTypeName'],
-      role: json['roles'],
-      // gender: json['gender']
-    );
+        firstName: json['firstName'],
+        lastName: json['lastName'],
+        phoneNumber: json['phoneNumber'],
+        email: json['email'],
+        image: json['image'],
+        dateOfBirth: json['dateOfBirth'],
+        password: json['password'],
+        bloodType: json['bloodType']['bloodTypeName'],
+        role: json['roles'],
+        gender: json['gender']);
   }
 
   @override
