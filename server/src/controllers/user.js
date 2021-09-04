@@ -82,7 +82,7 @@ exports.signup = async (req, res, next) => {
       });
     }
 
-    const defaultRole = await Role.findOne({ roleName: 'user' });
+    const defaultRole = await Role.findOne({ roleName: "user" });
     const userBloodType = await BloodType.findOne({
       bloodTypeName: req.body.bloodType,
     });
@@ -91,13 +91,15 @@ exports.signup = async (req, res, next) => {
       req.file = { filename: `${req.body.bloodType}.png` };
     }
 
-    const user = await User.create({
+    console.log(req.file.filename);
+    let user = await User.create({
       ...req.body,
       bloodType: userBloodType._id,
       image: req.file.filename,
       roles: [defaultRole._id],
     });
 
+    user = await User.findById(user._id).populate("roles bloodType");
     const token = getToken(user._id);
     res.status(201).json({
       status: 'success',
