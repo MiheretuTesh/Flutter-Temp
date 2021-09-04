@@ -1,50 +1,51 @@
 import 'package:eshiblood/src/auth/bloc/auth_event.dart';
 import 'package:eshiblood/src/auth/bloc/auth_state.dart';
-import 'package:eshiblood/src/auth/repository/auth_repository.dart';
+import 'package:eshiblood/src/auth/repository/secure_storage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final AuthRepository authRepository;
-  AuthBloc(this.authRepository) : super(LoggedOut());
+class AuthenticationBloc
+    extends Bloc<AuthenticationEvent, AuthenticationState> {
+  final SecureStorage userRepository;
+
+  AuthenticationBloc({required this.userRepository})
+      : super(AuthenticationUninitialized());
 
   @override
-  Stream<AuthState> mapEventToState(AuthEvent event) async* {
-    if (event is LoginEvent) {
-      final phoneNumber = event.phoneNumber;
-      final password = event.password;
+  Stream<AuthenticationState> mapEventToState(event) async* {
+    if (event is LoggedIn) {
+      yield* _loggedIn(event);
+    } else if (event is LoggedOut) {
+      yield* _loggedOut(event);
+    }
+  }
 
-      yield LoginInProgress();
-      await Future.delayed(Duration(seconds: 2));
+  Stream<AuthenticationState> _initStartup() async* {
+    final hasToken = await userRepository.hasToken();
+    // print("AAAAAAAAAAAAAAAAAAAAA $hasToken");
 
-      var response = await authRepository.login(phoneNumber, password);
-      if (response != null) {
-        print(response);
-
-        yield LoggedIn();
-      } else {
-        print('jjoui');
-        yield AuthFailed(errorMsg: "Account does not exist");
-        await Future.delayed(Duration(seconds: 2));
-        yield LoggedOut();
-      }
+    if (!hasToken) {
+      // print("BBBBBBBBBBBBBBBBBBBB $hasToken");
+      yield AuthenticationUnauthenticated();
+      return;
     }
 
-    if (event is SignupEvent) {
-      final profile = event.profile;
-      yield LoginInProgress();
-      await Future.delayed(Duration(seconds: 2));
+    // print("CCCCCCCCCCCCCCCCCCC $hasToken");
+    yield AuthenticationAuthenticated();
+  }
 
-      var response = await authRepository.signup(profile);
-      if (response != null) {
-        print(response);
+  Stream<AuthenticationState> _loggedIn(LoggedIn event) async* {
+    // print(
+    //     "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+    yield AuthenticationLoading();
+    // print(event.role);
+    await userRepository.persistPhoneRoleAndToken(
+        event.phoneNumber!, event.role, event.token!);
 
-        yield LoggedIn();
-      } else {
-        print("jjouii");
-        yield AuthFailed(errorMsg: "Account does not exist");
-        await Future.delayed(Duration(seconds: 2));
-        yield LoggedOut();
-      }
-    }
+    yield* _initStartup();
+  }
+
+  Stream<AuthenticationState> _loggedOut(LoggedOut event) async* {
+    yield AuthenticationLoggingOut();
+    await userRepository.deleteToken();
   }
 }

@@ -16,19 +16,19 @@ class User extends Equatable {
   // final String gender;
   final dynamic role;
 
-  User(
-      {required this.firstName,
-      required this.lastName,
-      required this.phoneNumber,
-      required this.email,
-      required this.image,
-      required this.dateOfBirth,
-      this.lastDonation,
-      required this.password,
-      required this.bloodType,
-      required this.role,
-      // required this.gender
-      });
+  User({
+    required this.firstName,
+    required this.lastName,
+    required this.phoneNumber,
+    required this.email,
+    required this.image,
+    required this.dateOfBirth,
+    this.lastDonation,
+    required this.password,
+    required this.bloodType,
+    required this.role,
+    // required this.gender
+  });
 
   @override
   List<Object?> get props => [
@@ -48,19 +48,20 @@ class User extends Equatable {
   @override
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-        firstName: json['firstName'],
-        lastName: json['lastName'],
-        phoneNumber: json['phoneNumber'],
-        email: json['email'],
-        image: json['image'],
-        dateOfBirth: json['dateOfBirth'],
-        password: json['password'],
-        bloodType: json['bloodType']['bloodTypeName'],
-        role: json['roles'],
-        // gender: json['gender']
-        );
+      firstName: json['firstName'],
+      lastName: json['lastName'],
+      phoneNumber: json['phoneNumber'],
+      email: json['email'],
+      image: json['image'],
+      dateOfBirth: json['dateOfBirth'],
+      password: json['password'],
+      bloodType: json['bloodType']['bloodTypeName'],
+      role: json['roles'],
+      // gender: json['gender']
+    );
   }
 
   @override
-  String toString() => 'User\n  {firstName: $firstName, gender: , image: $image}';
+  String toString() =>
+      'User\n  {firstName: $firstName, lastName:$lastName, phoneNumber: $phoneNumber,email: $email, image: $image,dateOfBirth: $dateOfBirth, bloodType $bloodType, role: $role}';
 }

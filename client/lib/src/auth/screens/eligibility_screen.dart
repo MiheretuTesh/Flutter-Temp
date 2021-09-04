@@ -1,11 +1,19 @@
+import 'package:eshiblood/src/auth/bloc/auth_bloc.dart';
 import 'package:eshiblood/src/auth/widgets/app_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EligibilityNoticeScreen extends StatelessWidget {
   final EligibilityItems eligibilityItems = EligibilityItems();
-
   @override
   Widget build(BuildContext context) {
+    // final userProvider = () async {
+    //   print("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
+    //   var result =
+    //       await context.read<AuthenticationBloc>().userRepository.getRole();
+    //   print("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM $result");
+    // };
+    // print(userProvider());
     return Scaffold(
       body: SafeArea(
         child: CustomScrollView(

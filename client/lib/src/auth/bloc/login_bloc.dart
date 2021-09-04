@@ -1,13 +1,17 @@
+import 'package:eshiblood/src/auth/bloc/auth_bloc.dart';
+import 'package:eshiblood/src/auth/bloc/auth_event.dart';
 import 'package:eshiblood/src/auth/bloc/form_submission_status.dart';
 import 'package:eshiblood/src/auth/bloc/login_event.dart';
+import 'package:eshiblood/src/auth/models/user_model.dart';
 import 'package:eshiblood/src/auth/repository/auth_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:eshiblood/src/auth/bloc/login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final AuthRepository authRepository;
+  final AuthenticationBloc authenticationBloc;
 
-  LoginBloc({required this.authRepository})
+  LoginBloc({required this.authRepository, required this.authenticationBloc})
       : super(LoginState(phoneNumber: "0", password: "0"));
 
   @override
@@ -18,16 +22,23 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield state.copyWith(password: event.password);
     } else if (event is LoginSubmitted) {
       yield state.copyWith(formStatus: FormSubmitting());
-
       try {
-        // print(state.phoneNumber);
-        // print(state.password);
-        final user =
-            await authRepository.login(state.phoneNumber, state.password);
+        print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
-        // TODO: Shared preference case
         // TODO: Redirection to Admin state (Auth or Bezihu enketl)
         // print(user.role[0]["roleName"]);
+        final userCredential = await authRepository.login(
+            state.phoneNumber, state.password) as Map<String, dynamic>;
+        User newUser = userCredential["user"] as User;
+        // print(newUser.role[0]["roleName"]);
+        // TODO: Shared preference case
+        authenticationBloc.add(LoggedIn(
+            phoneNumber: state.phoneNumber,
+            role: newUser.role[0]["roleName"],
+            token: userCredential["token"]));
+
+
+
         yield state.copyWith(formStatus: SubmissionSuccess());
         // auth cubit
       } catch (e) {

@@ -1,15 +1,17 @@
-import 'dart:io';
+abstract class AuthenticationEvent {}
 
-abstract class AuthEvent {}
+class LoggedIn extends AuthenticationEvent {
+  final String? phoneNumber;
+  final dynamic role;
+  final String? token;
 
-class LoginEvent extends AuthEvent {
-  final String phoneNumber;
-  final String password;
-
-  LoginEvent({required this.phoneNumber, required this.password});
+  LoggedIn({this.phoneNumber, this.role, this.token});
 }
 
-class SignupEvent extends AuthEvent {
-  final dynamic profile;
-  SignupEvent({required this.profile});
+class LoggedOut extends AuthenticationEvent {
+  final String? phoneNumber;
+  final dynamic role;
+  final String? token;
+
+  LoggedOut({this.phoneNumber, this.role, this.token});
 }

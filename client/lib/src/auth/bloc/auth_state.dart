@@ -1,13 +1,14 @@
-abstract class AuthState {}
+abstract class AuthenticationState {}
 
-class LoginInProgress extends AuthState {}
+class AuthenticationUninitialized extends AuthenticationState {}
 
-class LoggedIn extends AuthState {}
+class AuthenticationUnauthenticated extends AuthenticationState {}
 
-class LoggedOut extends AuthState {}
+class AuthenticationAuthenticated extends AuthenticationState {}
 
-class AuthFailed extends AuthState {
-  final String errorMsg;
+class AuthenticationLoading extends AuthenticationState {}
 
-  AuthFailed({required this.errorMsg});
-}
+class AuthenticationLoggingOut extends AuthenticationState {}
+
+
+

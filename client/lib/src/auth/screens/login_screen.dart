@@ -1,3 +1,5 @@
+import 'package:eshiblood/src/auth/bloc/auth_bloc.dart';
+import 'package:eshiblood/src/auth/bloc/auth_state.dart';
 import 'package:eshiblood/src/auth/bloc/form_submission_status.dart';
 import 'package:eshiblood/src/auth/bloc/login_bloc.dart';
 import 'package:eshiblood/src/auth/bloc/login_event.dart';
@@ -63,14 +65,40 @@ class LoginScreen extends StatelessWidget {
                 ],
               ),
             ),
-            BlocListener<LoginBloc, LoginState>(
-              listener: (context, state) {
-                final formStatus = state.formStatus;
-                print(state);
-                if (formStatus is SubmissionFailed) {
-                  _showSnackBar(context, formStatus.errorMessage.toString());
-                }
-              },
+            MultiBlocListener(
+              listeners: [
+                BlocListener<AuthenticationBloc, AuthenticationState>(
+                    listener: (context, state) async {
+                  final userRole = await context
+                      .read<AuthenticationBloc>()
+                      .userRepository
+                      .getRole();
+                  final token = await context
+                      .read<AuthenticationBloc>()
+                      .userRepository
+                      .hasToken();
+                  // print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW $userRole");
+                  if (token) {
+                    if (userRole == 'user') {
+                      Navigator.of(context)
+                          .pushNamed(RouteGenerator.homeScreen);
+                    } else if (userRole == 'admin') {
+                      Navigator.of(context)
+                          .pushNamed(RouteGenerator.dashboardScreen);
+                    }
+                  }
+                }),
+                BlocListener<LoginBloc, LoginState>(
+                  listener: (context, state) async {
+                    final formStatus = state.formStatus;
+                    print(state);
+                    if (formStatus is SubmissionFailed) {
+                      _showSnackBar(
+                          context, formStatus.errorMessage.toString());
+                    }
+                  },
+                ),
+              ],
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 60.0),
                 child: Form(
@@ -180,7 +208,7 @@ class LoginScreen extends StatelessWidget {
                       ]),
                 ),
               ),
-            ),
+            )
           ],
         ),
       ),

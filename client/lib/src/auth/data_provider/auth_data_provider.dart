@@ -73,17 +73,22 @@ class AuthProvider {
       var response = await Dio().post(
           'http://192.168.1.13:8000/api/v1/users/login',
           data: {'phoneNumber': phone, 'password': password});
-      print(response);
       if (response.statusCode == 201) {
         // print(response.data);
         User user =
             User.fromJson(jsonDecode(jsonEncode(response.data["user"])));
-        return user;
-      } else {
-        // TODO: Response error
-        print(response);
-        return null;
-      }
+
+        Map<String, dynamic> result = {
+          "token": response.data["token"],
+          "user": user
+        };
+        // print(result);
+        return result;
+      } // else {
+      //   // TODO: Response error
+      //   print(response);
+      //   return null;
+      // }
     } catch (e) {
       print("fetching failed");
       return null;
