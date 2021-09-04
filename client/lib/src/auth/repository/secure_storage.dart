@@ -42,11 +42,11 @@ class SecureStorage {
   }
 
   Future<void> deleteToken() async {
-    return _storage.delete(key: _tokenKey);
+    return await _storage.delete(key: _tokenKey);
   }
 
   Future<void> deletePhoneNumber() async {
-    return _storage.delete(key: _phoneNumberKey);
+    return await _storage.delete(key: _phoneNumberKey);
   }
 
   Future<void> deleteRole() async {
@@ -66,7 +66,7 @@ class SecureStorage {
   }
 
   Future<void> deleteAll() async {
-    return _storage.deleteAll();
+    return await _storage.deleteAll();
   }
 
   @override

@@ -1,5 +1,7 @@
 import 'package:eshiblood/src/auth/bloc/auth_bloc.dart';
 import 'package:eshiblood/src/auth/bloc/auth_event.dart';
+import 'package:eshiblood/src/auth/bloc/login_bloc.dart';
+import 'package:eshiblood/src/auth/bloc/login_event.dart';
 import 'package:eshiblood/src/utilities/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -69,12 +71,18 @@ class HomeScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(15.0),
                             child: InkWell(
                               // TODO: Onclick
-                              onTap: () {
+                              onTap: () async {
                                 switch (index) {
                                   case 0:
                                     print('eeeeeeeeeeeeeeeeeeeeeeee');
+                                    BlocProvider.of<LoginBloc>(context).add(
+                                        LoginPhoneNumberChanged(
+                                            phoneNumber: ''));
+                                    BlocProvider.of<LoginBloc>(context).add(
+                                        LoginPasswordChanged(password: ''));
                                     BlocProvider.of<AuthenticationBloc>(context)
                                         .add(LoggedOut());
+
                                     Navigator.of(context)
                                         .pushNamed(RouteGenerator.loginScreen);
                                     break;

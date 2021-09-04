@@ -8,10 +8,6 @@ class LoggedIn extends AuthenticationEvent {
   LoggedIn({this.phoneNumber, this.role, this.token});
 }
 
-class LoggedOut extends AuthenticationEvent {
-  final String? phoneNumber;
-  final dynamic role;
-  final String? token;
+class LoggedOut extends AuthenticationEvent {}
 
-  LoggedOut({this.phoneNumber, this.role, this.token});
-}
+class WelcomeScreenCompleted extends AuthenticationEvent {}

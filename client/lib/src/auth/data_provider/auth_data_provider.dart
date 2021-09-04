@@ -19,13 +19,6 @@ class AuthProvider {
   Future<dynamic> signup(User user) async {
     try {
       print("fetching start..");
-      // var response = await Dio().post('http://10.0.2.2:8000/api/v1/users/login',
-      //     data: {'phoneNumber': phone, 'password': password});
-      // String fileName = profile;
-      // FormData formData = FormData.fromMap({
-      //   "profile": await MultipartFile.fromFile(profile, filename: fileName)
-      // });
-      //TODOs : Use Dio dio = new Dio();
       String filename = user.image.path.split('/').last;
       FormData formData = FormData.fromMap({
         "image": await MultipartFile.fromFile(
@@ -57,7 +50,15 @@ class AuthProvider {
       );
       if (response.statusCode == 201) {
         print("done");
-        return response;
+        print(response.data["user"]);
+        User user =
+            User.fromJson(jsonDecode(jsonEncode(response.data["user"])));
+
+        Map<String, dynamic> result = {
+          "token": response.data["token"],
+          "user": user
+        };
+        return result;
       } else {
         return "phone number already exist";
       }

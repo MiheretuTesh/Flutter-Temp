@@ -54,17 +54,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       yield state.copyWith(formStatus: FormSubmitting());
 
       try {
-        await authRepo.signup(user);
-        // username: state.username,
-        // email: state.email,
+        var userResult = await authRepo.signup(user);
+        // print(userResult);
 
         yield state.copyWith(formStatus: SubmissionSuccess());
-
-        // authCubit.showConfirmSignUp(
-        //   username: state.username,
-        //   email: state.email,
-        //   password: state.password,
-        // );
       } catch (e) {
         yield state.copyWith(formStatus: SubmissionFailed('e'));
       }
