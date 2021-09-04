@@ -40,6 +40,9 @@ const schema = new mongoose.Schema(
         },
       },
     },
+    gender: {
+      type: String,
+    },
     dateOfBirth: {
       type: String,
     },

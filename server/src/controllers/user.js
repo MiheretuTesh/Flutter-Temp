@@ -92,13 +92,14 @@ exports.signup = async (req, res, next) => {
     }
 
     console.log(req.file.filename);
-    const user = await User.create({
+    let user = await User.create({
       ...req.body,
       bloodType: userBloodType._id,
       image: req.file.filename,
       roles: [defaultRole._id],
     });
 
+    user = await User.findById(user._id).populate("roles bloodType");
     const token = getToken(user._id);
     res.status(201).json({
       status: "success",
