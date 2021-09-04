@@ -26,301 +26,357 @@ class RoleManagement extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Center(
-              child: Container(
-                margin: EdgeInsets.all(10),
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(50),
-                    boxShadow: [
-                      BoxShadow(
-                          blurRadius: 2,
-                          color: Colors.black12,
-                          offset: Offset(1, 1),
-                          spreadRadius: 2)
-                    ]),
-                child: Container(
-                    child: Image.asset(
-                  "assets/images/person.png",
-                  fit: BoxFit.contain,
-                )),
-              ),
-            ),
             Column(
               children: [
-                Container(
-                  margin: EdgeInsets.only(top: 10, left: 10, right: 10),
-                  height: 150,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                            blurRadius: 2,
-                            color: Colors.black12,
-                            offset: Offset(1, 1),
-                            spreadRadius: 2)
-                      ]),
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(top: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Row(
-                              children: [Text("First Name: "), Text("Michael")],
-                            ),
-                            Row(
-                              children: [Text("Last Name: "), Text("Solomon")],
-                            )
-                          ],
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(top: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Row(
-                              children: [
-                                Text("Phone No: "),
-                                Text("+251966303009")
-                              ],
-                            ),
-                            Row(
-                              children: [Text("Blood Type: "), Text("A+")],
-                            )
-                          ],
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(top: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Row(
-                              children: [
-                                Text("Email: "),
-                                Text("se.michael.solomon@gmail.com")
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 10, left: 10, right: 10),
-                  // height: 50,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                            blurRadius: 2,
-                            color: Colors.black12,
-                            offset: Offset(1, 1),
-                            spreadRadius: 2)
-                      ]),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      // Row(
-                      //   children: [Text("Privilleges:  ")],
-                      // ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      HorizontalDivider(
-                        height: 1,
-                        label: "Current Privilleges:  ",
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          PrivillegeWidgetOut(
-                            label: "Appointment: ",
-                            canCreate: true,
-                            canUpdate: true,
-                            canDelete: true,
-                            canRead: true,
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Divider(
-                        height: 1,
-                        color: Color(0xffd32026),
-                        indent: 40,
-                        endIndent: 40,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          PrivillegeWidgetOut(
-                            label: "Request: ",
-                            canCreate: false,
-                            canUpdate: true,
-                            canDelete: false,
-                            canRead: true,
-                          ),
-                        ],
-                      ),
-
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Divider(
-                        height: 1,
-                        color: Color(0xffd32026),
-                        indent: 40,
-                        endIndent: 40,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          PrivillegeWidgetOut(
-                            label: "Role: ",
-                            canCreate: true,
-                            canUpdate: true,
-                            canDelete: false,
-                            canRead: true,
-                          ),
-                        ],
-                      ),
-
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Divider(
-                        height: 2,
-                        color: Color(0xffd32026),
-                        indent: 40,
-                        endIndent: 40,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          PrivillegeWidgetOut(
-                            label: "User: ",
-                            canCreate: true,
-                            canUpdate: true,
-                            canDelete: true,
-                            canRead: true,
-                          ),
-                        ],
-                      ),
-
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Divider(
-                        height: 2,
-                        color: Color(0xffd32026),
-                        indent: 40,
-                        endIndent: 40,
-                      ),
-
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          PrivillegeWidgetOut(
-                            label: "Donation Center: ",
-                            canCreate: true,
-                            canUpdate: true,
-                            canDelete: false,
-                            canRead: true,
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 10, left: 10, right: 10),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                            blurRadius: 2,
-                            color: Colors.black12,
-                            offset: Offset(1, 1),
-                            spreadRadius: 2)
-                      ]),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 20,
-                      ),
-                      HorizontalDivider(
-                        height: 1,
-                        label: "Update Privilleges:  ",
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      PrivillegeWidgetIn(
-                        label: "Appointment",
-                        canCreate: true,
-                      ),
-                      paddedHorizontalLine(),
-                      PrivillegeWidgetIn(
-                        label: "Request",
-                        canCreate: true,
-                      ),
-                      paddedHorizontalLine(),
-                      PrivillegeWidgetIn(
-                        label: "Role",
-                        canCreate: true,
-                      ),
-                      paddedHorizontalLine(),
-                      PrivillegeWidgetIn(
-                        label: "User",
-                        canUpdate: true,
-                      ),
-                      paddedHorizontalLine(),
-                      PrivillegeWidgetIn(
-                        label: "Donation Center",
-                        canCreate: true,
-                      ),
-                      paddedHorizontalLine(),
-                      UpdateRoleButton(),
-                      SizedBox(
-                        height: 20,
-                      )
-                    ],
-                  ),
-                )
+                // RoleProfileWidget(),
+                // CurrentPrivilleges(),
+                PrivillegeWidget()
               ],
             ),
           ],
         ),
       ],
+    );
+  }
+}
+
+class PrivillegeWidget extends StatelessWidget {
+  const PrivillegeWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 10, left: 10, right: 10),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+                blurRadius: 2,
+                color: Colors.black12,
+                offset: Offset(1, 1),
+                spreadRadius: 2)
+          ]),
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(10),
+            child: TextField(
+              style: TextStyle(
+                height: 1.2,
+                fontSize: 20,
+              ),
+              cursorColor: Color(0xFFD32026),
+              decoration: InputDecoration(
+                hintText: "Role Name",
+                hintStyle: TextStyle(color: Colors.grey, fontSize: 20),
+                labelText: "Role",
+                labelStyle: TextStyle(color: Colors.redAccent, fontSize: 14),
+                contentPadding: EdgeInsets.only(left: 20),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFFD32026), width: 2),
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFFD32026), width: 2),
+                  borderRadius: BorderRadius.circular(50),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          HorizontalDivider(
+            height: 1,
+            label: "Privilleges:  ",
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          PrivillegeWidgetIn(
+            label: "Appointment",
+            canCreate: true,
+          ),
+          paddedHorizontalLine(),
+          PrivillegeWidgetIn(
+            label: "Request",
+            canCreate: true,
+          ),
+          paddedHorizontalLine(),
+          PrivillegeWidgetIn(
+            label: "Role",
+            canCreate: true,
+          ),
+          paddedHorizontalLine(),
+          PrivillegeWidgetIn(
+            label: "User",
+            canUpdate: true,
+          ),
+          paddedHorizontalLine(),
+          PrivillegeWidgetIn(
+            label: "Donation Center",
+            canCreate: true,
+          ),
+          paddedHorizontalLine(),
+          UpdateRoleButton(),
+          SizedBox(
+            height: 20,
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class CurrentPrivilleges extends StatelessWidget {
+  const CurrentPrivilleges({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 10, left: 10, right: 10),
+      // height: 50,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+                blurRadius: 2,
+                color: Colors.black12,
+                offset: Offset(1, 1),
+                spreadRadius: 2)
+          ]),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          // Row(
+          //   children: [Text("Privilleges:  ")],
+          // ),
+          SizedBox(
+            height: 20,
+          ),
+          HorizontalDivider(
+            height: 1,
+            label: "Current Privilleges:  ",
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              PrivillegeWidgetOut(
+                label: "Appointment: ",
+                canCreate: true,
+                canUpdate: true,
+                canDelete: true,
+                canRead: true,
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Divider(
+            height: 1,
+            color: Color(0xffd32026),
+            indent: 40,
+            endIndent: 40,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              PrivillegeWidgetOut(
+                label: "Request: ",
+                canCreate: false,
+                canUpdate: true,
+                canDelete: false,
+                canRead: true,
+              ),
+            ],
+          ),
+
+          SizedBox(
+            height: 20,
+          ),
+          Divider(
+            height: 1,
+            color: Color(0xffd32026),
+            indent: 40,
+            endIndent: 40,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              PrivillegeWidgetOut(
+                label: "Role: ",
+                canCreate: true,
+                canUpdate: true,
+                canDelete: false,
+                canRead: true,
+              ),
+            ],
+          ),
+
+          SizedBox(
+            height: 20,
+          ),
+          Divider(
+            height: 2,
+            color: Color(0xffd32026),
+            indent: 40,
+            endIndent: 40,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              PrivillegeWidgetOut(
+                label: "User: ",
+                canCreate: true,
+                canUpdate: true,
+                canDelete: true,
+                canRead: true,
+              ),
+            ],
+          ),
+
+          SizedBox(
+            height: 20,
+          ),
+          Divider(
+            height: 2,
+            color: Color(0xffd32026),
+            indent: 40,
+            endIndent: 40,
+          ),
+
+          SizedBox(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              PrivillegeWidgetOut(
+                label: "Donation Center: ",
+                canCreate: true,
+                canUpdate: true,
+                canDelete: false,
+                canRead: true,
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 20,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class RoleProfileWidget extends StatelessWidget {
+  const RoleProfileWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 10, left: 10, right: 10),
+      padding: EdgeInsets.only(bottom: 10),
+      // height: 150,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+                blurRadius: 2,
+                color: Colors.black12,
+                offset: Offset(1, 1),
+                spreadRadius: 2)
+          ]),
+      child: Column(
+        children: [
+          Center(
+            child: Container(
+              margin: EdgeInsets.all(10),
+              width: 100,
+              height: 100,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(50),
+                  boxShadow: [
+                    BoxShadow(
+                        blurRadius: 2,
+                        color: Colors.black12,
+                        offset: Offset(1, 1),
+                        spreadRadius: 2)
+                  ]),
+              child: Container(
+                  child: Image.asset(
+                "assets/images/person.png",
+                fit: BoxFit.contain,
+              )),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Row(
+                  children: [Text("First Name: "), Text("Michael")],
+                ),
+                Row(
+                  children: [Text("Last Name: "), Text("Solomon")],
+                )
+              ],
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Row(
+                  children: [Text("Phone No: "), Text("+251966303009")],
+                ),
+                Row(
+                  children: [Text("Blood Type: "), Text("A+")],
+                )
+              ],
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Row(
+                  children: [
+                    Text("Email: "),
+                    Text("se.michael.solomon@gmail.com")
+                  ],
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -424,7 +480,6 @@ class _PrivillegeWidgetInState extends State<PrivillegeWidgetIn> {
         Column(
           children: [
             Row(
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
                   width: 10,
