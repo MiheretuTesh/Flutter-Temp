@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:eshiblood/src/auth/bloc/auth_bloc.dart';
+import 'package:eshiblood/src/auth/bloc/auth_state.dart';
 import 'package:eshiblood/src/auth/bloc/form_submission_status.dart';
 import 'package:eshiblood/src/auth/bloc/signup_bloc.dart';
 import 'package:eshiblood/src/auth/bloc/signup_event.dart';
@@ -36,32 +38,38 @@ class RegisterWidget extends StatelessWidget {
   RegisterWidget({Key? key}) : super(key: key);
   final formKey = GlobalKey<FormState>();
 
-  // final firstNameTextController = TextEditingController();
-  // final firstNameTextController = TextEditingController();
-  // final firstNameTextController = TextEditingController();
-  // final firstNameTextController = TextEditingController();
   var imagePicker;
 
   @override
   Widget build(BuildContext context) {
-    // final inputFieldStyle = InputDecoration(
-    //   border: OutlineInputBorder(),
-    // );
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<SignUpBloc, SignUpState>(
+          listener: (context, state) {
+            final formStatus = state.formStatus;
+            if (formStatus is SubmissionFailed) {
+              _showSnackBar(context, formStatus.errorMessage.toString());
+            }
+          },
+        ),
+        BlocListener<AuthenticationBloc, AuthenticationState>(
+            listener: (context, state) async {
+          final userRole =
+              await context.read<AuthenticationBloc>().userRepository.getRole();
+          final token = await context
+              .read<AuthenticationBloc>()
+              .userRepository
+              .hasToken();
 
-    return BlocListener<SignUpBloc, SignUpState>(
-      listener: (context, state) {
-        final formStatus = state.formStatus;
-        if (formStatus is SubmissionSuccess &&
-            !(formStatus is SignUpPhoneNumberChanged)) {
-          // BlocProvider.of<SignUpBloc>(context)
-          //     .add(SignUpProfileChanged(profile: ''));
-          // BlocProvider.of<SignUpBloc>(context)
-          //     .add(SignUpPhoneNumberChanged(phoneNumber: ''));
-          Navigator.of(context).pushNamed(RouteGenerator.loginScreen);
-        } else if (formStatus is SubmissionFailed) {
-          _showSnackBar(context, formStatus.errorMessage.toString());
-        }
-      },
+          // print(userRole);
+          if (token) {
+            if (userRole == 'user') {
+              BlocProvider.of<SignUpBloc>(context).add(Reset());
+              Navigator.of(context).pushNamed(RouteGenerator.homeScreen);
+            }
+          }
+        })
+      ],
       child: Form(
         key: formKey,
         child: Container(
@@ -209,6 +217,7 @@ class RegisterWidget extends StatelessWidget {
                     width: 360,
                     textColor: Color(0xffd32026),
                     onPressed: () {
+                      BlocProvider.of<SignUpBloc>(context).add(Reset());
                       Navigator.of(context)
                           .pushNamed(RouteGenerator.loginScreen);
                     },
@@ -243,7 +252,6 @@ class ProfileWidget extends StatelessWidget {
                 onTap: () async {
                   // await _picker.pickImage(source: ImageSource.gallery)
                   // File image;
-                  print('aaa');
                   var imagePicker =
                       await _picker.pickImage(source: ImageSource.gallery);
                   context
@@ -253,6 +261,7 @@ class ProfileWidget extends StatelessWidget {
                 },
                 child: BlocBuilder<SignUpBloc, SignUpState>(
                   builder: (context, state) {
+                    print(state.profile);
                     return state.profile == null
                         ? CircleAvatar(
                             radius: 71,

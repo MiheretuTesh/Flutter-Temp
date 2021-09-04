@@ -1,5 +1,4 @@
 import 'package:eshiblood/src/auth/bloc/auth_bloc.dart';
-import 'package:eshiblood/src/auth/bloc/auth_event.dart';
 import 'package:eshiblood/src/auth/bloc/auth_state.dart';
 import 'package:eshiblood/src/auth/bloc/form_submission_status.dart';
 import 'package:eshiblood/src/auth/bloc/login_bloc.dart';
@@ -7,8 +6,6 @@ import 'package:eshiblood/src/auth/bloc/login_event.dart';
 import 'package:eshiblood/src/auth/bloc/login_state.dart';
 import 'package:eshiblood/src/auth/bloc/password_visibility_bloc.dart';
 import 'package:eshiblood/src/auth/bloc/password_visibility_state.dart';
-import 'package:eshiblood/src/auth/bloc/signup_bloc.dart';
-import 'package:eshiblood/src/auth/bloc/signup_event.dart';
 import 'package:eshiblood/src/auth/widgets/horizontal_divider.dart';
 import 'package:eshiblood/src/auth/widgets/round_button.dart';
 import 'package:eshiblood/src/auth/widgets/text_input.dart';
@@ -51,7 +48,6 @@ class LoginScreen extends StatelessWidget {
               Navigator.of(context).pushNamed(RouteGenerator.dashboardScreen);
             }
           }
-          BlocProvider.of<SignUpBloc>(context).add(Reset());
         }),
       ],
       child: BlocProvider(

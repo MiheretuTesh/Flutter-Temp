@@ -19,7 +19,9 @@ class App extends StatelessWidget {
             create: (context) =>
                 AuthenticationBloc(userRepository: userRepository)),
         BlocProvider(
-          create: (context) => SignUpBloc(authRepo: authRepo),
+          create: (context) => SignUpBloc(
+              authRepo: authRepo,
+              authenticationBloc: BlocProvider.of<AuthenticationBloc>(context)),
         ),
         BlocProvider(
           create: (context) => LoginBloc(

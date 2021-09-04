@@ -1,25 +1,17 @@
-import 'dart:io';
-
 import 'package:eshiblood/src/auth/data_provider/auth_data_provider.dart';
 import 'package:eshiblood/src/auth/models/user_model.dart';
-// import 'package:eshiblood/src/auth/models/user_model.dart';
-// import 'package:meta/meta.dart';
 
 class AuthRepository {
   final AuthProvider authProvider;
 
   AuthRepository({required this.authProvider});
-  // Future<void> signUp(User user) async {
-  //   print('hey');
-  //   return await dataProvider.signUp(user);
-  // }
   Future<dynamic> signup(User user) async {
-    print("hey from repo signup");
+    print("------------> Repository SignUp");
     return await authProvider.signup(user);
   }
 
   Future<dynamic> login(String phone, String password) async {
-    print('hey from repo');
+    print('------------> Repository Login');
     return await authProvider.login(phone, password);
   }
 }
