@@ -12,14 +12,8 @@ exports.validate = (type) => {
         body('phoneNumber')
           .not()
           .isEmpty()
-<<<<<<< HEAD
-          .withMessage('Phone number is required'),
-        body('phoneNumber').isNumeric().withMessage('Incorrect phone number'),
-        body('password').not().isEmpty().withMessage('Password is required'),
-=======
           .withMessage("Phone number is required"),
         body("password").not().isEmpty().withMessage("Password is required"),
->>>>>>> a681bb41d630274956307be834bfaa53b3a706e1
       ];
     case 'SIGNUP':
       return [
@@ -28,13 +22,8 @@ exports.validate = (type) => {
         body('phoneNumber')
           .not()
           .isEmpty()
-<<<<<<< HEAD
-          .withMessage('Phone Number is Required'),
-        body('dateOfBirth')
-=======
           .withMessage("Phone Number is Required"),
         body("dateOfBirth")
->>>>>>> a681bb41d630274956307be834bfaa53b3a706e1
           .not()
           .isEmpty()
           .withMessage('Date of birth is Required'),
