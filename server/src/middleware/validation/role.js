@@ -32,20 +32,7 @@ exports.validate = (type) => {
             return mongoose.Types.ObjectId.isValid(value);
           })
           .withMessage("Invalid role ID"),
-        body("roleName")
-          .optional()
-          .not()
-          .isEmpty()
-          .withMessage("Role name is required"),
-        body("title")
-          .optional()
-          .not()
-          .isEmpty()
-          .withMessage("Role title is required"),
-        body("permissions")
-          .not()
-          .isEmpty()
-          .withMessage("Role permissions are required"),
+       
       ];
     case "DELETE":
       return [

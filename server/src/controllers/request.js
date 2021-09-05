@@ -80,9 +80,14 @@ exports.createRequest = async (req, res, next) => {
         message: errors.array()[0].msg,
       });
     }
+    
+    const userBloodType = await BloodType.findOne({
+      bloodTypeName: req.body.bloodType,
+    });
 
     const request = await Request.create({
       ...req.body,
+      bloodType: userBloodType._id,
       createdBy: req.user._id,
       updatedBy: req.user._id,
       donors: [req.user._id],

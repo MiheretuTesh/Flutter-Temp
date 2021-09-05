@@ -17,10 +17,7 @@ exports.validate = (type) => {
           .not()
           .isEmpty()
           .withMessage("Units of Blood is required"),
-        body("totalDonation")
-          .not()
-          .isEmpty()
-          .withMessage("Total donation is required"),
+       
         body("reason").not().isEmpty().withMessage("Reason is required"),
         body("bloodType").not().isEmpty().withMessage("Blood type is required"),
         body("createdBy").not().isEmpty().withMessage("Created by is required"),
@@ -32,26 +29,7 @@ exports.validate = (type) => {
             return mongoose.Types.ObjectId.isValid(value);
           })
           .withMessage("Invalid request ID"),
-        body("unitsNeeded")
-          .optional()
-          .not()
-          .isEmpty()
-          .withMessage("Blood unit is required"),
-        body("reason")
-          .optional()
-          .not()
-          .isEmpty()
-          .withMessage("Reason is required"),
-        body("bloodType")
-          .optional()
-          .not()
-          .isEmpty()
-          .withMessage("Blood type is required"),
-        body("createdBy")
-          .optional()
-          .not()
-          .isEmpty()
-          .withMessage("Created by is required"),
+       
       ];
     case "DELETE":
       return [

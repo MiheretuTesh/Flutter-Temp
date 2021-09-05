@@ -33,21 +33,7 @@ exports.validate = (type) => {
             return mongoose.Types.ObjectId.isValid(value);
           })
           .withMessage("Invalid Donation Center ID"),
-        body("name")
-          .optional()
-          .not()
-          .isEmpty()
-          .withMessage("Donation Center name is required"),
-        body("address")
-          .optional()
-          .not()
-          .isEmpty()
-          .withMessage("Donation Center address is required"),
-        body("createdBy")
-          .optional()
-          .not()
-          .isEmpty()
-          .withMessage("Donation Center created is required"),
+        
       ];
     case "DELETE":
       return [

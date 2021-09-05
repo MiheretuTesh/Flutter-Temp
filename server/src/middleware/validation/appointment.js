@@ -26,11 +26,7 @@ exports.validate = (type) => {
             return mongoose.Types.ObjectId.isValid(value);
           })
           .withMessage("Invalid appointment ID"),
-        body("donationCenter")
-          .optional()
-          .not()
-          .isEmpty()
-          .withMessage("Donation Center is required"),
+        
       ];
     case "DELETE":
       return [

@@ -31,16 +31,7 @@ exports.validate = (type) => {
             return mongoose.Types.ObjectId.isValid(value);
           })
           .withMessage("Invalid Blood type  ID"),
-        body("bloodType")
-          .optional()
-          .not()
-          .isEmpty()
-          .withMessage("Blood type  is required"),
-        body("description")
-          .optional()
-          .not()
-          .isEmpty()
-          .withMessage("Blood type description is required"),
+        
       ];
     case "DELETE":
       return [
