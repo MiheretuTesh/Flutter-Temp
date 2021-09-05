@@ -8,8 +8,8 @@ class LoginState {
   final FormSubmissionStatus formStatus;
 
   LoginState({
-    required this.phoneNumber,
-    required this.password,
+    this.phoneNumber = '',
+    this.password = '',
     FormSubmissionStatus this.formStatus = const InitialFormStatus(),
   });
 

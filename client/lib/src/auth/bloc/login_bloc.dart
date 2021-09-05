@@ -23,14 +23,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     } else if (event is LoginSubmitted) {
       yield state.copyWith(formStatus: FormSubmitting());
       try {
-        print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-
-        // TODO: Redirection to Admin state (Auth or Bezihu enketl)
-        // print(user.role[0]["roleName"]);
         final userCredential = await authRepository.login(
             state.phoneNumber, state.password) as Map<String, dynamic>;
         User newUser = userCredential["user"] as User;
-        // print(newUser.role[0]["roleName"]);
+
         // TODO: Shared preference case
         authenticationBloc.add(LoggedIn(
             phoneNumber: state.phoneNumber,
@@ -40,7 +36,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         yield state.copyWith(formStatus: SubmissionSuccess());
         // auth cubit
       } catch (e) {
-        yield state.copyWith(formStatus: SubmissionFailed("errorMessage"));
+        yield state.copyWith(
+            formStatus:
+                SubmissionFailed("Submission Failed Error From Login Bloc"));
       }
     }
   }

@@ -1,7 +1,11 @@
+import 'package:eshiblood/src/auth/bloc/auth_bloc.dart';
+import 'package:eshiblood/src/auth/bloc/auth_event.dart';
+import 'package:eshiblood/src/auth/bloc/auth_state.dart';
 import 'package:eshiblood/src/utilities/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:eshiblood/src/auth/widgets/horizontal_divider.dart';
 import 'package:eshiblood/src/auth/widgets/round_button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WelcomeScreen extends StatelessWidget {
   @override
@@ -47,6 +51,7 @@ class WelcomeScreen extends StatelessWidget {
                 RoundButton(
                   color: Color(0xffd32026),
                   onPressed: () {
+                    BlocProvider.of<AuthenticationBloc>(context).add(WelcomeScreenCompleted());
                     Navigator.of(context).pushNamed(RouteGenerator.loginScreen);
                   },
                   text: 'Login',

@@ -48,6 +48,10 @@ class SignUpGenderChanged extends SignUpEvent {
   SignUpGenderChanged({required this.gender});
 }
 
+class Reset extends SignUpEvent{
+  
+}
+
 class SignUpBloodTypeChanged extends SignUpEvent {
   final String bloodType;
 

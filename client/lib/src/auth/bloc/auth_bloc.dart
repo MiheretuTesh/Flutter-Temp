@@ -12,7 +12,9 @@ class AuthenticationBloc
 
   @override
   Stream<AuthenticationState> mapEventToState(event) async* {
-    if (event is LoggedIn) {
+    if (event is WelcomeScreenCompleted) {
+      yield* _initStartup();
+    } else if (event is LoggedIn) {
       yield* _loggedIn(event);
     } else if (event is LoggedOut) {
       yield* _loggedOut(event);
@@ -21,23 +23,18 @@ class AuthenticationBloc
 
   Stream<AuthenticationState> _initStartup() async* {
     final hasToken = await userRepository.hasToken();
-    // print("AAAAAAAAAAAAAAAAAAAAA $hasToken");
 
     if (!hasToken) {
-      // print("BBBBBBBBBBBBBBBBBBBB $hasToken");
       yield AuthenticationUnauthenticated();
       return;
     }
 
-    // print("CCCCCCCCCCCCCCCCCCC $hasToken");
     yield AuthenticationAuthenticated();
   }
 
   Stream<AuthenticationState> _loggedIn(LoggedIn event) async* {
-    // print(
-    //     "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
     yield AuthenticationLoading();
-    // print(event.role);
+
     await userRepository.persistPhoneRoleAndToken(
         event.phoneNumber!, event.role, event.token!);
 
@@ -46,6 +43,6 @@ class AuthenticationBloc
 
   Stream<AuthenticationState> _loggedOut(LoggedOut event) async* {
     yield AuthenticationLoggingOut();
-    await userRepository.deleteToken();
+    await userRepository.deleteAll();
   }
 }
