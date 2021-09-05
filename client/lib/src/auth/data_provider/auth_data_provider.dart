@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:eshiblood/src/auth/models/user_model.dart';
-import 'package:eshiblood/src/auth/models/user_model_json.dart';
 
 class AuthProvider {
   final _baseUrl = '192.168.1.13:8000';
@@ -42,14 +41,11 @@ class AuthProvider {
       );
       if (response.statusCode == 201) {
         print("-------------------> Done");
-        // print("${response.data["user"]}");
-        var user = UserSignIn.fromJson(response.data["user"]);
-
+        var user = User.fromJson(response.data["user"]);
         Map<String, dynamic> result = {
           "token": response.data["token"],
           "user": user
         };
-        // print("${result}");
         return result;
       }
     } catch (e) {
@@ -61,13 +57,13 @@ class AuthProvider {
   Future<dynamic> login(String phone, String password) async {
     try {
       print("Fetching Start Login Data Provider...");
+
       var response = await Dio().post(
           'http://192.168.1.13:8000/api/v1/users/login',
           data: {'phoneNumber': phone, 'password': password});
-
+      print(response.data);
       if (response.statusCode == 201) {
-        User user =
-            User.fromJson(jsonDecode(jsonEncode(response.data["user"])));
+        var user = User.fromJson((response.data["user"]));
 
         Map<String, dynamic> result = {
           "token": response.data["token"],
@@ -80,5 +76,12 @@ class AuthProvider {
       print("Fetching Failed Login Data Provider...");
       return null;
     }
+
+    // Future<dynamic> getUser() async{
+    //   try{
+    //     print('Fetching Start Get User Data Provider...');
+    //     var response =
+    //   }
+    // }
   }
 }

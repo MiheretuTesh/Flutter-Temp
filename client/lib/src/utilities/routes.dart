@@ -2,6 +2,7 @@ import 'package:eshiblood/src/auth/screens/dashboard_screen.dart';
 import 'package:eshiblood/src/auth/screens/eligibility_screen.dart';
 import 'package:eshiblood/src/auth/screens/home_screen.dart';
 import 'package:eshiblood/src/auth/screens/login_screen.dart';
+import 'package:eshiblood/src/auth/screens/profile_screen.dart';
 import 'package:eshiblood/src/auth/screens/registration_screen.dart';
 import 'package:eshiblood/src/auth/screens/welcome_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,7 +15,7 @@ class RouteGenerator {
   static const String eligibilityNoticeScreen = "/eligibilityNotice";
   static const String homeScreen = "/home";
   static const String dashboardScreen = "/dashboard";
-
+  static const String profileScreen = "/profile";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -30,6 +31,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => HomeScreen());
       case dashboardScreen:
         return MaterialPageRoute(builder: (_) => DashboardScreen());
+      case profileScreen:
+        return MaterialPageRoute(builder: (_) => ProfileScreen());
 
       default:
         throw FormatException("Route was not found");

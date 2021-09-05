@@ -74,7 +74,6 @@ class HomeScreen extends StatelessWidget {
                               onTap: () async {
                                 switch (index) {
                                   case 0:
-                                    print('eeeeeeeeeeeeeeeeeeeeeeee');
                                     BlocProvider.of<LoginBloc>(context).add(
                                         LoginPhoneNumberChanged(
                                             phoneNumber: ''));
@@ -85,6 +84,11 @@ class HomeScreen extends StatelessWidget {
 
                                     Navigator.of(context)
                                         .pushNamed(RouteGenerator.loginScreen);
+                                    break;
+                                  case 1:
+                                    Navigator.of(context).pushNamed(
+                                        RouteGenerator.profileScreen);
+                                    print("Event Clicked");
                                     break;
                                 }
                               },

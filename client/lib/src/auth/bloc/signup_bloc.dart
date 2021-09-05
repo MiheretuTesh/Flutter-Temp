@@ -6,7 +6,6 @@ import 'package:eshiblood/src/auth/bloc/form_submission_status.dart';
 import 'package:eshiblood/src/auth/bloc/signup_event.dart';
 import 'package:eshiblood/src/auth/bloc/signup_state.dart';
 import 'package:eshiblood/src/auth/models/user_model.dart';
-import 'package:eshiblood/src/auth/models/user_model_json.dart';
 import 'package:eshiblood/src/auth/repository/auth_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -66,14 +65,17 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       try {
         var userCredential =
             await authRepo.signup(user) as Map<String, dynamic>;
-        UserSignIn newUser = userCredential["user"] as UserSignIn;
-        print(newUser);
+        User newUser = userCredential["user"] as User;
+
         authenticationBloc.add(LoggedIn(
-            phoneNumber: state.phoneNumber,
-            role: newUser.role[0]["roleName"],
-            token: userCredential["token"]));
+          phoneNumber: state.phoneNumber,
+          role: newUser.role[0]["roleName"],
+          token: userCredential["token"],
+          id: newUser.id,
+        ));
 
         yield state.copyWith(formStatus: SubmissionSuccess());
+        yield state.copyWith(user: newUser);
       } catch (e) {
         yield state.copyWith(
             formStatus: SubmissionFailed(

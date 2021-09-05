@@ -27,13 +27,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             state.phoneNumber, state.password) as Map<String, dynamic>;
         User newUser = userCredential["user"] as User;
 
-        // TODO: Shared preference case
         authenticationBloc.add(LoggedIn(
-            phoneNumber: state.phoneNumber,
-            role: newUser.role[0]["roleName"],
-            token: userCredential["token"]));
+          phoneNumber: state.phoneNumber,
+          role: newUser.role[0]["roleName"],
+          token: userCredential["token"],
+          id: newUser.id,
+        ));
 
         yield state.copyWith(formStatus: SubmissionSuccess());
+        // print('--------------->After SubmissionSuccess');
+        yield state.copyWith(user: newUser);
         // auth cubit
       } catch (e) {
         yield state.copyWith(

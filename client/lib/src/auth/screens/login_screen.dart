@@ -40,7 +40,6 @@ class LoginScreen extends StatelessWidget {
               .userRepository
               .hasToken();
 
-          // print(userRole);
           if (token) {
             if (userRole == 'user') {
               Navigator.of(context).pushNamed(RouteGenerator.homeScreen);

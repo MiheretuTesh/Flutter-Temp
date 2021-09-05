@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 @immutable
 class User extends Equatable {
+  final String? id;
   final String firstName;
   final String lastName;
   final String phoneNumber;
@@ -11,26 +12,28 @@ class User extends Equatable {
   final dynamic image;
   final String dateOfBirth;
   final String? lastDonation;
-  final String password;
+  final String? password;
   final String bloodType;
   final String gender;
   final dynamic role;
 
   User(
-      {required this.firstName,
+      {this.id,
+      required this.firstName,
       required this.lastName,
       required this.phoneNumber,
       required this.email,
       required this.image,
       required this.dateOfBirth,
       this.lastDonation = '',
-      required this.password,
+      this.password,
       required this.bloodType,
       this.role,
       required this.gender});
 
   @override
   List<Object?> get props => [
+        id,
         firstName,
         lastName,
         phoneNumber,
@@ -47,13 +50,13 @@ class User extends Equatable {
   @override
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
+        id: json['_id'],
         firstName: json['firstName'],
         lastName: json['lastName'],
         phoneNumber: json['phoneNumber'],
         email: json['email'],
         image: json['image'],
         dateOfBirth: json['dateOfBirth'],
-        password: json['password'],
         bloodType: json['bloodType']['bloodTypeName'],
         role: json['roles'],
         gender: json['gender']);
@@ -61,5 +64,5 @@ class User extends Equatable {
 
   @override
   String toString() =>
-      'User\n  {firstName: $firstName, lastName:$lastName, phoneNumber: $phoneNumber,email: $email, image: $image,dateOfBirth: $dateOfBirth, bloodType $bloodType, role: $role}';
+      'User\n  {id: $id, firstName: $firstName, lastName:$lastName, phoneNumber: $phoneNumber,email: $email, image: $image,dateOfBirth: $dateOfBirth, bloodType $bloodType, role: $role}';
 }

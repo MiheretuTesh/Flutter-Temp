@@ -1,4 +1,5 @@
 import 'package:eshiblood/src/auth/bloc/form_submission_status.dart';
+import 'package:eshiblood/src/auth/models/user_model.dart';
 
 class SignUpState {
   final String firstName;
@@ -17,6 +18,7 @@ class SignUpState {
   final String bloodType;
   final dynamic profile;
   bool get isValidProfile => profile != null;
+  final User? user;
   final FormSubmissionStatus formStatus;
   final dynamic role;
 
@@ -31,6 +33,7 @@ class SignUpState {
     this.bloodType = 'A+',
     this.profile = null,
     this.role = 'user',
+    this.user,
     this.formStatus = const InitialFormStatus(),
   });
 
@@ -44,19 +47,20 @@ class SignUpState {
     String? gender,
     String? bloodType,
     dynamic profile,
+    User? user,
     FormSubmissionStatus? formStatus,
   }) {
     return SignUpState(
-      firstName: firstName ?? this.firstName,
-      lastName: lastName ?? this.lastName,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
-      email: email ?? this.email,
-      password: password ?? this.password,
-      dateOfBirth: dateOfBirth ?? this.dateOfBirth,
-      gender: gender ?? this.gender,
-      bloodType: bloodType ?? this.bloodType,
-      profile: profile ?? this.profile,
-      formStatus: formStatus ?? this.formStatus,
-    );
+        firstName: firstName ?? this.firstName,
+        lastName: lastName ?? this.lastName,
+        phoneNumber: phoneNumber ?? this.phoneNumber,
+        email: email ?? this.email,
+        password: password ?? this.password,
+        dateOfBirth: dateOfBirth ?? this.dateOfBirth,
+        gender: gender ?? this.gender,
+        bloodType: bloodType ?? this.bloodType,
+        profile: profile ?? this.profile,
+        formStatus: formStatus ?? this.formStatus,
+        user: user ?? this.user);
   }
 }

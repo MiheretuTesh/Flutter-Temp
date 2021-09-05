@@ -28,7 +28,7 @@ class AuthenticationBloc
       yield AuthenticationUnauthenticated();
       return;
     }
-
+    // print(user);
     yield AuthenticationAuthenticated();
   }
 
@@ -36,7 +36,7 @@ class AuthenticationBloc
     yield AuthenticationLoading();
 
     await userRepository.persistPhoneRoleAndToken(
-        event.phoneNumber!, event.role, event.token!);
+        event.phoneNumber!, event.role, event.token!, event.id!);
 
     yield* _initStartup();
   }

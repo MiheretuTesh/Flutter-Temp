@@ -12,18 +12,19 @@ class SecureStorage {
   static const _tokenKey = 'TOKEN';
   static const _phoneNumberKey = 'PHONENUMBER';
   static const _role = 'ROLE';
+  static const _id = 'ID';
 
   Future<void> persistPhoneRoleAndToken(
-      String phoneNumber, String role, String token) async {
-    // print('ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ');
-    // await deleteToken();
-    // print(await hasToken());
+      String phoneNumber, String role, String token, String id) async {
     await _storage.write(key: _phoneNumberKey, value: phoneNumber);
     await _storage.write(key: _role, value: role);
     await _storage.write(key: _tokenKey, value: token);
-    // print(await hasToken());
-    // print(await getRole());
-    // print('YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY');
+    await _storage.write(key: _id, value: id);
+  }
+
+  Future<bool> hasId() async {
+    var value = await _storage.read(key: _id);
+    return value != null;
   }
 
   Future<bool> hasToken() async {
@@ -45,20 +46,28 @@ class SecureStorage {
     return await _storage.delete(key: _tokenKey);
   }
 
+  Future<void> deleteId() async {
+    return await _storage.delete(key: _id);
+  }
+
   Future<void> deletePhoneNumber() async {
     return await _storage.delete(key: _phoneNumberKey);
   }
 
   Future<void> deleteRole() async {
-    return _storage.delete(key: _role);
+    return await _storage.delete(key: _role);
+  }
+
+  Future<String?> getId() async {
+    return await _storage.read(key: _id);
   }
 
   Future<String?> getToken() async {
-    return _storage.read(key: _tokenKey);
+    return await _storage.read(key: _tokenKey);
   }
 
   Future<String?> getPhoneNumber() async {
-    return _storage.read(key: _phoneNumberKey);
+    return await _storage.read(key: _phoneNumberKey);
   }
 
   Future<String?> getRole() async {
@@ -71,7 +80,6 @@ class SecureStorage {
 
   @override
   String toString() {
-    // TODO: implement toString
     return _tokenKey;
   }
 }

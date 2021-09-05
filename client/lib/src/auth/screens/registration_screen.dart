@@ -261,7 +261,6 @@ class ProfileWidget extends StatelessWidget {
                 },
                 child: BlocBuilder<SignUpBloc, SignUpState>(
                   builder: (context, state) {
-                    print(state.profile);
                     return state.profile == null
                         ? CircleAvatar(
                             radius: 71,
@@ -514,7 +513,7 @@ class GenderRadio extends StatelessWidget {
                             context.read<SignUpBloc>().add(
                                 SignUpGenderChanged(gender: value.toString()));
                           },
-                          value: "male",
+                          value: "Male",
                         ),
                         Text("Male")
                       ],
@@ -529,7 +528,7 @@ class GenderRadio extends StatelessWidget {
                             context.read<SignUpBloc>().add(
                                 SignUpGenderChanged(gender: value.toString()));
                           },
-                          value: "female",
+                          value: "Female",
                         ),
                         Text("Female")
                       ],
