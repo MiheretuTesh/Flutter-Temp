@@ -1,4 +1,5 @@
 const Request = require("../models/request");
+const BloodType = require("../models/bloodType");
 
 const { validationResult } = require("express-validator");
 const User = require("../models/user");
@@ -13,7 +14,7 @@ exports.getAllRequest = async (req, res, next) => {
       });
     }
     const page = req.query.page * 1 || 1;
-    const limit = req.query.limit * 1 || 1;
+    const limit = req.query.limit * 1 || 10;
 
     const result = await Request.paginate(
       { isDeleted: false },
@@ -80,18 +81,22 @@ exports.createRequest = async (req, res, next) => {
         message: errors.array()[0].msg,
       });
     }
-    
+    console.log(req.body.bloodType+"**********************")
     const userBloodType = await BloodType.findOne({
       bloodTypeName: req.body.bloodType,
     });
 
-    const request = await Request.create({
+    let request = await Request.create({
       ...req.body,
       bloodType: userBloodType._id,
       createdBy: req.user._id,
       updatedBy: req.user._id,
       donors: [req.user._id],
     });
+     request = await Request.findOne({
+      _id: request._id,
+      isDeleted: false,
+    }).populate("bloodType donors created");
 
     res.status(201).json({
       status: "success",
@@ -112,9 +117,17 @@ exports.updateRequest = async (req, res, next) => {
       });
     }
 
-    const request = await Request.findByIdAndUpdate(req.params.id, req.body, {
+    const userBloodType = await BloodType.findOne({
+      bloodTypeName: req.body.bloodType,
+    });
+
+    let request = await Request.findByIdAndUpdate(req.params.id, {...req.body, bloodType:userBloodType}, {
       new: true,
     });
+    request = await Request.findOne({
+      _id: request._id,
+      isDeleted: false,
+    }).populate("bloodType donors created");
 
     if (!request) {
       return res.status(404).json({
