@@ -343,17 +343,17 @@ class HomeWidget extends StatelessWidget {
 
                                 case 3:
                                   Navigator.pushNamed(context,
-                                      RouteGenerator.appointmentUpsert);
+                                      RouteGenerator.donationHistoryScreen);
                                   break;
 
                                 case 4:
-                                  Navigator.pushNamed(context,
-                                      RouteGenerator.appointmentUpsert);
+                                  Navigator.pushNamed(
+                                      context, RouteGenerator.profileScreen);
                                   break;
 
                                 case 5:
                                   Navigator.pushNamed(context,
-                                      RouteGenerator.appointmentUpsert);
+                                      RouteGenerator.eligibilityNoticeScreen);
                                   break;
 
                                 case 6:
