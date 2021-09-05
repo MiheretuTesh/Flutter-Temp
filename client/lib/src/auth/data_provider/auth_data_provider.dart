@@ -28,7 +28,7 @@ class AuthProvider {
       });
 
       var response = await Dio().post(
-        'http://192.168.1.13:8000/api/v1/users/signup',
+        'http://10.0.2.2:8000/api/v1/users/signup',
         data: formData,
         options: Options(
           headers: {

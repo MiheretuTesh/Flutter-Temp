@@ -4,9 +4,12 @@ import 'package:eshiblood/src/auth/bloc/signup_bloc.dart';
 import 'package:eshiblood/src/auth/data_provider/auth_data_provider.dart';
 import 'package:eshiblood/src/auth/repository/auth_repository.dart';
 import 'package:eshiblood/src/auth/repository/secure_storage.dart';
+import 'package:eshiblood/src/user/screens/donation_card_screen.dart';
+import 'package:eshiblood/src/user/screens/donation_history_screen.dart';
 import 'package:eshiblood/src/utilities/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_flip_builder/page_flip_builder.dart';
 
 class App extends StatelessWidget {
   final authRepo = AuthRepository(authProvider: AuthProvider());
@@ -30,7 +33,7 @@ class App extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        initialRoute: RouteGenerator.welcomeScreen,
+        initialRoute: RouteGenerator.homeScreen,
         onGenerateRoute: RouteGenerator.generateRoute,
       ),
     );

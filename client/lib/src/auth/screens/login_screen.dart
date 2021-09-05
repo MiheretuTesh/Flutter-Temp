@@ -39,7 +39,6 @@ class LoginScreen extends StatelessWidget {
               .read<AuthenticationBloc>()
               .userRepository
               .hasToken();
-
           if (token) {
             if (userRole == 'user') {
               Navigator.of(context).pushNamed(RouteGenerator.homeScreen);
