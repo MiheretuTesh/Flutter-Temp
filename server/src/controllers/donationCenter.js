@@ -9,7 +9,7 @@ exports.getAllDonationCenter = async (req, res, next) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      res.status(404).json({
+      return res.status(404).json({
         status: "error",
         message: errors.array()[0].msg,
       });
@@ -30,7 +30,7 @@ exports.getAllDonationCenter = async (req, res, next) => {
         },
       }
     );
-    res.status(200).json({
+    return res.status(200).json({
       status: "success",
       result,
     });
@@ -70,7 +70,7 @@ exports.getDonationCenter = async (req, res, next) => {
         message: "Donation Center with this ID does not exist",
       });
     }
-    res.status(200).json({
+    return res.status(200).json({
       status: "success",
       donationCenter,
     });
@@ -84,7 +84,7 @@ exports.createDonationCenter = async (req, res, next) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      res.status(404).json({
+      return res.status(404).json({
         status: "error",
         message: errors.array()[0].msg,
       });
@@ -94,10 +94,10 @@ exports.createDonationCenter = async (req, res, next) => {
       ...req.body,
       timeSlot: req.body.timeSlot._id,
       createdBy: req.user._id,
-      updatedBy: req.user._id,
+      // updatedBy: req.user._id,
     });
 
-    res.status(201).json({
+    return res.status(201).json({
       status: "success",
       donationCenter,
     });
@@ -131,7 +131,7 @@ exports.updateDonationCenter = async (req, res, next) => {
         message: "Donation Center with this ID does not exist",
       });
     }
-    res.status(200).json({
+    return res.status(200).json({
       status: "success",
       donationCenter,
     });
@@ -144,7 +144,7 @@ exports.deleteDonationCenter = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.status(400).json({
+      return res.status(400).json({
         status: "error",
         message: errors.array()[0].msg,
       });
@@ -162,7 +162,7 @@ exports.deleteDonationCenter = async (req, res, next) => {
         message: "Donation Center ID does not exist",
       });
     }
-    res.status(200).json({
+    return res.status(200).json({
       status: "success",
       donationCenter: null,
     });
@@ -193,7 +193,7 @@ exports.getNearDonationCenter = async (req, res, next) => {
         },
       }
     );
-    res.status(200).json({
+    return res.status(200).json({
       status: "success",
       result,
     });

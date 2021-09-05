@@ -21,10 +21,10 @@ exports.validate = (type) => {
           .not()
           .isEmpty()
           .withMessage("Donation Center Address is required"),
-        body("createdBy")
-          .not()
-          .isEmpty()
-          .withMessage("Donation Center created is required"),
+        // body("createdBy")
+        //   .not()
+        //   .isEmpty()
+        //   .withMessage("Donation Center created is required"),
       ];
     case "UPDATE":
       return [
