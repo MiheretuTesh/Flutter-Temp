@@ -20,7 +20,6 @@ exports.validate = (type) => {
        
         body("reason").not().isEmpty().withMessage("Reason is required"),
         body("bloodType").not().isEmpty().withMessage("Blood type is required"),
-        body("createdBy").not().isEmpty().withMessage("Created by is required"),
       ];
     case "UPDATE":
       return [
