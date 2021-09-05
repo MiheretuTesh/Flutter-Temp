@@ -1,6 +1,9 @@
 import 'package:eshiblood/src/admin/screens/users_screen.dart';
+import 'package:eshiblood/src/auth/bloc/login_bloc.dart';
+import 'package:eshiblood/src/auth/bloc/login_state.dart';
 import 'package:eshiblood/src/user/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -10,6 +13,7 @@ class DashboardScreen extends StatelessWidget {
       drawer: NavigationDrawerWidget(),
       appBar: AppBar(
         title: Text('Points'),
+        backgroundColor: Color(0xffd32026),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -432,50 +436,81 @@ class NavigationDrawerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: Material(
-        color: Color(0xFFD32026),
-        child: ListView(
-          padding: Padding,
-          children: [
-            buildHeader(
-              image: "image",
-              name: "Michael",
-              phoneNumber: "0966303009",
-              onClicked: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => ProfileScreen(),
+    return BlocBuilder<LoginBloc, LoginState>(
+      builder: (context, stateLogin) {
+        return Drawer(
+          child: Material(
+            color: Color(0xFFD32026),
+            child: ListView(
+              padding: Padding,
+              children: [
+                buildHeader(
+                  image:
+                      "http://192.168.1.13:8000/images/users/${stateLogin.user?.image}",
+                  name:
+                      "${stateLogin.user?.firstName} ${stateLogin.user?.lastName}",
+                  phoneNumber: "${stateLogin.user?.phoneNumber}",
+                  onClicked: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ProfileScreen(),
+                    ),
+                  ),
                 ),
-              ),
+                const SizedBox(height: 8),
+                buildMenuItem(
+                  text: 'Dashboard',
+                  icon: Icons.desktop_mac,
+                  onClicked: () => selectedItem(context, 0),
+                ),
+                Divider(
+                  color: Colors.white70,
+                  height: 4,
+                ),
+                const SizedBox(height: 16),
+                buildMenuItem(
+                  text: 'User list',
+                  icon: Icons.people,
+                  onClicked: () => selectedItem(context, 1),
+                ),
+                Divider(
+                  color: Colors.white70,
+                  height: 4,
+                ),
+                const SizedBox(height: 16),
+                buildMenuItem(
+                    text: 'Donation Center Create',
+                    icon: Icons.add_business_outlined),
+                const SizedBox(height: 16),
+                Divider(
+                  color: Colors.white70,
+                  height: 4,
+                ),
+                buildMenuItem(
+                    text: 'Request Create', icon: Icons.article_outlined),
+                const SizedBox(height: 24),
+                Divider(
+                  color: Colors.white70,
+                  height: 4,
+                ),
+                const SizedBox(height: 24),
+                buildMenuItem(text: 'Request Detail', icon: Icons.people),
+                Divider(
+                  color: Colors.white70,
+                  height: 4,
+                ),
+                const SizedBox(height: 24),
+                buildMenuItem(text: 'Role Management', icon: Icons.people),
+                Divider(
+                  color: Colors.white70,
+                  height: 4,
+                ),
+                const SizedBox(height: 24),
+                buildMenuItem(text: 'Logout', icon: Icons.logout),
+              ],
             ),
-            const SizedBox(height: 8),
-            buildMenuItem(
-              text: 'People',
-              icon: Icons.people,
-              onClicked: () => selectedItem(context, 0),
-            ),
-            const SizedBox(height: 16),
-            buildMenuItem(
-              text: 'People',
-              icon: Icons.people,
-              onClicked: () => selectedItem(context, 1),
-            ),
-            const SizedBox(height: 16),
-            buildMenuItem(text: 'People', icon: Icons.people),
-            const SizedBox(height: 16),
-            buildMenuItem(text: 'People', icon: Icons.people),
-            const SizedBox(height: 24),
-            Divider(
-              color: Colors.white70,
-              height: 4,
-            ),
-            const SizedBox(height: 24),
-            buildMenuItem(text: 'People', icon: Icons.people),
-            const SizedBox(height: 24),
-            buildMenuItem(text: 'People', icon: Icons.people),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 
@@ -507,7 +542,11 @@ class NavigationDrawerWidget extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 40),
           child: Row(
             children: [
-              CircleAvatar(radius: 30, backgroundImage: NetworkImage(image)),
+              CircleAvatar(
+                  radius: 31,
+                  backgroundColor: Colors.white,
+                  child: CircleAvatar(
+                      radius: 30, backgroundImage: NetworkImage(image))),
               SizedBox(width: 20),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -523,12 +562,12 @@ class NavigationDrawerWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              Spacer(),
-              CircleAvatar(
-                radius: 24,
-                backgroundColor: Color.fromRGBO(30, 60, 168, 1),
-                child: Icon(Icons.add_comment_outlined, color: Colors.white),
-              )
+              // Spacer(),
+              // CircleAvatar(
+              //   radius: 24,
+              //   backgroundColor: Color.fromRGBO(30, 60, 168, 1),
+              //   child: Icon(Icons.add_comment_outlined, color: Colors.white),
+              // )
             ],
           ),
         ),

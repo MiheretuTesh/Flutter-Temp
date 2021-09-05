@@ -42,7 +42,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           password: '',
           dateOfBirth: '',
           profile: null,
-          gender: 'male',
+          gender: 'Male',
           bloodType: 'A+');
       yield state.copyWith(formStatus: InitialFormStatus());
     } else if (event is SignUpProfileChanged) {

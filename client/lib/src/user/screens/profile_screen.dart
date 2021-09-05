@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:eshiblood/src/auth/bloc/login_bloc.dart';
 import 'package:eshiblood/src/auth/bloc/login_state.dart';
 import 'package:eshiblood/src/auth/bloc/signup_bloc.dart';
@@ -18,25 +16,27 @@ class ProfileScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: Container(
-        child: CustomScrollView(
-          physics: ClampingScrollPhysics(),
-          controller: controller,
-          slivers: <Widget>[
-            SliverAppBar(
-              backgroundColor: Colors.white,
-              expandedHeight: 300.0,
-              floating: true,
-              leading: Container(),
-              snap: true,
-              elevation: 50.0,
-              pinned: true,
-              flexibleSpace: _MyAppSpace(),
-            ),
-            SliverToBoxAdapter(
-              child: _ProfileContentSpace(),
-            ),
-          ],
+      body: SafeArea(
+        child: Container(
+          child: CustomScrollView(
+            physics: ClampingScrollPhysics(),
+            controller: controller,
+            slivers: <Widget>[
+              SliverAppBar(
+                backgroundColor: Color(0xffd32026),
+                expandedHeight: 300.0,
+                floating: true,
+                leading: Container(),
+                snap: true,
+                elevation: 50.0,
+                pinned: true,
+                flexibleSpace: _MyAppSpace(),
+              ),
+              SliverToBoxAdapter(
+                child: _ProfileContentSpace(),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -267,10 +267,14 @@ class _MyAppSpace extends StatelessWidget {
                               Row(
                                 children: [
                                   CircleAvatar(
-                                    backgroundImage: NetworkImage(
-                                        'http://192.168.1.13:8000/images/users/${stateLogin.user?.image}'),
-                                    radius: 20,
                                     backgroundColor: Colors.white,
+                                    radius: 21,
+                                    child: CircleAvatar(
+                                      backgroundImage: NetworkImage(
+                                          'http://192.168.1.13:8000/images/users/${stateLogin.user?.image}'),
+                                      radius: 20,
+                                      backgroundColor: Colors.white,
+                                    ),
                                   ),
                                   SizedBox(
                                     width: 15,
@@ -278,9 +282,9 @@ class _MyAppSpace extends StatelessWidget {
                                   Text(
                                     "${stateLogin.user?.firstName} ${stateLogin.user?.lastName}",
                                     style: TextStyle(
-                                      color: Color(0xFFD32026),
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      // fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ],
@@ -325,7 +329,7 @@ class _MyAppSpace extends StatelessWidget {
                             Text(
                               '${stateLogin.user?.firstName} ${stateLogin.user?.lastName}',
                               style: TextStyle(
-                                color: Color(0xFFD32026),
+                                color: Colors.white,
                                 fontSize: 24,
                               ),
                             ),

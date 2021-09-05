@@ -59,7 +59,7 @@ class WelcomeScreen extends StatelessWidget {
                 ),
                 HorizontalDivider(label: 'or', height: 4.0),
                 RoundButton(
-                  text: 'Register',
+                  text: 'Signup',
                   color: Color(0xffffffff),
                   onPressed: () {
                     Navigator.of(context)
