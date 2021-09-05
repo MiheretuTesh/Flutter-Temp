@@ -1,0 +1,2 @@
+final String baseUrl = "http://localhost:8000/api/v1";
+final String bearer = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkN2E1MTRiNWQyYzEyYzc0NDliZTAyMCIsImlhdCI6MTYzMDgzNTMzOSwiZXhwIjo2ZSszMH0.jlXctyGOwWaNLK1wyfm8bfXLBF5h6GRLE4qrz_sWFCQ";

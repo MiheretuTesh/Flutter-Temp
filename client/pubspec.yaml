@@ -15,6 +15,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   qr_flutter: ^4.0.0
   image_picker: any
+  sliver_tools: any
+  percent_indicator: any
+  flutter_bloc: any
+  dio: any
 
 dev_dependencies:
   flutter_test:

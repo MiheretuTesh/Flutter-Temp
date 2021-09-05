@@ -50,7 +50,7 @@ app.use("/api/v1/roles", roleRouter);
 //     message: `The requested url ${req.originalUrl} doesnot exist`,
 //   });
 // });
-
+console.log("start");
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server is running at port ${port}`);
