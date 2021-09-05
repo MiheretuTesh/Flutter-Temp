@@ -33,6 +33,7 @@ exports.verifyUser = async (req, res, next) => {
     console.log(id);
     const user = await User.findById(id).populate("roles bloodType");
     req.user = user;
+    res.setHeader("Content-Type", "application/json");
 
     next();
   } catch (err) {

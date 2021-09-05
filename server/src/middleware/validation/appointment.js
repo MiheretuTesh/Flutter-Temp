@@ -17,9 +17,6 @@ exports.validate = (type) => {
           .not()
           .isEmpty()
           .withMessage("Appointment Descriptions is required"),
-        body("height").not().isEmpty().withMessage("Height is required"),
-        body("height").not().isNumeric().withMessage("Height must be a number"),
-        body("weight").not().isNumeric().withMessage("Weight must be a number"),
         body("weight").not().isEmpty().withMessage("Weight is required"),
       ];
     case "UPDATE":

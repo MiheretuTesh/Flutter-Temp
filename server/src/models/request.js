@@ -9,8 +9,9 @@ const requestSchema = new mongoose.Schema(
     reason: {
       type: String,
     },
-    totalDonation: {
+    totalDonations: {
       type: Number,
+      default: 0,
     },
     status: {
       type: String,

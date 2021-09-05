@@ -84,6 +84,7 @@ exports.getAppointment = async (req, res, next) => {
 
 exports.createAppointment = async (req, res, next) => {
   try {
+    console.log(req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({
@@ -99,6 +100,11 @@ exports.createAppointment = async (req, res, next) => {
       startDate: Date(req.body.startDate),
       endDate: Date(req.body.endDate),
     });
+
+    // appointment = await Appointment.findById(appointment._id).populate({
+    //   path: "userId acceptorId donationCenter",
+    //   populate: { path: "roles", model: "Role" },
+    // });
 
     res.status(201).json({
       status: "success",
