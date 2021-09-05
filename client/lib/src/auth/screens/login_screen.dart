@@ -20,86 +20,81 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final bool keyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
-    return BlocProvider(
-      create: (context) => ToggleBloc(),
-      child: Scaffold(
-        body: Stack(
-          children: [
-            Container(
-              height: size.height - 200,
-              color: Color(0xFFD32026),
-            ),
-            AnimatedPositioned(
-              duration: Duration(milliseconds: 200),
-              curve: Curves.easeOutQuad,
-              top: keyboardOpen ? -size.height / 3.7 : 0.0,
-              child: WaveWidget(
-                size: size,
-                yOffset: size.height / 3.0,
-                color: Colors.white,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<LoginBloc, LoginState>(
+          listener: (context, state) async {
+            final formStatus = state.formStatus;
+            print(state);
+            if (formStatus is SubmissionFailed) {
+              _showSnackBar(context, formStatus.errorMessage.toString());
+            }
+          },
+        ),
+        BlocListener<AuthenticationBloc, AuthenticationState>(
+            listener: (context, state) async {
+          final userRole =
+              await context.read<AuthenticationBloc>().userRepository.getRole();
+          final token = await context
+              .read<AuthenticationBloc>()
+              .userRepository
+              .hasToken();
+          // print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW $userRole");
+          if (token) {
+            if (userRole == 'user') {
+              Navigator.of(context).pushNamed(RouteGenerator.homeScreen);
+            } else if (userRole == 'admin') {
+              Navigator.of(context).pushNamed(RouteGenerator.dashboardScreen);
+            }
+          }
+        }),
+      ],
+      child: BlocProvider(
+        create: (context) => ToggleBloc(),
+        child: Scaffold(
+          body: Stack(
+            children: [
+              Container(
+                height: size.height - 200,
+                color: Color(0xFFD32026),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 140.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(50.0),
-                    child: keyboardOpen
-                        ? Container()
-                        : Image.asset(
-                            'assets/images/eshi_blood_logo.png',
-                            width: 140.0,
-                          ),
-                  ),
-                  SizedBox(
-                    width: 8.0,
-                  ),
-                  Text('Login',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 40.0,
-                        fontWeight: FontWeight.w900,
-                      )),
-                ],
-              ),
-            ),
-            MultiBlocListener(
-              listeners: [
-                BlocListener<AuthenticationBloc, AuthenticationState>(
-                    listener: (context, state) async {
-                  final userRole = await context
-                      .read<AuthenticationBloc>()
-                      .userRepository
-                      .getRole();
-                  final token = await context
-                      .read<AuthenticationBloc>()
-                      .userRepository
-                      .hasToken();
-                  // print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW $userRole");
-                  if (token) {
-                    if (userRole == 'user') {
-                      Navigator.of(context)
-                          .pushNamed(RouteGenerator.homeScreen);
-                    } else if (userRole == 'admin') {
-                      Navigator.of(context)
-                          .pushNamed(RouteGenerator.dashboardScreen);
-                    }
-                  }
-                }),
-                BlocListener<LoginBloc, LoginState>(
-                  listener: (context, state) async {
-                    final formStatus = state.formStatus;
-                    print(state);
-                    if (formStatus is SubmissionFailed) {
-                      _showSnackBar(
-                          context, formStatus.errorMessage.toString());
-                    }
-                  },
+              AnimatedPositioned(
+                duration: Duration(milliseconds: 200),
+                curve: Curves.easeOutQuad,
+                top: keyboardOpen ? -size.height / 3.7 : 0.0,
+                child: WaveWidget(
+                  size: size,
+                  yOffset: size.height / 3.0,
+                  color: Colors.white,
                 ),
-              ],
-              child: Padding(
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 140.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(50.0),
+                      child: keyboardOpen
+                          ? Container()
+                          : Image.asset(
+                              'assets/images/eshi_blood_logo.png',
+                              width: 140.0,
+                            ),
+                    ),
+                    SizedBox(
+                      width: 8.0,
+                    ),
+                    Text('Login',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 40.0,
+                          fontWeight: FontWeight.w900,
+                        )),
+                  ],
+                ),
+              ),
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 60.0),
                 child: Form(
                   key: formKey,
@@ -207,9 +202,9 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ]),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

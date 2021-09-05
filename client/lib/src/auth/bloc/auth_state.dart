@@ -9,6 +9,3 @@ class AuthenticationAuthenticated extends AuthenticationState {}
 class AuthenticationLoading extends AuthenticationState {}
 
 class AuthenticationLoggingOut extends AuthenticationState {}
-
-
-

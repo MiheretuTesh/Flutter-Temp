@@ -37,8 +37,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             role: newUser.role[0]["roleName"],
             token: userCredential["token"]));
 
-
-
         yield state.copyWith(formStatus: SubmissionSuccess());
         // auth cubit
       } catch (e) {
