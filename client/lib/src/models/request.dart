@@ -33,20 +33,34 @@ class Request {
     // print(json["unitsNeeded"].runtimeType);
 
     // print();
-    print(
-        "*********************** Request fromJson ****************************");
+    print("*********************** Request fromJson ****************************");
 
     // print(json["totalDonations"]);
+    String? createdBy;
+    String? updatedBy;
+    try {
+      createdBy= json["createdBy"]["_id"];
+      
+    } catch (e) {
+      createdBy= json["createdBy"];
+    }
+
+    try {
+      updatedBy= json["updatedBy"]["_id"];
+      
+    } catch (e) {
+      updatedBy= json["updatedBy"];
+    }
 
     return Request(
-      // id: json["_id"],
+      id: json["_id"],
       unitsNeeded: json["unitsNeeded"],
       totalDonations: json["totalDonations"] ?? 0,
       reason: json["reason"],
       status: json["status"],
       bloodType: json["bloodType"]["bloodTypeName"],
-      createdBy: json["createdBy"],
-      UpdatedBy: json["UpdatedBy"],
+      createdBy: createdBy,
+      UpdatedBy: updatedBy,
       donors: List<Map>.generate(
           json["donors"].length, (index) => json["donors"][index]),
     );

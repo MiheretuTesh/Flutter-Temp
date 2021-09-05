@@ -46,7 +46,7 @@ class RequestBloc extends Bloc<RequestEvent, RequestState> {
     if (event is RequestDelete){
       yield RequestLoading();
       try {
-        await requestRepository.deleteRequest(event.request.id);
+        await requestRepository.deleteRequest(event.request.id??"");
         final requests = await requestRepository.getRequests();
         yield RequestLoadSuccess(requests);
       } catch (e) {
