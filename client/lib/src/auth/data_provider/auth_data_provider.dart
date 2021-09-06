@@ -1,7 +1,6 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:eshiblood/src/auth/models/user_model.dart';
+import 'package:eshiblood/src/auth/repository/secure_storage.dart';
 
 class AuthProvider {
   final _baseUrl = '192.168.1.13:8000';
@@ -28,7 +27,7 @@ class AuthProvider {
       });
 
       var response = await Dio().post(
-        'http://192.168.1.13:8000/api/v1/users/signup',
+        'http://${_baseUrl}/api/v1/users/signup',
         data: formData,
         options: Options(
           headers: {
@@ -58,10 +57,10 @@ class AuthProvider {
     try {
       print("Fetching Start Login Data Provider...");
 
-      var response = await Dio().post(
-          'http://192.168.1.13:8000/api/v1/users/login',
+      var response = await Dio().post('http://${_baseUrl}/api/v1/users/login',
           data: {'phoneNumber': phone, 'password': password});
       print(response.data);
+      // print(await SecureStorage().hasToken());
       if (response.statusCode == 201) {
         var user = User.fromJson((response.data["user"]));
 

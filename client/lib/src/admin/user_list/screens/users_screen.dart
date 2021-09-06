@@ -1,29 +1,46 @@
 import 'package:eshiblood/src/admin/screens/dashboard_screen.dart';
+import 'package:eshiblood/src/admin/user_list/bloc/user_list_bloc.dart';
+import 'package:eshiblood/src/admin/user_list/bloc/user_list_event.dart';
+import 'package:eshiblood/src/admin/user_list/bloc/user_list_state.dart';
+import 'package:eshiblood/src/admin/user_list/data_provider/user_list_provider.dart';
+import 'package:eshiblood/src/admin/user_list/repository/user_list_repository.dart';
 import 'package:eshiblood/src/auth/widgets/horizontal_divider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_dialog/overlay_dialog.dart';
 
 class UsersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<UserListBloc>(context).add(UserListEvent([]));
     return Scaffold(
       appBar: AppBar(
-        title: Text("Users"),
+        backgroundColor: Color(0xffd32026),
+        title: Text("Users List"),
       ),
       drawer: NavigationDrawerWidget(),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: GridView.builder(
-          itemCount: 10,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 4.0,
-            mainAxisSpacing: 4.0,
-          ),
-          itemBuilder: (BuildContext context, int index) {
-            return DonorCard(context);
-          },
-        ),
+      body: BlocBuilder<UserListBloc, UserListState>(
+        builder: (context, userListState) {
+          print(userListState);
+          return (userListState is UserListStateLoading)
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GridView.builder(
+                    itemCount: 10,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 4.0,
+                      mainAxisSpacing: 4.0,
+                    ),
+                    itemBuilder: (BuildContext context, int index) {
+                      return DonorCard(context);
+                    },
+                  ),
+                );
+        },
       ),
     );
   }

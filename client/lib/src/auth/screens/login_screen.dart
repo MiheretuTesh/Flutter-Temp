@@ -1,4 +1,5 @@
 import 'package:eshiblood/src/auth/bloc/auth_bloc.dart';
+import 'package:eshiblood/src/auth/bloc/auth_event.dart';
 import 'package:eshiblood/src/auth/bloc/auth_state.dart';
 import 'package:eshiblood/src/auth/bloc/form_submission_status.dart';
 import 'package:eshiblood/src/auth/bloc/login_bloc.dart';
@@ -23,9 +24,9 @@ class LoginScreen extends StatelessWidget {
     return MultiBlocListener(
       listeners: [
         BlocListener<LoginBloc, LoginState>(
-          listener: (context, state) async {
-            final formStatus = state.formStatus;
-            print(state);
+          listener: (context, stateLogin) async {
+            final formStatus = stateLogin.formStatus;
+            // print(stateLogin);
             if (formStatus is SubmissionFailed) {
               _showSnackBar(context, formStatus.errorMessage.toString());
             }
@@ -39,6 +40,7 @@ class LoginScreen extends StatelessWidget {
               .read<AuthenticationBloc>()
               .userRepository
               .hasToken();
+          BlocProvider.of<LoginBloc>(context).add(LoginLoggedOut());
           if (token) {
             if (userRole == 'user') {
               Navigator.of(context).pushNamed(RouteGenerator.homeScreen);

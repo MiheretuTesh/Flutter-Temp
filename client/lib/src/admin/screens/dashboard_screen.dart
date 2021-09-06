@@ -1,18 +1,29 @@
-import 'package:eshiblood/src/admin/screens/users_screen.dart';
+import 'package:eshiblood/src/admin/screens/role_management.dart';
+import 'package:eshiblood/src/admin/user_list/screens/users_screen.dart';
+import 'package:eshiblood/src/appointment/screens/create_donation_center.dart';
+import 'package:eshiblood/src/auth/bloc/auth_bloc.dart';
+import 'package:eshiblood/src/auth/bloc/auth_event.dart';
 import 'package:eshiblood/src/auth/bloc/login_bloc.dart';
+import 'package:eshiblood/src/auth/bloc/login_event.dart';
 import 'package:eshiblood/src/auth/bloc/login_state.dart';
+import 'package:eshiblood/src/request/screen/create_request.dart';
+import 'package:eshiblood/src/request/screen/request_detail.dart';
 import 'package:eshiblood/src/user/screens/profile_screen.dart';
+import 'package:eshiblood/src/utilities/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+final _baseUrl = '192.168.1.13:8000';
+
 class DashboardScreen extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: NavigationDrawerWidget(),
       appBar: AppBar(
-        title: Text('Points'),
+        title: Text('Dashboard'),
         backgroundColor: Color(0xffd32026),
       ),
       body: SafeArea(
@@ -433,7 +444,6 @@ class RewardModel {
 
 class NavigationDrawerWidget extends StatelessWidget {
   final Padding = EdgeInsets.symmetric(horizontal: 20);
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginBloc, LoginState>(
@@ -445,8 +455,7 @@ class NavigationDrawerWidget extends StatelessWidget {
               padding: Padding,
               children: [
                 buildHeader(
-                  image:
-                      "http://192.168.1.13:8000/images/users/${stateLogin.user?.image}",
+                  image: "http:///images/users/${stateLogin.user?.image}",
                   name:
                       "${stateLogin.user?.firstName} ${stateLogin.user?.lastName}",
                   phoneNumber: "${stateLogin.user?.phoneNumber}",
@@ -468,7 +477,7 @@ class NavigationDrawerWidget extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 buildMenuItem(
-                  text: 'User list',
+                  text: 'Users list',
                   icon: Icons.people,
                   onClicked: () => selectedItem(context, 1),
                 ),
@@ -478,34 +487,55 @@ class NavigationDrawerWidget extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 buildMenuItem(
-                    text: 'Donation Center Create',
-                    icon: Icons.add_business_outlined),
+                  text: 'Create Donation Center',
+                  icon: Icons.add_business_outlined,
+                  onClicked: () => selectedItem(context, 2),
+                ),
                 const SizedBox(height: 16),
                 Divider(
                   color: Colors.white70,
                   height: 4,
                 ),
                 buildMenuItem(
-                    text: 'Request Create', icon: Icons.article_outlined),
+                  text: 'Create Request',
+                  icon: Icons.article_outlined,
+                  onClicked: () => selectedItem(context, 3),
+                ),
                 const SizedBox(height: 24),
                 Divider(
                   color: Colors.white70,
                   height: 4,
                 ),
                 const SizedBox(height: 24),
-                buildMenuItem(text: 'Request Detail', icon: Icons.people),
+                buildMenuItem(
+                    text: 'Request Detail',
+                    icon: Icons.people,
+                    onClicked: () => selectedItem(context, 4)),
                 Divider(
                   color: Colors.white70,
                   height: 4,
                 ),
                 const SizedBox(height: 24),
-                buildMenuItem(text: 'Role Management', icon: Icons.people),
+                buildMenuItem(
+                    text: 'Role Management',
+                    icon: Icons.people,
+                    onClicked: () => selectedItem(context, 5)),
                 Divider(
                   color: Colors.white70,
                   height: 4,
                 ),
                 const SizedBox(height: 24),
-                buildMenuItem(text: 'Logout', icon: Icons.logout),
+                buildMenuItem(
+                    text: 'Logout',
+                    icon: Icons.logout,
+                    onClicked: () {
+                      print('Logout Clicked From Dashboard Screen');
+                      BlocProvider.of<AuthenticationBloc>(context)
+                          .add(LoggedOut());
+                      BlocProvider.of<LoginBloc>(context).add(LoginLoggedOut());
+                      Navigator.of(context)
+                          .popAndPushNamed(RouteGenerator.loginScreen);
+                    }),
               ],
             ),
           ),
@@ -587,6 +617,22 @@ class NavigationDrawerWidget extends StatelessWidget {
         Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => UsersScreen(),
         ));
+        break;
+      case 2:
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => CreateDonationCenterScaffold()));
+        break;
+      case 3:
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => CreateRequestScaffold()));
+        break;
+      case 4:
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => RequestDetail()));
+        break;
+      case 5:
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => RoleManagementScaffold()));
         break;
     }
   }

@@ -1,3 +1,4 @@
+import 'package:eshiblood/src/admin/screens/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 
 class CreateRequestScaffold extends StatelessWidget {
@@ -8,7 +9,9 @@ class CreateRequestScaffold extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("New Request"),
+        backgroundColor: Color(0xffd32026),
       ),
+      drawer: NavigationDrawerWidget(),
       body: CreateRequest(),
     );
   }
@@ -41,18 +44,15 @@ class CreateRequestButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: InkWell(
-        onTap: () {
-          
-        },
+        onTap: () {},
         child: Container(
           margin: EdgeInsets.only(top: 20),
           width: 300,
           height: 50,
           decoration: BoxDecoration(
-              color: Colors.red,
-              border: Border.all(color: Colors.red),
+              color: Color(0xffd32026),
+              border: Border.all(color: Color(0xffd32026)),
               borderRadius: BorderRadius.circular(25),
-              
               boxShadow: [
                 BoxShadow(
                     color: Colors.black45, blurRadius: 10, offset: Offset(0, 0))
@@ -92,7 +92,7 @@ class _ReasonWidgetState extends State<ReasonWidget> {
         Container(
           margin: EdgeInsets.all(10),
           decoration: BoxDecoration(
-              border: Border.all(color: Colors.red),
+              border: Border.all(color: Color(0xffd32026)),
               borderRadius: BorderRadius.circular(10),
               color: Colors.white,
               boxShadow: [

@@ -1,3 +1,4 @@
+import 'package:eshiblood/src/admin/screens/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 
 class CreateDonationCenterScaffold extends StatelessWidget {
@@ -8,7 +9,9 @@ class CreateDonationCenterScaffold extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Create Donation Center"),
+        backgroundColor: Color(0xffd32026),
       ),
+      drawer: NavigationDrawerWidget(),
       body: CreateDonationCenter(),
     );
   }
@@ -702,9 +705,10 @@ class _CreateDonationCenterState extends State<CreateDonationCenter> {
                 ),
               ),
               TimeSlotPicker(),
-              SizedBox(height: 40,),
+              SizedBox(
+                height: 40,
+              ),
               CreateDonationButton()
-
             ],
           ),
         ),
@@ -722,7 +726,7 @@ class CreateDonationButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: InkWell(
-        onTap: (){
+        onTap: () {
           print("clicked");
         },
         child: Container(
@@ -732,7 +736,6 @@ class CreateDonationButton extends StatelessWidget {
               color: Colors.red,
               border: Border.all(color: Colors.red),
               borderRadius: BorderRadius.circular(25)),
-              
           child: Center(
               child: Text(
             "Create",

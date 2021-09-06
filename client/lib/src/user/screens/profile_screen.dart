@@ -8,6 +8,8 @@ import 'dart:math' as math;
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+final _baseUrl = '192.168.1.13:8000';
+
 class ProfileScreen extends StatelessWidget {
   ScrollController controller = ScrollController();
 
@@ -271,7 +273,7 @@ class _MyAppSpace extends StatelessWidget {
                                     radius: 21,
                                     child: CircleAvatar(
                                       backgroundImage: NetworkImage(
-                                          'http://192.168.1.13:8000/images/users/${stateLogin.user?.image}'),
+                                          'http://${_baseUrl}/images/users/${stateLogin.user?.image}'),
                                       radius: 20,
                                       backgroundColor: Colors.white,
                                     ),
@@ -314,7 +316,7 @@ class _MyAppSpace extends StatelessWidget {
                           width: double.infinity,
                           height: double.infinity,
                           child: Image.network(
-                            'http://192.168.1.13:8000/images/users/${stateLogin.user?.image}',
+                            'http://${_baseUrl}/images/users/${stateLogin.user?.image}',
                             fit: BoxFit.cover,
                           )),
                     ),

@@ -20,6 +20,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield state.copyWith(phoneNumber: event.phoneNumber);
     } else if (event is LoginPasswordChanged) {
       yield state.copyWith(password: event.password);
+    } else if (event is LoginLoggedOut) {
+      yield state.copyWith(phoneNumber: '', password: '');
     } else if (event is LoginSubmitted) {
       yield state.copyWith(formStatus: FormSubmitting());
       try {
