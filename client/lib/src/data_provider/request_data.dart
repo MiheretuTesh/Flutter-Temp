@@ -34,8 +34,18 @@ class RequestDataProvider {
       print("requests ***********************");
       return requests.map((request) => Request.fromJson(request)).toList();
     } else {
-      print("heeeeeeeeeeeeeeeeeeeeeeeeeeeeeelo");
+      // print("heeeeeeeeeeeeeeeeeeeeeeeeeeeeeelo");
       throw Exception("Failed To Load Requests");
+    }
+  }
+
+  Future<Request> getRequest(String id) async {
+    final response = await dio.get("/requests/$id");
+
+    if (response.statusCode == 200) {
+      return Request.fromJson(response.data["request"]);
+    } else {
+      throw Exception("Failed to Update Request******");
     }
   }
 

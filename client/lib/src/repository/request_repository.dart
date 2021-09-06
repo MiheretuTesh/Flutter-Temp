@@ -16,6 +16,10 @@ class RequestRepository {
   Future<List<Request>> getRequests() async {
     return await dataProvider.getRequests();
   }
+  
+  Future<Request> getRequest(String id) async {
+    return await dataProvider.getRequest(id);
+  }
 
   Future<void> updateRequest(Request request) async {
     await dataProvider.updateRequest(request);

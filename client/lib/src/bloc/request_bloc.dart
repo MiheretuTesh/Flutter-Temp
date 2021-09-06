@@ -14,11 +14,20 @@ class RequestBloc extends Bloc<RequestEvent, RequestState> {
 
   @override
   Stream<RequestState> mapEventToState(RequestEvent event) async* {
-    if (event is RequestLoad){
+    if (event is RequestsLoad){
       yield RequestLoading();
       try {
         final requests = await requestRepository.getRequests();
-        yield RequestLoadSuccess(requests);
+        yield RequestsLoadSuccess(requests);
+      } catch (e) {
+        yield RequestOperationFailure();
+      }
+    }
+    if (event is RequestLoad){
+      yield RequestLoading();
+      try {
+        final request = await requestRepository.getRequest(event.request.id??"");
+        yield RequestLoadSuccess(request);
       } catch (e) {
         yield RequestOperationFailure();
       }
@@ -27,8 +36,8 @@ class RequestBloc extends Bloc<RequestEvent, RequestState> {
       yield RequestLoading();
       try {
         await requestRepository.createRequest(event.request);
-        final requests = await requestRepository.getRequests();
-        yield RequestLoadSuccess(requests);
+        final request = await requestRepository.getRequest(event.request.id??"");
+        yield RequestCreateSuccess(request);
       } catch (e) {
         yield RequestOperationFailure();
       }
@@ -37,8 +46,8 @@ class RequestBloc extends Bloc<RequestEvent, RequestState> {
       yield RequestLoading();
       try {
         await requestRepository.updateRequest(event.request);
-        final requests = await requestRepository.getRequests();
-        yield RequestLoadSuccess(requests);
+        final request = await requestRepository.getRequest(event.request.id??"");
+        yield RequestUpdateSuccess(request);
       } catch (e) {
         yield RequestOperationFailure();
       }
@@ -47,8 +56,7 @@ class RequestBloc extends Bloc<RequestEvent, RequestState> {
       yield RequestLoading();
       try {
         await requestRepository.deleteRequest(event.request.id??"");
-        final requests = await requestRepository.getRequests();
-        yield RequestLoadSuccess(requests);
+        yield RequestDeleteSuccess();
       } catch (e) {
         yield RequestOperationFailure();
       }

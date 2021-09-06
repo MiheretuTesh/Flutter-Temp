@@ -3,7 +3,14 @@ part of 'request_bloc.dart';
 @immutable
 abstract class RequestEvent {}
 
-class RequestLoad extends RequestEvent {}
+class RequestLoad extends RequestEvent {
+  Request request;
+  RequestLoad(this.request);
+}
+class RequestsLoad extends RequestEvent {
+  List<Request> requests;
+  RequestsLoad(this.requests);
+}
 
 class RequestCreate extends RequestEvent {
   Request request;
