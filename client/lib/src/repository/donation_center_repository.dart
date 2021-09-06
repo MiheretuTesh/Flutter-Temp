@@ -16,6 +16,9 @@ class DonationCenterRepository {
   Future<List<DonationCenter>> getDonationCenters() async {
     return await dataProvider.getDonationCenters();
   }
+  Future<DonationCenter> getDonationCenter(String id) async {
+    return await dataProvider.getDonationCenter(id);
+  }
 
   Future<void> updateDonationCenter(DonationCenter donationCenter) async {
     await dataProvider.updateDonationCenter(donationCenter);

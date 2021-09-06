@@ -25,7 +25,7 @@ class DonationCenterDataProvider {
   }
 
   Future<List<DonationCenter>> getDonationCenters() async {
-    print("ggggggggeeeeeeeeeeeeeettttttttttttt");
+    // print("ggggggggeeeeeeeeeeeeeettttttttttttt");
     final response = await dio.get("/DonationCenters");
     if (response.statusCode == 200) {
       // print(response.data["result"]["docs"]);
@@ -33,6 +33,18 @@ class DonationCenterDataProvider {
       // print(donationCenters);
       print("DonationCenters ***********************");
       return donationCenters.map((donationCenter) => DonationCenter.fromJson(donationCenter)).toList();
+    } else {
+      throw Exception("Failed To Load DonationCenters");
+    }
+  }
+  Future<DonationCenter> getDonationCenter(String id) async {
+    final response = await dio.get("/DonationCenters/$id");
+    if (response.statusCode == 200) {
+      // print(response.data["result"]["docs"]);
+      final donationCenter = response.data["donationCenter"];
+      // print(donationCenters);
+      print("DonationCenter ************ $id  ***********");
+      return DonationCenter.fromJson(donationCenter);
     } else {
       throw Exception("Failed To Load DonationCenters");
     }

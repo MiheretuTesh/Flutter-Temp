@@ -17,8 +17,17 @@ class DonationCenterBloc extends Bloc<DonationCenterEvent, DonationCenterState> 
     if (event is DonationCenterLoad){
       yield DonationCenterLoading();
       try {
+        final donationCenter = await donationCenterRepository.getDonationCenter(event.donationCenter.id??"");//TODO
+        yield DonationCenterLoadSuccess(donationCenter);
+      } catch (e) {
+        yield DonationCenterOperationFailure();
+      }
+    }
+    if (event is DonationCentersLoad){
+      yield DonationCenterLoading();
+      try {
         final donationCenters = await donationCenterRepository.getDonationCenters();
-        yield DonationCenterLoadSuccess(donationCenters);
+        yield DonationCentersLoadSuccess(donationCenters);
       } catch (e) {
         yield DonationCenterOperationFailure();
       }
@@ -27,8 +36,8 @@ class DonationCenterBloc extends Bloc<DonationCenterEvent, DonationCenterState> 
       yield DonationCenterLoading();
       try {
         await donationCenterRepository.createDonationCenter(event.donationCenter);
-        final donationCenters = await donationCenterRepository.getDonationCenters();
-        yield DonationCenterLoadSuccess(donationCenters);
+        final donationCenter = await donationCenterRepository.getDonationCenter(event.donationCenter.id??'');
+        yield DonationCenterCreateSuccess(donationCenter);
       } catch (e) {
         yield DonationCenterOperationFailure();
       }
@@ -37,8 +46,8 @@ class DonationCenterBloc extends Bloc<DonationCenterEvent, DonationCenterState> 
       yield DonationCenterLoading();
       try {
         await donationCenterRepository.updateDonationCenter(event.donationCenter);
-        final donationCenters = await donationCenterRepository.getDonationCenters();
-        yield DonationCenterLoadSuccess(donationCenters);
+        final donationCenter = await donationCenterRepository.getDonationCenter(event.donationCenter.id??'');
+        yield DonationCenterUpdateSuccess(donationCenter);
       } catch (e) {
         yield DonationCenterOperationFailure();
       }
@@ -47,8 +56,8 @@ class DonationCenterBloc extends Bloc<DonationCenterEvent, DonationCenterState> 
       yield DonationCenterLoading();
       try {
         await donationCenterRepository.deleteDonationCenter(event.donationCenter.id??"");
-        final donationCenters = await donationCenterRepository.getDonationCenters();
-        yield DonationCenterLoadSuccess(donationCenters);
+        // final donationCenters = await donationCenterRepository.getDonationCenters();
+        yield DonationCenterDeleteSuccess();
       } catch (e) {
         yield DonationCenterOperationFailure();
       }

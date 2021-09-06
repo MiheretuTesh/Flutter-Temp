@@ -5,7 +5,16 @@ abstract class DonationCenterEvent {}
 
 
 
-class DonationCenterLoad extends DonationCenterEvent {}
+class DonationCenterLoad extends DonationCenterEvent {
+  DonationCenter donationCenter;
+
+  DonationCenterLoad(DonationCenter this.donationCenter);
+}
+class DonationCentersLoad extends DonationCenterEvent {
+  List<DonationCenter> donationCenters;
+
+  DonationCentersLoad(this.donationCenters);
+}
 
 class DonationCenterCreate extends DonationCenterEvent {
   DonationCenter donationCenter;

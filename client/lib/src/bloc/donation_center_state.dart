@@ -4,9 +4,24 @@ part of 'donation_center_bloc.dart';
 abstract class DonationCenterState {}
 
 class DonationCenterLoading extends DonationCenterState {}
-class DonationCenterLoadSuccess extends DonationCenterState {
+class DonationCentersLoadSuccess extends DonationCenterState {
   List<DonationCenter> donationCenters=[];
-  DonationCenterLoadSuccess(this.donationCenters);
+  DonationCentersLoadSuccess(this.donationCenters);
+}
+
+class DonationCenterLoadSuccess extends DonationCenterState {
+  DonationCenter donationCenter;
+  DonationCenterLoadSuccess(this.donationCenter);
 }
 class DonationCenterOperationFailure extends DonationCenterState {}
 
+class DonationCenterUpdateSuccess extends DonationCenterState{
+  DonationCenter donationCenter;
+  DonationCenterUpdateSuccess(this.donationCenter);
+}
+
+class DonationCenterDeleteSuccess extends DonationCenterState{}
+class DonationCenterCreateSuccess extends DonationCenterState{
+  DonationCenter donationCenter;
+  DonationCenterCreateSuccess(this.donationCenter);
+}
