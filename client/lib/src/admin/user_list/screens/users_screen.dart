@@ -4,6 +4,7 @@ import 'package:eshiblood/src/admin/user_list/bloc/user_list_event.dart';
 import 'package:eshiblood/src/admin/user_list/bloc/user_list_state.dart';
 import 'package:eshiblood/src/admin/user_list/data_provider/user_list_provider.dart';
 import 'package:eshiblood/src/admin/user_list/repository/user_list_repository.dart';
+import 'package:eshiblood/src/auth/models/user_model.dart';
 import 'package:eshiblood/src/auth/widgets/horizontal_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,30 +23,38 @@ class UsersScreen extends StatelessWidget {
       body: BlocBuilder<UserListBloc, UserListState>(
         builder: (context, userListState) {
           print(userListState);
-          return (userListState is UserListStateLoading)
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GridView.builder(
-                    itemCount: 10,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 4.0,
-                      mainAxisSpacing: 4.0,
+          if (userListState is UserListStateLoading) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (userListState is UserListStateLoaded) {
+            return (userListState is UserListStateLoading)
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GridView.builder(
+                      itemCount: userListState.users.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 4.0,
+                        mainAxisSpacing: 4.0,
+                      ),
+                      itemBuilder: (BuildContext context, int index) {
+                        return DonorCard(context, userListState.users[index]);
+                      },
                     ),
-                    itemBuilder: (BuildContext context, int index) {
-                      return DonorCard(context);
-                    },
-                  ),
-                );
+                  );
+          }
+          return Container();
         },
       ),
     );
   }
 
-  Widget DonorCard(context) {
+  Widget DonorCard(context, User user) {
     return Stack(
       children: [
         GestureDetector(
@@ -143,10 +152,8 @@ class UsersScreen extends StatelessWidget {
                   width: 2,
                 ),
               ),
-              child: Icon(
-                Icons.person,
-                color: Colors.redAccent,
-              ),
+              child: Image.network(
+                  'http://192.168.1.13:8000/images/users/${user.image}'),
             ),
           ),
         ),

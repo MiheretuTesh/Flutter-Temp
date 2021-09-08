@@ -30,11 +30,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         User newUser = userCredential["user"] as User;
 
         authenticationBloc.add(LoggedIn(
-          phoneNumber: state.phoneNumber,
-          role: newUser.role[0]["roleName"],
-          token: userCredential["token"],
-          id: newUser.id,
-        ));
+            phoneNumber: state.phoneNumber,
+            role: newUser.role[0]["roleName"],
+            token: userCredential["token"],
+            id: newUser.id,
+            user: newUser));
 
         yield state.copyWith(formStatus: SubmissionSuccess());
         // print('--------------->After SubmissionSuccess');

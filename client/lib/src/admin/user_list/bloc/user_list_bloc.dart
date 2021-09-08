@@ -1,6 +1,7 @@
 import 'package:eshiblood/src/admin/user_list/bloc/user_list_event.dart';
 import 'package:eshiblood/src/admin/user_list/bloc/user_list_state.dart';
 import 'package:eshiblood/src/admin/user_list/repository/user_list_repository.dart';
+import 'package:eshiblood/src/auth/models/user_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserListBloc extends Bloc<UserListEvent, UserListState> {
@@ -15,9 +16,9 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
 
     if (event is UserListEvent) {
       try {
-        final dynamic users = await userListRepository.getUserList();
+        final List<User> users = await userListRepository.getUserList();
         print(users);
-        if (users == null) {
+        if (users == []) {
           yield UserListStateLoading();
         } else {
           yield UserListStateLoaded(users: users);
