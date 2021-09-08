@@ -34,7 +34,7 @@ router
 router.get(
   "/",
   verifyUser,
-  verifyRole("user", "view", "user"),
+  verifyRole("admin", "view", "user"),
   userValidation.validate("GET"),
   userController.getAllUsers
 );
