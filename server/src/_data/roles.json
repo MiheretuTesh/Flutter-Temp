@@ -10,6 +10,18 @@
       {
         "title": "user",
         "permissions": ["read", "create", "update", "delete"]
+      },
+      {
+        "title": "request",
+        "permissions": ["read"]
+      },
+      {
+        "title": "donationCenter",
+        "permissions": ["read"]
+      },
+      {
+        "title": "role",
+        "permissions": ["read"]
       }
     ]
   },
@@ -32,6 +44,10 @@
       {
         "title": "donationCenter",
         "permissions": ["read", "create", "update", "delete"]
+      },
+      {
+        "title": "appointment",
+        "permissions": ["read", "update"]
       }
     ]
   }

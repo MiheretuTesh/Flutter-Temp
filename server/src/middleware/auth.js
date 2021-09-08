@@ -68,7 +68,7 @@ exports.verifyRole = (roleName, permissionName, titleName) => {
       const roles = req.user.roles;
       // console.log(roles.includes({ roleName: "admin" }), roles);
 
-      const isAllowed = false;
+      let isAllowed = false;
 
       roles.privileges.forEach((privilege) => {
         if (privilege.title == titleName) {

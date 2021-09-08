@@ -10,7 +10,7 @@ router
   .route("/")
   .get(
     verifyUser,
-    verifyRole("user", "view", "request"),
+    verifyRole("user", "read", "request"),
     requestController.getAllRequest
   )
   .post(
@@ -24,7 +24,7 @@ router
   .route("/:id")
   .get(
     verifyUser,
-    verifyRole("user", "view", "request"),
+    verifyRole("user", "read", "request"),
     requestValidation.validate("GET"),
     requestController.getRequest
   )

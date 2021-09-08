@@ -14,7 +14,7 @@
       "city": "Kolefe",
       "woreda": "05"
     },
-    "roles": ["5d7a514b5d2c12c7449be142"]
+    "roles": "5d7a514b5d2c12c7449be142"
   },
   {
     "_id": "5d7a514b5d2c12c7449be023",
@@ -31,7 +31,7 @@
       "city": "Kolefe",
       "woreda": "05"
     },
-    "roles": ["5d7a514b5d2c12c7449be142"]
+    "roles": "5d7a514b5d2c12c7449be142"
   },
   {
     "_id": "5d7a514b5d2c12c7449be021",
@@ -48,7 +48,7 @@
       "city": "Kolefe",
       "woreda": "02"
     },
-    "roles": ["5d7a514b5d2c12c7449be143"]
+    "roles": "5d7a514b5d2c12c7449be143"
   },
   {
     "_id": "5d7a514b5d2c12c7449be022",
@@ -65,6 +65,6 @@
       "city": "Kolefe",
       "woreda": "02"
     },
-    "roles": ["5d7a514b5d2c12c7449be143"]
+    "roles": "5d7a514b5d2c12c7449be143"
   }
 ]
