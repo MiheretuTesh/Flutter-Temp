@@ -96,7 +96,7 @@ exports.signup = async (req, res, next) => {
       ...req.body,
       bloodType: userBloodType._id,
       image: req.file.filename,
-      roles: [defaultRole._id],
+      roles: defaultRole._id,
     });
 
     user = await User.findById(user._id).populate("roles bloodType");
