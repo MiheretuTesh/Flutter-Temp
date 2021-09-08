@@ -38,11 +38,11 @@ exports.verifyUser = async (req, res, next) => {
     next();
   } catch (err) {
     //TODO: Handle Invalid Token, Expired Token
-    return res.status(401).json({
+    console.log(err);
+    return res.status(400).json({
       status: "error",
       message: "Your token expired",
     });
-    console.log(err);
   }
 };
 
@@ -66,32 +66,25 @@ exports.verifyRole = (roleName, permissionName, titleName) => {
       }
 
       const roles = req.user.roles;
-      console.log(roles.includes({ roleName: "admin" }), roles);
-      const isAllowed = roles.forEach((role) => {
-        console.log();
-        if (roleName === "user") {
-          if (roleName !== role.roleName) {
-            return res.status(401).json({
-              status: "error",
-              message: "Unauthorized user",
-            });
+      // console.log(roles.includes({ roleName: "admin" }), roles);
+
+      const isAllowed = false;
+
+      roles.privileges.forEach((privilege) => {
+        if (privilege.title == titleName) {
+          if (privilege.permissions.includes(permissionName)) {
+            isAllowed = true;
           }
         }
-
-        if (!role.title.includes(titleName)) {
-          return res.status(401).json({
-            status: "error",
-            message: "Unauthorized user",
-          });
-        }
-
-        if (!role.permissions.includes(permissionName)) {
-          return res.status(401).json({
-            status: "error",
-            message: "Unauthorized user",
-          });
-        }
       });
+
+      if (!isAllowed) {
+        return res.status(401).json({
+          status: "error",
+          message: "Unauthorized user",
+        });
+      }
+
       next();
     } catch (error) {
       console.log(error);

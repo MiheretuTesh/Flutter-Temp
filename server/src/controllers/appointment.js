@@ -24,8 +24,8 @@ exports.getAllAppointments = async (req, res, next) => {
       {
         isDeleted: false,
         status,
-        startDate: { $lte: Date(startDate) },
-        endDate: { $gte: Date(endDate) },
+        // startDate: { $lte: Date(startDate) },
+        // endDate: { $gte: Date(endDate) },
       },
       {
         page,

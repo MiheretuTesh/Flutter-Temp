@@ -58,12 +58,8 @@ const schema = new mongoose.Schema(
       ref: "BloodType",
     },
     roles: {
-      type: [
-        {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Role",
-        },
-      ],
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Role",
     },
     totalDonations: {
       type: Number,

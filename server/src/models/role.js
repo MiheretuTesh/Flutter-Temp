@@ -12,19 +12,19 @@ const schema = new mongoose.Schema(
     roleName: {
       type: String,
     },
-    permissions: {
+
+    privileges: {
       type: [
         {
-          type: String,
-          enum: ["view", "create", "update", "delete"],
+          title: { type: String },
+          permissions: {
+            type: [],
+            default: ["read", "create", "update", "delete"],
+          },
         },
       ],
-      default: ["view", "create", "update", "delete"],
     },
-    title: {
-      type: [{ type: String }],
-      default: ["appointment"],
-    },
+
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
