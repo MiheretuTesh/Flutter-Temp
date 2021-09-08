@@ -15,7 +15,7 @@ const requestSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["Active", "Pending", "Closed"],
+      enum: ["active", "pending", "closed"],
       default: "Pending"
     },
     bloodType: {
