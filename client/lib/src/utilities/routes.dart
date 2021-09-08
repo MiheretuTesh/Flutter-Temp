@@ -1,3 +1,8 @@
+import 'package:eshiblood/src/appointment/models/appointment.dart';
+import 'package:eshiblood/src/appointment/screen/appointment_add.dart';
+import 'package:eshiblood/src/appointment/screen/appointment_argument.dart';
+import 'package:eshiblood/src/appointment/screen/appointment_current.dart';
+import 'package:eshiblood/src/appointment/screen/appointment_list.dart';
 import 'package:eshiblood/src/auth/screens/eligibility_screen.dart';
 import 'package:eshiblood/src/auth/screens/login_screen.dart';
 import 'package:eshiblood/src/auth/screens/registration_screen.dart';
@@ -21,6 +26,16 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => RegistrationScreen());
       case eligibilityNoticeScreen:
         return MaterialPageRoute(builder: (_) => EligibilityNoticeScreen());
+      case AddAppointment.routeName:
+        return MaterialPageRoute(
+            builder: (_) =>
+                AddAppointment(args: AppointmentArgument(edit: false)));
+      case AppointmentList.routeName:
+        return MaterialPageRoute(builder: (_) => AppointmentList());
+      case AppointmentCurrent.routeName:
+        Appointment appointment = settings.arguments as Appointment;
+        return MaterialPageRoute(
+            builder: (_) => AppointmentCurrent(appointment: appointment));
       default:
         throw FormatException("Route was not found");
     }
