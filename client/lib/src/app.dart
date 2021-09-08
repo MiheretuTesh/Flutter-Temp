@@ -50,6 +50,13 @@ class App extends StatelessWidget {
             onGenerateRoute: RouteGenerator.generateRoute,
           ),
         ),
+<<<<<<< Updated upstream
+=======
+      ],
+      child: MaterialApp(
+        initialRoute: RouteGenerator.profileScreen,
+        onGenerateRoute: RouteGenerator.generateRoute,
+>>>>>>> Stashed changes
       ),
     );
   }
